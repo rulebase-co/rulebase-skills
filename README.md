@@ -49,6 +49,7 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-qa-scorecard-design`](skills/cx-ops/cx-qa-scorecard-design) | Design, rebuild, or critique a QA scorecard. Criterion tests, auto-fail separation, weighting, sample sizing with real confidence intervals, calibration with chance-corrected agreement, and validating that the score predicts an outcome. |
 | [`cx-voice-qa`](skills/cx-ops/cx-voice-qa) | Grading calls means grading transcripts, and ASR errors aren't random — they track accent and audio quality, so unvalidated voice QA encodes a bias against certain agents. Which criteria a transcript can support, and which need audio. |
 | [`cx-survey-design`](skills/cx-ops/cx-survey-design) | CSAT, NPS and CES: which measures what, and why NPS after a support contact is the most common mis-specification in CX. Ships a response-bias diagnostic that tests whether your respondents resemble your contacts at all. |
+| [`cx-satisfaction-export`](skills/cx-ops/cx-satisfaction-export) | The CSAT data every conversation export leaves as `null`. Multi-platform, and normalises a score **only** where the platform fixes the scale — where the account configures it, you get the raw value and a distribution rather than a guess. |
 
 **Analytics and planning**
 
@@ -57,6 +58,7 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-deflection-analysis`](skills/cx-ops/cx-deflection-analysis) | Measure whether a support bot actually reduces contact volume. Splits sessions into contained / leaked / abandoned / handoff, quantifies how far the vendor's containment number overstates, and covers holdout design for causal claims. |
 | [`cx-contact-driver-taxonomy`](skills/cx-ops/cx-contact-driver-taxonomy) | Build categories that name a cause you could remove rather than a topic you could report. Bottom-up derivation, the "Other" rate as your quality metric, and ranking by removable cost instead of volume. |
 | [`cx-volume-forecasting`](skills/cx-ops/cx-volume-forecasting) | Forecast contacts and staff to them. Ships an Erlang C / Little's Law calculator that reports which of its own assumptions your scenario violates — and treats occupancy as a constraint, not a number to maximise. |
+| [`cx-knowledge-base-audit`](skills/cx-ops/cx-knowledge-base-audit) | What are customers contacting you about that your KB doesn't cover? That gap is the containment ceiling for any AI agent grounded in it, so it's a prerequisite rather than a documentation chore. |
 
 **Data and compliance**
 
@@ -65,6 +67,8 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-conversation-schema`](skills/cx-ops/cx-conversation-schema) | The canonical cross-platform schema every export in this catalog emits, plus a validator that catches orphaned messages, unresolved author types, and the other export faults that look fine and produce wrong answers. |
 | [`cx-helpdesk-migration`](skills/cx-ops/cx-helpdesk-migration) | Plan what not to migrate, then prove what arrived. Ships a fidelity checker that diffs two canonical exports and catches the losses migrations hide — above all `created_at` reset to the import date, which destroys your reporting history and cannot be recovered. |
 | [`cx-complaint-classification`](skills/cx-ops/cx-complaint-classification) | In regulated sectors a complaint is a definition, not a feeling, so sentiment-based detection systematically misses the calm customer stating a factual grievance. Layered detection tuned for recall, with the audit trail regulators ask for. |
+| [`cx-duplicate-detection`](skills/cx-ops/cx-duplicate-detection) | Find the same customer raising the same problem twice, and emit a reviewable merge plan. Candidates must share an identity — a wrong merge discloses one customer's data to another. |
+| [`cx-erasure-plan`](skills/cx-ops/cx-erasure-plan) | GDPR/CCPA erasure planning. Turns on two distinctions everyone gets wrong: requester vs merely-mentioned, and open vs closed. Also enumerates what helpdesk erasure does **not** cover — warehouse, backups, embedding stores. |
 
 ### Platform exports
 
@@ -82,6 +86,19 @@ an analysis written once runs against any of them.
 | [`gorgias-export-conversations`](skills/gorgias/gorgias-export-conversations) | No time filter exists, so incremental sync means a newest-first walk with an early stop. List tickets returns an excerpt, not message bodies. |
 | [`front-export-conversations`](skills/front/front-export-conversations) | 50 req/min enforced **per company**, not per token — so concurrency buys nothing and a long export degrades every other Front integration you run. |
 | [`five9-export-interactions`](skills/five9/five9-export-interactions) | No REST list endpoint; reports are async SOAP and cap at 50,000 records. Windows the range and collapses call segments so transfers don't inflate call volume. |
+
+### Mutations
+
+Skills that change a live helpdesk. All follow the [mutation safety
+contract](AGENTS.md#the-mutation-safety-contract): dry-run by default, a plan file
+they did not produce, live re-validation, an append-only audit log, a bounded
+`--max-changes`, and no `--force`. CI enforces it.
+
+| Skill | What it does |
+| --- | --- |
+| [`zendesk-config-as-code`](skills/zendesk/zendesk-config-as-code) | Pull Zendesk triggers, automations, macros, views and fields into git; diff local against live; push reviewed changes. Never deletes, never reorders. The read-only half alone gives you configuration drift detection. |
+| [`zendesk-apply-merges`](skills/zendesk/zendesk-apply-merges) | Applies a merge plan, re-validating every entry live first — because a ticket reassigned since detection could otherwise merge across customers. |
+| [`zendesk-apply-erasure`](skills/zendesk/zendesk-apply-erasure) | Applies an erasure plan. Refuses legal-hold and manual-review entries under any flag, refuses to delete a conversation the subject only appears in, and logs redaction *lengths* rather than values. |
 
 ### Rulebase
 
@@ -106,7 +123,7 @@ metric is written once and runs against any of the nine supported platforms. The
 vendor-specific knowledge stays in the export step. CI proves it: each exporter's
 real output is fed through the schema validator on every commit.
 
-**Scripts are tested against the failure paths.** 179 tests cover cursor and
+**Scripts are tested against the failure paths.** 249 tests cover cursor and
 watermark pagination, adaptive rate limiting, checkpoint/resume, RFC 4180 CSV
 edge cases, malformed input, silent-truncation detection, and Erlang C verified
 against an independent implementation — the paths that break
@@ -120,6 +137,14 @@ the input would only reproduce the number you're trying to audit.
 **Customer data is treated as production PII.** Platform skills read credentials
 from the environment only, document the least-privileged scope that works, default
 to read-only, and tell the agent not to echo transcripts into chat.
+
+**Writes are separated from decisions.** Anything that changes a live helpdesk
+consumes a plan file produced by a separate read-only skill, so an agent can
+propose a bulk merge or erasure without being able to perform one. The plan is a
+diff a human reviews; the applier re-validates it against live state before acting.
+CI rejects a mutation skill that lacks a dry-run default, an audit log, a resume
+journal, a bounded blast radius, or a stated reversibility — or that offers a
+`--force`.
 
 ## Roadmap
 

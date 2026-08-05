@@ -8,7 +8,8 @@
       "skills": [
         "cx-qa-scorecard-design",
         "cx-voice-qa",
-        "cx-survey-design"
+        "cx-survey-design",
+        "cx-satisfaction-export"
       ]
     },
     {
@@ -17,7 +18,8 @@
       "skills": [
         "cx-deflection-analysis",
         "cx-contact-driver-taxonomy",
-        "cx-volume-forecasting"
+        "cx-volume-forecasting",
+        "cx-knowledge-base-audit"
       ]
     },
     {
@@ -36,6 +38,7 @@
       "description": "Working with Zendesk Support and Suite: exporting at volume, and applying reviewed merge and erasure plans under the mutation safety contract.",
       "skills": [
         "zendesk-export-conversations",
+        "zendesk-config-as-code",
         "zendesk-apply-merges",
         "zendesk-apply-erasure"
       ]
