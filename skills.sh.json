@@ -1,0 +1,21 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "CX Operations",
+      "description": "Vendor-neutral practice for support quality, automation measurement, and contact-centre analytics. Use these regardless of which helpdesk you run.",
+      "skills": ["cx-qa-scorecard-design", "cx-deflection-analysis"]
+    },
+    {
+      "title": "Zendesk",
+      "description": "Working with Zendesk Support and Suite data at volume, without hitting the API traps that make exports silently incomplete.",
+      "skills": ["zendesk-export-conversations"]
+    },
+    {
+      "title": "Rulebase",
+      "description": "Auditing and operating a Rulebase workspace through the Rulebase MCP server.",
+      "skills": ["rulebase-qa-coverage-audit"]
+    }
+  ]
+}

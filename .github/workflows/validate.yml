@@ -1,0 +1,47 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      # No install step: the validator is dependency-free by design.
+      - name: Validate skill catalog
+        run: node scripts/validate-skills.mjs --strict
+
+      - name: Syntax-check skill scripts
+        run: |
+          set -euo pipefail
+          shopt -s nullglob globstar
+          for f in skills/**/scripts/*.mjs; do
+            echo "checking $f"
+            node --check "$f"
+          done
+          for f in skills/**/scripts/*.sh; do
+            echo "checking $f"
+            bash -n "$f"
+          done
+
+      - name: Test skill scripts
+        run: node --test "tests/*.test.mjs"
+
+      - name: Check for committed secrets
+        run: |
+          set -euo pipefail
+          # Zendesk/Intercom/Freshdesk tokens and generic bearer secrets should
+          # never appear in the catalog. Placeholders in docs use <angle brackets>.
+          if grep -rInE '(dG9rZW4|Bearer [A-Za-z0-9_-]{20,}|xoxb-[A-Za-z0-9-]{10,}|sk-[A-Za-z0-9]{20,})' \
+              --include='*.md' --include='*.mjs' --include='*.sh' --include='*.json' skills/ scripts/; then
+            echo "::error::possible committed credential above"
+            exit 1
+          fi

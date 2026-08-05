@@ -1,0 +1,17 @@
+{
+  "name": "@rulebase-co/skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent skills for customer service automation and CX ops.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "node scripts/validate-skills.mjs",
+    "validate:strict": "node scripts/validate-skills.mjs --strict",
+    "test": "node --test \"tests/*.test.mjs\"",
+    "check": "npm run validate:strict && npm test"
+  }
+}

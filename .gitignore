@@ -1,0 +1,13 @@
+node_modules/
+.DS_Store
+*.log
+
+# Local credentials — never commit
+.env
+.env.*
+!.env.example
+
+# Skill script output. Exports contain customer PII; keep them out of git.
+out/
+exports/
+*.jsonl
