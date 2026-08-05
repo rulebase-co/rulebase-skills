@@ -66,8 +66,8 @@ function parseArgs(argv) {
       default: fail(`unknown argument: ${arg}`);
     }
   }
-  if (!['both', 'tickets', 'comments'].includes(opts.only)) {
-    fail('--only must be one of: both, tickets, comments');
+  if (!['both', 'conversations', 'messages'].includes(opts.only)) {
+    fail('--only must be one of: both, conversations, messages');
   }
   if (!Number.isFinite(opts.maxPages) && opts.maxPages !== Infinity) {
     fail('--max-pages must be a number');
@@ -84,10 +84,10 @@ Usage: node scripts/export-conversations.mjs --start <when> [options]
                      window like 30d / 12h.
   --out <dir>        Output directory (default ./out/zendesk).
   --resume           Continue from checkpoint.json in --out.
-  --only <what>      both (default) | tickets | comments
-  --no-bodies        Export comment metadata without message text. Use when
-                     you only need volume/structure and want to avoid
-                     handling transcript PII.
+  --only <what>      both (default) | conversations | messages
+  --no-bodies        Export message metadata without text. Use when you only
+                     need volume/structure and want to avoid handling
+                     transcript PII.
   --max-pages <n>    Stop after n pages per stream. Use to sample first.
 
 Environment: ZENDESK_SUBDOMAIN, ZENDESK_EMAIL, ZENDESK_API_TOKEN
@@ -214,26 +214,66 @@ function writeJsonl(path, records) {
   appendFileSync(path, records.map((r) => JSON.stringify(r)).join('\n') + '\n');
 }
 
-/** Ticket -> normalised record. Keeps ids, drops nothing lossily. */
+/** Zendesk status -> canonical status. */
+const STATUS_MAP = {
+  new: 'open',
+  open: 'open',
+  // `pending` is customer-blocked, `hold` is agent-blocked. Both become
+  // `pending`; status_raw keeps the distinction.
+  pending: 'pending',
+  hold: 'pending',
+  solved: 'resolved',
+  closed: 'closed',
+  deleted: 'deleted',
+};
+
+/** Zendesk via.channel -> canonical channel. */
+const CHANNEL_MAP = {
+  email: 'email',
+  web: 'web_form',
+  chat: 'chat',
+  native_messaging: 'messaging',
+  whatsapp: 'messaging',
+  sms: 'messaging',
+  voice: 'voice',
+  phone_call_inbound: 'voice',
+  phone_call_outbound: 'voice',
+  facebook: 'social',
+  twitter: 'social',
+  api: 'api',
+  rule: 'api',
+  system: 'api',
+};
+
+/** Ticket -> canonical conversation record. */
 function normalizeTicket(t) {
+  const rating = t.satisfaction_rating?.score ?? null;
+
   return {
-    id: t.id,
+    source: 'zendesk',
+    // Stringified: large integer ids lose precision in JS and in some
+    // warehouse loaders, and native types compare unequal across systems.
+    source_id: String(t.id),
     subject: t.subject ?? null,
-    status: t.status,
-    channel: t.via?.channel ?? null,
-    requester_id: t.requester_id ?? null,
-    assignee_id: t.assignee_id ?? null,
-    group_id: t.group_id ?? null,
-    organization_id: t.organization_id ?? null,
-    created_at: t.created_at,
-    updated_at: t.updated_at,
-    solved_at: t.metric_set?.solved_at ?? null,
-    satisfaction_rating: t.satisfaction_rating?.score ?? null,
-    tags: t.tags ?? [],
+    status: STATUS_MAP[t.status] ?? 'open',
+    status_raw: t.status ?? null,
+    channel: CHANNEL_MAP[t.via?.channel] ?? (t.via?.channel ? 'other' : null),
+    channel_raw: t.via?.channel ?? null,
+    customer_id: t.requester_id ? String(t.requester_id) : null,
+    assignee_id: t.assignee_id ? String(t.assignee_id) : null,
+    team_id: t.group_id ? String(t.group_id) : null,
+    account_id: t.organization_id ? String(t.organization_id) : null,
+    created_at: t.created_at ?? null,
+    updated_at: t.updated_at ?? null,
+    resolved_at: t.metric_set?.solved_at ?? null,
+    // `offered` / `unoffered` mean a survey was or wasn't sent — they are not
+    // scores, so they must not become 0.
+    csat: rating === 'good' ? 1 : rating === 'bad' ? 0 : null,
+    csat_raw: rating,
     priority: t.priority ?? null,
-    ticket_form_id: t.ticket_form_id ?? null,
-    // Deleted/archived tickets surface here with status "deleted" — keep them
-    // so downstream counts reconcile against the Zendesk UI.
+    tags: t.tags ?? [],
+    // Soft-deleted tickets surface here with status "deleted" — keep them so
+    // downstream counts reconcile against the Zendesk UI.
     is_deleted: t.status === 'deleted',
   };
 }
@@ -243,31 +283,68 @@ function normalizeTicket(t) {
  * `child_events`, not as a top-level array, and a single event can carry
  * several child events of which only some are comments.
  */
-function extractComments(events, includeBodies) {
+function extractComments(events, includeBodies, requesterIndex) {
   const out = [];
   for (const event of events) {
     for (const child of event.child_events ?? []) {
       const type = child.event_type ?? child.type;
       if (type !== 'Comment') continue;
+
+      const conversationId = String(event.ticket_id);
+      const authorId = (child.author_id ?? event.updater_id) ?? null;
+
       out.push({
-        ticket_id: event.ticket_id,
-        event_id: event.id,
-        comment_id: child.id ?? null,
+        source: 'zendesk',
+        conversation_source_id: conversationId,
+        source_id: String(child.id ?? `${event.id}:comment`),
         created_at: new Date(event.timestamp * 1000).toISOString(),
-        author_id: child.author_id ?? event.updater_id ?? null,
-        public: child.public ?? null,
-        via_channel: child.via?.channel ?? event.via?.channel ?? null,
+        author_id: authorId === null ? null : String(authorId),
+        // Zendesk puts no role flag on a comment, only an author id. Comparing
+        // it against the ticket requester is the only reliable signal.
+        author_type: resolveAuthorType(authorId, requesterIndex.get(conversationId)),
+        visibility: child.public === false ? 'internal' : 'public',
+        channel:
+          CHANNEL_MAP[child.via?.channel ?? event.via?.channel] ??
+          (child.via?.channel ?? event.via?.channel ? 'other' : null),
         attachment_count: (child.attachments ?? []).length,
+        // plain_body is preferred: `body` carries quoted email history, which
+        // inflates length and token metrics.
         body: includeBodies ? (child.plain_body ?? child.body ?? null) : null,
-        html_body: includeBodies ? (child.html_body ?? null) : null,
       });
     }
   }
   return out;
 }
 
+function resolveAuthorType(authorId, requesterId) {
+  if (authorId === null || requesterId === undefined) return 'unknown';
+  return String(authorId) === String(requesterId) ? 'customer' : 'agent';
+}
+
+/**
+ * Builds conversation_source_id -> customer_id from the tickets already written.
+ * The two incremental streams are independent, so author attribution needs this
+ * index; without it every message is `unknown`.
+ */
+function loadRequesterIndex(outDir) {
+  const index = new Map();
+  const path = join(outDir, 'conversations.jsonl');
+  if (!existsSync(path)) return index;
+
+  for (const line of readFileSync(path, 'utf8').split('\n')) {
+    if (!line.trim()) continue;
+    try {
+      const conversation = JSON.parse(line);
+      if (conversation.source_id) index.set(conversation.source_id, conversation.customer_id);
+    } catch {
+      /* a partial final line from an interrupted run */
+    }
+  }
+  return index;
+}
+
 async function exportTickets(client, ckpt, opts, startTime) {
-  const path = join(opts.out, 'tickets.jsonl');
+  const path = join(opts.out, 'conversations.jsonl');
   let url = ckpt.state.ticketCursor
     ? `${client.base}/api/v2/incremental/tickets/cursor.json?cursor=${encodeURIComponent(ckpt.state.ticketCursor)}`
     : `${client.base}/api/v2/incremental/tickets/cursor.json?start_time=${startTime}&per_page=${PAGE_SIZE}`;
@@ -301,7 +378,15 @@ async function exportTickets(client, ckpt, opts, startTime) {
 }
 
 async function exportComments(client, ckpt, opts, startTime) {
-  const path = join(opts.out, 'comments.jsonl');
+  const path = join(opts.out, 'messages.jsonl');
+  const requesterIndex = loadRequesterIndex(opts.out);
+  if (requesterIndex.size === 0) {
+    log(
+      '  WARNING: no conversations.jsonl to index, so every message author_type will be ' +
+        '"unknown". Run the tickets stream first for correct author attribution.',
+    );
+  }
+
   let cursorTime = ckpt.state.eventsStartTime ?? startTime;
   let pages = 0;
   let total = 0;
@@ -312,13 +397,13 @@ async function exportComments(client, ckpt, opts, startTime) {
       `?start_time=${cursorTime}&include=comment_events&per_page=${PAGE_SIZE}`;
     const page = await client.get(url);
     const events = page.ticket_events ?? [];
-    const comments = extractComments(events, opts.bodies);
+    const comments = extractComments(events, opts.bodies, requesterIndex);
     writeJsonl(path, comments);
     total += comments.length;
     pages++;
 
     log(
-      `  comments page ${pages}: ${events.length} events -> ${comments.length} comments (${total} total)`,
+      `  messages page ${pages}: ${events.length} events -> ${comments.length} messages (${total} total)`,
     );
 
     if (page.end_of_stream) {
@@ -378,24 +463,24 @@ async function main() {
 
   log(`Zendesk export from ${new Date(startTime * 1000).toISOString()}`);
   log(`output: ${opts.out}`);
-  if (!opts.bodies) log('bodies suppressed (--no-bodies): comment metadata only');
+  if (!opts.bodies) log('bodies suppressed (--no-bodies): message metadata only');
 
   const started = Date.now();
-  const summary = { tickets: 0, comments: 0 };
+  const summary = { conversations: 0, messages: 0 };
 
-  if (opts.only !== 'comments' && !ckpt.state.ticketsDone) {
+  if (opts.only !== 'messages' && !ckpt.state.ticketsDone) {
     log('streaming tickets...');
-    summary.tickets = await exportTickets(client, ckpt, opts, startTime);
+    summary.conversations = await exportTickets(client, ckpt, opts, startTime);
   }
-  if (opts.only !== 'tickets' && !ckpt.state.eventsDone) {
+  if (opts.only !== 'conversations' && !ckpt.state.eventsDone) {
     log('streaming comment events...');
-    summary.comments = await exportComments(client, ckpt, opts, startTime);
+    summary.messages = await exportComments(client, ckpt, opts, startTime);
   }
 
   const elapsed = Math.round((Date.now() - started) / 1000);
   log(
     `done in ${elapsed}s using ${client.requestCount} requests ` +
-      `(${summary.tickets} tickets, ${summary.comments} comments)`,
+      `(${summary.conversations} conversations, ${summary.messages} messages)`,
   );
 
   // Machine-readable summary on stdout so an agent can consume it directly.
@@ -407,8 +492,8 @@ async function main() {
         start_time: startTime,
         requests: client.requestCount,
         elapsed_seconds: elapsed,
-        tickets_complete: Boolean(ckpt.state.ticketsDone),
-        comments_complete: Boolean(ckpt.state.eventsDone),
+        conversations_complete: Boolean(ckpt.state.ticketsDone),
+        messages_complete: Boolean(ckpt.state.eventsDone),
         bodies_included: opts.bodies,
       },
       null,

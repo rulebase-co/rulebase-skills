@@ -73,9 +73,16 @@ node scripts/export-conversations.mjs --start 2026-01-01 --out ./out/zendesk
   or a relative window (`30d`, `12h`, `4w`). Required unless `--resume`.
 - `--out <dir>` — output directory. Default `./out/zendesk`.
 - `--resume` — continue from `checkpoint.json` in the output directory.
-- `--only <both|tickets|comments>` — run one stream. Default `both`.
-- `--no-bodies` — export comment structure and metadata without message text.
+- `--only <both|conversations|messages>` — run one stream. Default `both`.
+- `--no-bodies` — export message structure and metadata without text.
 - `--max-pages <n>` — stop after n pages per stream. Use this to sample first.
+
+**Run the conversations stream before the messages stream.** The two incremental
+streams are independent, and Zendesk puts no role flag on a comment — only an
+author id. Author attribution works by comparing that id against the ticket's
+requester, which needs `conversations.jsonl` to exist. Running `--only messages`
+first leaves every message's `author_type` as `unknown`; the script warns when
+this happens. The default `both` handles the ordering for you.
 
 **Always sample before a full run.** A 2-page sample confirms auth, field shape,
 and volume ratios in under a minute:
@@ -126,13 +133,27 @@ Reconcile these before anyone treats the output as complete:
 
 ## Output
 
-Newline-delimited JSON in `--out`:
+Canonical shape, shared with the other platform export skills in this catalog:
 
 ```
-tickets.jsonl      one normalised ticket per line
-comments.jsonl     one comment per line, joinable on ticket_id
-checkpoint.json    resume state
+conversations.jsonl   one conversation per line
+messages.jsonl        one message per line, joins on conversation_source_id
+checkpoint.json       resume state
 ```
+
+Notable normalisations:
+
+- `solved` → `resolved` and `hold` → `pending`, with `status_raw` preserved. The
+  solved/closed distinction matters — solved tickets can be reopened — so use
+  `status_raw` when measuring reopen rate.
+- `satisfaction_rating` → `csat` as 1 (`good`) or 0 (`bad`). **`offered` and
+  `unoffered` become `null`, not 0** — they mean a survey was or wasn't sent, and
+  mapping them to zero fabricates negative feedback.
+- `plain_body` → `body`. `body` carries quoted email history, which inflates
+  length and token metrics.
+- `public: false` → `visibility: "internal"`.
+- Ids are stringified, because large integer ids lose precision in JavaScript and
+  some warehouse loaders.
 
 Field-by-field schema and analysis recipes:
 [references/normalized-schema.md](references/normalized-schema.md).

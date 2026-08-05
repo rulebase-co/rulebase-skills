@@ -5,12 +5,27 @@
     {
       "title": "CX Operations",
       "description": "Vendor-neutral practice for support quality, automation measurement, and contact-centre analytics. Use these regardless of which helpdesk you run.",
-      "skills": ["cx-qa-scorecard-design", "cx-deflection-analysis"]
+      "skills": ["cx-qa-scorecard-design", "cx-deflection-analysis", "cx-conversation-schema"]
     },
     {
       "title": "Zendesk",
       "description": "Working with Zendesk Support and Suite data at volume, without hitting the API traps that make exports silently incomplete.",
       "skills": ["zendesk-export-conversations"]
+    },
+    {
+      "title": "Intercom",
+      "description": "Working with Intercom conversations and Fin data, including the N+1 that message bodies force and the silent 500-part truncation.",
+      "skills": ["intercom-export-conversations"]
+    },
+    {
+      "title": "Freshdesk",
+      "description": "Working with Freshdesk tickets past the 300-page pagination ceiling that truncates most exports at 30,000 records.",
+      "skills": ["freshdesk-export-conversations"]
+    },
+    {
+      "title": "Five9",
+      "description": "Working with Five9 contact centre interaction data through the reporting API, with time windowing around the 50,000-record cap.",
+      "skills": ["five9-export-interactions"]
     },
     {
       "title": "Rulebase",

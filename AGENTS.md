@@ -41,6 +41,14 @@ emails, addresses, card fragments, health and financial disclosures. Any skill t
 touches a live API must follow [Data handling](#data-handling) below. This is the
 credibility of the whole repo.
 
+**4. Platform exports emit the canonical schema.** Every `platform` skill writes
+`conversations.jsonl` and `messages.jsonl` in the shape defined by the
+`cx-conversation-schema` skill — same field names, same enum vocabulary, ids
+stringified, `*_raw` kept beside every normalised value. This is what makes an
+analysis portable across helpdesks instead of one implementation per vendor. A new
+platform skill that invents its own shape is not mergeable. Voice-only sources
+(no message bodies) emit `conversations.jsonl` alone.
+
 ## Creating a skill
 
 ### Directory structure
@@ -96,10 +104,22 @@ scalars, no anchors. Keep descriptions on one physical line.
 
 Pick one; it sets the shape of the body.
 
-**`platform`** — operating one vendor's API. Ships working scripts. Body covers
-auth, the correct endpoint (and why the obvious one is wrong), pagination, rate
-limits, resumability, and the field mapping to a normalised shape. The value is in
-the non-obvious API knowledge, not in restating the docs.
+**`platform`** — operating one vendor's API. Ships working scripts that emit the
+canonical schema. Body covers auth, the correct endpoint (and why the obvious one
+is wrong), pagination, rate limits, resumability, and the field mapping. The value
+is in the non-obvious API knowledge, not in restating the docs.
+
+Before writing one, answer these — they are the skill:
+
+- **The wrong endpoint.** What does a competent person reach for first, and how
+  does it fail? Every helpdesk has a different trap: Zendesk's Search API caps at
+  1,000 results, Freshdesk's list endpoint stops at page 300, Intercom's list
+  endpoints omit message bodies entirely.
+- **Silent gaps.** Deleted, archived, redacted, merged, or truncated records.
+  Anything the API returns that the UI doesn't, or vice versa.
+- **The permission trap.** Scoped API keys and wrong-workspace tokens produce
+  partial exports, not errors. Name it.
+- **What is checkpointable**, so a multi-hour run survives interruption.
 
 **`playbook`** — a repeatable CX practice with no single right answer (designing a
 QA rubric, building a contact taxonomy, running calibration). Body is a decision
