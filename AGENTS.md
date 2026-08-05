@@ -100,7 +100,7 @@ Frontmatter is parsed as a small YAML subset: single-line `key: value` scalars a
 one level of two-space nesting under `metadata`. No sequences, no `|`/`>` block
 scalars, no anchors. Keep descriptions on one physical line.
 
-### The four archetypes
+### The five archetypes
 
 Pick one; it sets the shape of the body.
 
@@ -133,6 +133,61 @@ data required. Ships a script when the arithmetic is fiddly.
 **`product`** — driving a specific product's tools/MCP server. Body must instruct
 the agent to introspect available tools rather than hardcode signatures, so the
 skill survives API changes.
+
+**`mutation`** — changes state in a customer's live helpdesk. Merging tickets,
+bulk-updating, redacting, deleting, pushing configuration. These carry the
+[mutation safety contract](#the-mutation-safety-contract) below, which CI enforces.
+
+---
+
+## The mutation safety contract
+
+A mutation skill runs against a production support system holding real customer
+data, usually with no undo. An agent invoking one is acting on a business's
+records at scale. Every mutation skill in this catalog must satisfy all seven
+rules; the validator checks what it can, and reviewers check the rest.
+
+**1. Dry-run is the default; `--apply` is explicit.** Not the other way around.
+A script that writes unless told otherwise will eventually write when nobody
+meant it to. The default invocation must be safe to run at any time, on any
+account, by mistake.
+
+**2. Separate deciding from doing.** A mutation must consume a **plan file**
+produced by a separate read-only step, or print a plan and require a second
+invocation to apply it. Never inspect-and-mutate in one pass. This is what makes
+the change reviewable by a human before it happens, and it is the single most
+valuable property in the contract — an agent can safely generate a plan for
+someone else to approve.
+
+**3. Append-only audit log.** One JSONL record per attempted change: target id,
+before-state, after-state, timestamp, outcome, and the plan it came from. Written
+as the run proceeds, never buffered to the end. This is what makes the change
+explainable afterwards, which is a regulatory requirement in several sectors.
+
+**4. Idempotent and resumable.** Re-running after an interruption must not
+double-apply. Journal completed ids and skip them. A mutation that is unsafe to
+retry cannot be operated safely, because interruptions are certain.
+
+**5. Bounded blast radius.** A conservative `--max-changes` default, and refuse to
+exceed it without the operator raising it explicitly. The difference between a
+mistake affecting 50 tickets and 500,000 is one flag.
+
+**6. State reversibility plainly.** The body must say what can be undone, what
+cannot, and what the recovery path is. "Redaction is irreversible" belongs in the
+skill, above the usage section.
+
+**7. Verify after applying.** Re-read the changed records and confirm the change
+landed. Report anything that did not.
+
+Required body sections for a mutation skill: a **Safety** (or Guardrails)
+section, an explicit reversibility statement, and both `--dry-run` and `--apply`
+documented. Consider setting `allowed-tools` in frontmatter to restrict what the
+agent can reach.
+
+**Never make destruction the convenient path.** No `--force` that skips the plan,
+no flag that combines detect-and-apply, no default that grows the blast radius.
+If a reviewer can imagine an agent invoking the skill and regretting it, the
+guardrail is missing.
 
 ### Body rules
 

@@ -38,7 +38,7 @@ const ALLOWED_METADATA_KEYS = new Set([
 ]);
 
 /** Skill archetypes. Every skill declares one so the catalog stays legible. */
-const ARCHETYPES = new Set(['platform', 'playbook', 'analysis', 'product']);
+const ARCHETYPES = new Set(['platform', 'playbook', 'analysis', 'product', 'mutation']);
 
 const NAME_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const SEMVER_RE = /^\d+\.\d+\.\d+$/;
@@ -332,7 +332,88 @@ function validateSkill(skillMd, seenNames) {
     }
   }
 
+  // --- mutation safety contract ---
+  if (metadata && String(metadata.archetype) === 'mutation') {
+    checkMutationContract(skillMd, skillDir, body);
+  }
+
   return { name, description, path: relative(REPO_ROOT, skillDir), metadata: metadata ?? {} };
+}
+
+/**
+ * Enforces the machine-checkable parts of the mutation safety contract in
+ * AGENTS.md. A mutation skill writes to a customer's live helpdesk, usually with
+ * no undo, so these are errors rather than warnings.
+ */
+function checkMutationContract(skillMd, skillDir, body) {
+  const scriptsDir = join(skillDir, 'scripts');
+  if (!existsSync(scriptsDir)) {
+    error(skillMd, 'mutation skills must ship a script; prose cannot enforce a dry-run default');
+    return;
+  }
+
+  const scripts = readdirSync(scriptsDir, { withFileTypes: true })
+    .filter((e) => e.isFile() && /\.(mjs|sh)$/.test(e.name))
+    .map((e) => join(scriptsDir, e.name));
+  const source = scripts.map((p) => readFileSync(p, 'utf8')).join('\n');
+
+  // Rule 1: dry-run by default, --apply explicit.
+  if (!/--apply/.test(body)) {
+    error(skillMd, 'mutation body must document `--apply`; writes must never be the default');
+  }
+  if (!/dry[ -]run/i.test(body)) {
+    error(skillMd, 'mutation body must document the dry-run default');
+  }
+  if (!/--apply/.test(source)) {
+    error(skillMd, 'no `--apply` flag found in scripts/ — the write path must be opt-in');
+  }
+  // A --force/--yes that bypasses the plan is exactly what the contract forbids.
+  if (/--force\b/.test(source)) {
+    error(
+      skillMd,
+      'scripts must not offer `--force`. Destruction must never be the convenient path; ' +
+        'raise --max-changes deliberately instead.',
+    );
+  }
+
+  // Rule 3: append-only audit log.
+  if (!/audit/i.test(source)) {
+    error(skillMd, 'no audit log found in scripts/ — every attempted change must be recorded');
+  }
+
+  // Rule 4: idempotent and resumable.
+  if (!/resume|already applied|journal/i.test(source)) {
+    error(
+      skillMd,
+      'scripts show no resume/idempotency handling — an interrupted mutation must not double-apply',
+    );
+  }
+
+  // Rule 5: bounded blast radius.
+  if (!/max-?changes/i.test(source)) {
+    error(skillMd, 'scripts must support a bounded `--max-changes` blast radius');
+  }
+
+  // Rule 6: reversibility stated in prose.
+  if (!/(irreversible|cannot be undone|reversib|not recoverable|unrecoverable)/i.test(body)) {
+    error(
+      skillMd,
+      'mutation body must state plainly what can and cannot be undone, above the usage section',
+    );
+  }
+
+  // Required Safety section.
+  if (!/^##+\s+(safety|guardrails|before you run)/im.test(body)) {
+    error(skillMd, 'mutation body needs a `## Safety` (or Guardrails) section');
+  }
+
+  // Rule 2: plan-first. Either it consumes a plan file or it emits one to re-apply.
+  if (!/plan/i.test(body)) {
+    error(
+      skillMd,
+      'mutation body must describe the plan-first flow: deciding and doing are separate steps',
+    );
+  }
 }
 
 function validateManifest(skills) {

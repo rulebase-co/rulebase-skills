@@ -3,64 +3,99 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "CX Operations — quality",
+      "title": "CX Operations \u2014 quality",
       "description": "Designing and validating support quality measurement, for text and voice.",
-      "skills": ["cx-qa-scorecard-design", "cx-voice-qa", "cx-survey-design"]
+      "skills": [
+        "cx-qa-scorecard-design",
+        "cx-voice-qa",
+        "cx-survey-design"
+      ]
     },
     {
-      "title": "CX Operations — analytics and planning",
+      "title": "CX Operations \u2014 analytics and planning",
       "description": "Measuring automation, understanding why customers contact, and staffing to meet demand.",
-      "skills": ["cx-deflection-analysis", "cx-contact-driver-taxonomy", "cx-volume-forecasting"]
+      "skills": [
+        "cx-deflection-analysis",
+        "cx-contact-driver-taxonomy",
+        "cx-volume-forecasting"
+      ]
     },
     {
-      "title": "CX Operations — data and compliance",
+      "title": "CX Operations \u2014 data and compliance",
       "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
-      "skills": ["cx-conversation-schema", "cx-helpdesk-migration", "cx-complaint-classification"]
+      "skills": [
+        "cx-conversation-schema",
+        "cx-helpdesk-migration",
+        "cx-complaint-classification",
+        "cx-duplicate-detection",
+        "cx-erasure-plan"
+      ]
     },
     {
       "title": "Zendesk",
-      "description": "Working with Zendesk Support and Suite data at volume, without hitting the API traps that make exports silently incomplete.",
-      "skills": ["zendesk-export-conversations"]
+      "description": "Working with Zendesk Support and Suite: exporting at volume, and applying reviewed merge and erasure plans under the mutation safety contract.",
+      "skills": [
+        "zendesk-export-conversations",
+        "zendesk-apply-merges",
+        "zendesk-apply-erasure"
+      ]
     },
     {
       "title": "Intercom",
       "description": "Working with Intercom conversations and Fin data, including the N+1 that message bodies force and the silent 500-part truncation.",
-      "skills": ["intercom-export-conversations"]
+      "skills": [
+        "intercom-export-conversations"
+      ]
     },
     {
       "title": "Freshworks",
-      "description": "Working with Freshdesk tickets and Freshchat conversations — two separate products with separate APIs, and two very different pagination traps.",
-      "skills": ["freshdesk-export-conversations", "freshchat-export-conversations"]
+      "description": "Working with Freshdesk tickets and Freshchat conversations \u2014 two separate products with separate APIs, and two very different pagination traps.",
+      "skills": [
+        "freshdesk-export-conversations",
+        "freshchat-export-conversations"
+      ]
     },
     {
       "title": "Salesforce",
       "description": "Working with Service Cloud cases via Bulk API 2.0, including the three separate objects that hold case conversation text.",
-      "skills": ["salesforce-export-cases"]
+      "skills": [
+        "salesforce-export-cases"
+      ]
     },
     {
       "title": "HubSpot",
       "description": "Working with Service Hub conversation threads, including the silent email truncation and the 30-day archive window.",
-      "skills": ["hubspot-export-conversations"]
+      "skills": [
+        "hubspot-export-conversations"
+      ]
     },
     {
       "title": "Gorgias",
-      "description": "Working with Gorgias tickets, which offer no time filter at all — incremental sync means a newest-first walk with an early stop.",
-      "skills": ["gorgias-export-conversations"]
+      "description": "Working with Gorgias tickets, which offer no time filter at all \u2014 incremental sync means a newest-first walk with an early stop.",
+      "skills": [
+        "gorgias-export-conversations"
+      ]
     },
     {
       "title": "Front",
       "description": "Working with Front conversations under a per-company rate limit low enough to change how you plan the whole export.",
-      "skills": ["front-export-conversations"]
+      "skills": [
+        "front-export-conversations"
+      ]
     },
     {
       "title": "Five9",
       "description": "Working with Five9 contact centre interaction data through the reporting API, with time windowing around the 50,000-record cap.",
-      "skills": ["five9-export-interactions"]
+      "skills": [
+        "five9-export-interactions"
+      ]
     },
     {
       "title": "Rulebase",
       "description": "Auditing and operating a Rulebase workspace through the Rulebase MCP server.",
-      "skills": ["rulebase-qa-coverage-audit"]
+      "skills": [
+        "rulebase-qa-coverage-audit"
+      ]
     }
   ]
 }
