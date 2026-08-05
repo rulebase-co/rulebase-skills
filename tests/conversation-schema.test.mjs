@@ -16,6 +16,11 @@ const VALIDATOR = resolve(HERE, '../skills/cx-ops/cx-conversation-schema/scripts
 const ZENDESK = resolve(HERE, '../skills/zendesk/zendesk-export-conversations/scripts/export-conversations.mjs');
 const FRESHDESK = resolve(HERE, '../skills/freshdesk/freshdesk-export-conversations/scripts/export-conversations.mjs');
 const FIVE9 = resolve(HERE, '../skills/five9/five9-export-interactions/scripts/export-interactions.mjs');
+const GORGIAS = resolve(HERE, '../skills/gorgias/gorgias-export-conversations/scripts/export-conversations.mjs');
+const HUBSPOT = resolve(HERE, '../skills/hubspot/hubspot-export-conversations/scripts/export-conversations.mjs');
+const SALESFORCE = resolve(HERE, '../skills/salesforce/salesforce-export-cases/scripts/export-cases.mjs');
+const FRONT = resolve(HERE, '../skills/front/front-export-conversations/scripts/export-conversations.mjs');
+const INTERCOM = resolve(HERE, '../skills/intercom/intercom-export-conversations/scripts/export-conversations.mjs');
 
 const conversation = (extra = {}) => ({
   source: 'test',
@@ -378,6 +383,294 @@ test('Five9 export output passes the canonical validator with --no-messages', as
       assert.equal(code, 0, `validator rejected Five9 output: ${JSON.stringify(summary?.errors)}`);
       assert.equal(summary.stats.conversations.total, 1);
       assert.equal(summary.stats.conversations.byChannel.voice, 1);
+    },
+  );
+});
+
+test('Gorgias export output passes the canonical validator', async () => {
+  const ticket = {
+    id: 42,
+    subject: 'Refund',
+    status: 'closed',
+    channel: 'email',
+    customer: { id: 900 },
+    assignee_user: { id: 55 },
+    created_datetime: '2026-03-01T10:00:00Z',
+    updated_datetime: '2026-03-05T10:00:00Z',
+    tags: [],
+  };
+
+  await withMockApi(
+    (req) => {
+      if (req.url.includes('/messages')) {
+        return {
+          body: {
+            data: [
+              {
+                id: 501,
+                ticket_id: 42,
+                sender: { id: 900 },
+                from_agent: false,
+                public: true,
+                channel: 'email',
+                body_text: 'where is my refund',
+                created_datetime: '2026-03-01T10:05:00Z',
+                attachments: [],
+              },
+            ],
+            meta: {},
+          },
+        };
+      }
+      return { body: { data: [ticket], meta: {} } };
+    },
+    async ({ base }) => {
+      const out = tempOut('gg-canon-');
+      const exported = await runScript(GORGIAS, ['--start', '2026-03-01', '--out', out], {
+        GORGIAS_DOMAIN: 'mock',
+        GORGIAS_EMAIL: 'svc@example.com',
+        GORGIAS_API_KEY: 'placeholder',
+        GORGIAS_API_BASE: base,
+        GORGIAS_RATE_PER_20S: '2000',
+      });
+      assert.equal(exported.code, 0);
+
+      const { code, summary } = await validate(out);
+      assert.equal(code, 0, `validator rejected Gorgias output: ${JSON.stringify(summary?.errors)}`);
+      assert.equal(summary.stats.messages.byAuthorType.customer, 1);
+    },
+  );
+});
+
+test('HubSpot output passes the validator even with its extra truncation field', async () => {
+  await withMockApi(
+    (req) => {
+      if (req.url.includes('/messages')) {
+        return {
+          body: {
+            results: [
+              {
+                id: 'm1',
+                type: 'MESSAGE',
+                createdAt: '2026-03-01T10:05:00Z',
+                senders: [{ actorId: 'V-900' }],
+                text: 'where is my refund',
+                truncationStatus: 'TRUNCATED',
+                channelId: 'EMAIL',
+                attachments: [],
+              },
+            ],
+            paging: {},
+          },
+        };
+      }
+      return {
+        body: {
+          results: [
+            {
+              id: 't1',
+              status: 'CLOSED',
+              createdAt: '2026-03-01T10:00:00Z',
+              latestMessageTimestamp: '2026-03-05T10:00:00Z',
+              assignedTo: 'A-55',
+              inboxId: '7',
+            },
+          ],
+          paging: {},
+        },
+      };
+    },
+    async ({ base }) => {
+      const out = tempOut('hs-canon-');
+      const exported = await runScript(HUBSPOT, ['--start', '2026-03-01', '--out', out], {
+        HUBSPOT_ACCESS_TOKEN: 'placeholder',
+        HUBSPOT_API_BASE: base,
+        HUBSPOT_RATE_PER_SEC: '500',
+      });
+      assert.equal(exported.code, 0);
+      assert.equal(exported.summary.truncated_messages, 1);
+
+      const { code, summary } = await validate(out);
+      assert.equal(code, 0, `validator rejected HubSpot output: ${JSON.stringify(summary?.errors)}`);
+      // customer_id is null on HubSpot threads by design, which the validator
+      // surfaces as a warning rather than an error.
+      assert.ok(
+        summary.warnings.some((w) => w.issue.includes('without a customer_id')),
+        'the known HubSpot identity gap is reported as a warning',
+      );
+    },
+  );
+});
+
+test('Salesforce output passes the validator across all three message sources', async () => {
+  const CASE_CSV =
+    '"Id","CaseNumber","Subject","Status","IsClosed","IsDeleted","Origin","Priority","ContactId","AccountId","OwnerId","CreatedDate","LastModifiedDate","ClosedDate"\n' +
+    '"500A","1","Refund","Closed","true","false","Email","High","003C","001B","005D","2026-03-01T10:00:00.000Z","2026-03-01T10:10:00.000Z","2026-03-01T10:10:00.000Z"\n';
+  const COMMENT_CSV =
+    '"Id","ParentId","CommentBody","CreatedById","CreatedDate","IsPublished","IsDeleted"\n' +
+    '"00aX","500A","note","005D","2026-03-01T10:05:00.000Z","false","false"\n';
+  const EMAIL_CSV =
+    '"Id","ParentId","TextBody","Subject","FromAddress","Incoming","MessageDate","CreatedDate","CreatedById","HasAttachment","IsDeleted"\n' +
+    '"02sY","500A","where is my refund","Re","cust@example.com","true","2026-03-01T10:02:00.000Z","2026-03-01T10:02:00.000Z","","false","false"\n';
+  const FEED_CSV =
+    '"Id","ParentId","Body","Type","CreatedById","CreatedDate","IsDeleted"\n' +
+    '"0D5Z","500A","chatter","TextPost","005D","2026-03-01T10:06:00.000Z","false"\n';
+  const csvByObject = {
+    Case: CASE_CSV,
+    CaseComment: COMMENT_CSV,
+    EmailMessage: EMAIL_CSV,
+    FeedItem: FEED_CSV,
+  };
+
+  const jobs = new Map();
+  let seq = 0;
+  await withMockApi(
+    (req, n, body) => {
+      if (req.method === 'POST') {
+        const object = /FROM\s+(\w+)/i.exec(body?.query ?? '')?.[1] ?? 'Unknown';
+        const id = `job${++seq}`;
+        jobs.set(id, object);
+        return { body: { id } };
+      }
+      const match = /\/jobs\/query\/(job\d+)(\/results)?/.exec(req.url);
+      if (match && match[2]) {
+        return {
+          headers: { 'content-type': 'text/csv', 'sforce-locator': 'null' },
+          body: csvByObject[jobs.get(match[1])] ?? '',
+        };
+      }
+      return { body: { state: 'JobComplete' } };
+    },
+    async ({ base }) => {
+      const out = tempOut('sf-canon-');
+      const exported = await runScript(SALESFORCE, ['--start', '2026-03-01', '--out', out], {
+        SALESFORCE_INSTANCE_URL: base,
+        SALESFORCE_ACCESS_TOKEN: 'placeholder',
+      });
+      assert.equal(exported.code, 0);
+      assert.equal(exported.summary.messages, 3);
+
+      const { code, summary } = await validate(out);
+      assert.equal(code, 0, `validator rejected Salesforce output: ${JSON.stringify(summary?.errors)}`);
+      assert.equal(summary.stats.messages.total, 3, 'all three sources land in one file');
+      assert.equal(summary.stats.messages.byAuthorType.customer, 1);
+      assert.equal(summary.stats.messages.byVisibility.internal, 2, 'comment and chatter are internal');
+    },
+  );
+});
+
+test('Front output passes the canonical validator', async () => {
+  const epoch = (s) => Math.floor(Date.parse(s) / 1000);
+  await withMockApi(
+    (req) => {
+      if (req.url.includes('/messages')) {
+        return {
+          body: {
+            _results: [
+              {
+                id: 'msg_1',
+                type: 'email',
+                is_inbound: true,
+                created_at: epoch('2026-03-01T10:05:00Z'),
+                author: { id: 'tea_9' },
+                text: 'where is my refund',
+                attachments: [],
+              },
+            ],
+            _pagination: {},
+          },
+        };
+      }
+      return {
+        body: {
+          _results: [
+            {
+              id: 'cnv_1',
+              subject: 'Refund',
+              status: 'archived',
+              type: 'email',
+              created_at: epoch('2026-03-01T10:00:00Z'),
+              last_message: { created_at: epoch('2026-03-05T10:00:00Z') },
+              recipient: { contact_id: 'crd_1', handle: 'cust@example.com' },
+              assignee: { id: 'tea_1' },
+              inbox: { id: 'inb_9' },
+              tags: [],
+            },
+          ],
+          _pagination: {},
+        },
+      };
+    },
+    async ({ base }) => {
+      const out = tempOut('fr-canon-');
+      const exported = await runScript(FRONT, ['--start', '2026-03-01', '--out', out], {
+        FRONT_API_TOKEN: 'placeholder',
+        FRONT_API_BASE: base,
+        FRONT_RATE_PER_MIN: '60000',
+      });
+      assert.equal(exported.code, 0);
+
+      const { code, summary } = await validate(out);
+      assert.equal(code, 0, `validator rejected Front output: ${JSON.stringify(summary?.errors)}`);
+      assert.equal(summary.stats.conversations.byChannel.email, 1);
+    },
+  );
+});
+
+test('Intercom output passes the canonical validator', async () => {
+  const listed = {
+    id: '1',
+    title: 'Refund',
+    state: 'closed',
+    open: false,
+    created_at: Math.floor(Date.parse('2026-03-01T10:00:00Z') / 1000),
+    updated_at: Math.floor(Date.parse('2026-03-05T10:00:00Z') / 1000),
+    admin_assignee_id: 55,
+    team_assignee_id: 7,
+    source: { type: 'conversation', delivered_as: 'email', id: 'src1', author: { id: '900', type: 'user' } },
+    contacts: { contacts: [{ id: '900' }] },
+    conversation_rating: { rating: 4 },
+    tags: { tags: [] },
+  };
+
+  await withMockApi(
+    (req) => {
+      if (req.url === '/conversations/search') {
+        return { body: { conversations: [listed], pages: {} } };
+      }
+      return {
+        body: {
+          ...listed,
+          source: { ...listed.source, body: '<p>where is my refund</p>', attachments: [] },
+          conversation_parts: {
+            total_count: 1,
+            conversation_parts: [
+              {
+                id: '10',
+                part_type: 'comment',
+                body: '<p>checking now</p>',
+                created_at: Math.floor(Date.parse('2026-03-01T10:05:00Z') / 1000),
+                author: { id: '55', type: 'admin' },
+                attachments: [],
+              },
+            ],
+          },
+        },
+      };
+    },
+    async ({ base }) => {
+      const out = tempOut('ic-canon-');
+      const exported = await runScript(INTERCOM, ['--start', '2026-03-01', '--out', out], {
+        INTERCOM_ACCESS_TOKEN: 'placeholder',
+        INTERCOM_API_BASE: base,
+      });
+      assert.equal(exported.code, 0);
+
+      const { code, summary } = await validate(out);
+      assert.equal(code, 0, `validator rejected Intercom output: ${JSON.stringify(summary?.errors)}`);
+      assert.equal(summary.stats.conversations.withCsat, 1, 'the 1-5 rating normalised into range');
+      assert.equal(summary.stats.messages.byAuthorType.customer, 1);
+      assert.equal(summary.stats.messages.byAuthorType.agent, 1);
     },
   );
 });

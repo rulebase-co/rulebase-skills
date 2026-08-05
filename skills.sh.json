@@ -18,9 +18,29 @@
       "skills": ["intercom-export-conversations"]
     },
     {
-      "title": "Freshdesk",
-      "description": "Working with Freshdesk tickets past the 300-page pagination ceiling that truncates most exports at 30,000 records.",
-      "skills": ["freshdesk-export-conversations"]
+      "title": "Freshworks",
+      "description": "Working with Freshdesk tickets and Freshchat conversations — two separate products with separate APIs, and two very different pagination traps.",
+      "skills": ["freshdesk-export-conversations", "freshchat-export-conversations"]
+    },
+    {
+      "title": "Salesforce",
+      "description": "Working with Service Cloud cases via Bulk API 2.0, including the three separate objects that hold case conversation text.",
+      "skills": ["salesforce-export-cases"]
+    },
+    {
+      "title": "HubSpot",
+      "description": "Working with Service Hub conversation threads, including the silent email truncation and the 30-day archive window.",
+      "skills": ["hubspot-export-conversations"]
+    },
+    {
+      "title": "Gorgias",
+      "description": "Working with Gorgias tickets, which offer no time filter at all — incremental sync means a newest-first walk with an early stop.",
+      "skills": ["gorgias-export-conversations"]
+    },
+    {
+      "title": "Front",
+      "description": "Working with Front conversations under a per-company rate limit low enough to change how you plan the whole export.",
+      "skills": ["front-export-conversations"]
     },
     {
       "title": "Five9",
