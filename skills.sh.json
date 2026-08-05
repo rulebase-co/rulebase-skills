@@ -3,9 +3,19 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "CX Operations",
-      "description": "Vendor-neutral practice for support quality, automation measurement, and contact-centre analytics. Use these regardless of which helpdesk you run.",
-      "skills": ["cx-qa-scorecard-design", "cx-deflection-analysis", "cx-conversation-schema"]
+      "title": "CX Operations — quality",
+      "description": "Designing and validating support quality measurement, for text and voice.",
+      "skills": ["cx-qa-scorecard-design", "cx-voice-qa", "cx-survey-design"]
+    },
+    {
+      "title": "CX Operations — analytics and planning",
+      "description": "Measuring automation, understanding why customers contact, and staffing to meet demand.",
+      "skills": ["cx-deflection-analysis", "cx-contact-driver-taxonomy", "cx-volume-forecasting"]
+    },
+    {
+      "title": "CX Operations — data and compliance",
+      "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
+      "skills": ["cx-conversation-schema", "cx-helpdesk-migration", "cx-complaint-classification"]
     },
     {
       "title": "Zendesk",
