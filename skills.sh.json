@@ -144,6 +144,43 @@
       ]
     },
     {
+      "title": "Compliance — evidence and audit",
+      "description": "Assembling evidence to an external standard, proving the chain from conversation to decision, testing whether controls actually operate, and evidencing that a change landed.",
+      "skills": [
+        "cx-regulatory-reporting-pack",
+        "cx-audit-trail-integrity",
+        "cx-quality-attestation",
+        "cx-control-testing",
+        "cx-record-retention-audit",
+        "cx-third-party-risk",
+        "cx-change-evidence"
+      ]
+    },
+    {
+      "title": "Compliance — data protection",
+      "description": "Subject access requests against conversation data, disclosure and consent audits, AI transparency, where support data actually goes, recordings, training-data eligibility and minimisation.",
+      "skills": [
+        "cx-subject-access-request",
+        "cx-disclosure-audit",
+        "cx-ai-disclosure",
+        "cx-data-flow-review",
+        "cx-call-recording-governance",
+        "cx-training-data-eligibility",
+        "cx-data-minimisation-review"
+      ]
+    },
+    {
+      "title": "Compliance — financial services",
+      "description": "The support-side conduct questions specific to regulated financial services: the advice boundary, promotional content, scam signals, disputes and collections.",
+      "skills": [
+        "cx-regulated-advice-boundary",
+        "cx-financial-promotions-audit",
+        "cx-fraud-and-scam-signal",
+        "cx-dispute-quality",
+        "cx-collections-conduct"
+      ]
+    },
+    {
       "title": "CX Operations — data and compliance",
       "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
       "skills": [

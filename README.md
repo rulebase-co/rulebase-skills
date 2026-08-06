@@ -133,6 +133,76 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-macro-audit`](skills/cx-ops/cx-macro-audit) | A wrong macro is the most efficient way an organisation has of being uniformly wrong — and per-agent QA passes it, because it's consistent. Audits the high-usage head first, and estimates how many customers each error already reached. |
 | [`cx-tag-taxonomy-hygiene`](skills/cx-ops/cx-tag-taxonomy-hygiene) | Untagged share bounds every report built on tags. Separates the four jobs one tag list is usually doing, and treats consolidation as history-rewriting: map rather than merge, and check concurrent lifetime to tell a true duplicate from a rename. |
 
+**RevOps — revenue signal in support**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-churn-signal`](skills/cx-ops/cx-churn-signal) | Most churn never appears in support, so the first number is coverage — what share of actual churners contacted you — and it bounds everything else. Plus the base rate (a 90/90 detector at 2% churn has ~15% precision) and lead time as the metric that matters. |
+| [`cx-expansion-signal`](skills/cx-ops/cx-expansion-signal) | Optimises for precision on purpose: the customer didn't contact support to be sold to. Ships the frustration test — "I've hit the limit again" is a buying signal from a growing account and a cancellation precursor from one that feels nickel-and-dimed. |
+| [`cx-revenue-at-risk`](skills/cx-ops/cx-revenue-at-risk) | "Revenue with a ticket attached" is not risk. Separates exposure from risk, uses uplift over matched accounts rather than the raw conditional rate, and buckets by time to the next decision point. |
+| [`cx-renewal-risk-review`](skills/cx-ops/cx-renewal-risk-review) | The cumulative record rather than the last ticket, including commitments made in transcripts and whether they were kept — the section customers raise and nobody prepares. |
+| [`cx-customer-health-score`](skills/cx-ops/cx-customer-health-score) | Validate against an outcome before choosing weights. Most candidate signals fail the test, and cutting them is how the score becomes useful. |
+| [`cx-win-loss-from-support`](skills/cx-ops/cx-win-loss-from-support) | Competitor mentions and switching language — but the sample is post-purchase and contact-conditioned, so it's evidence about departure, not about lost deals. |
+| [`cx-nrr-attribution`](skills/cx-ops/cx-nrr-attribution) | Mostly about what cannot honestly be claimed. An four-rung ladder from unquantified contribution to a holdout, and the one sentence every such figure needs: whether it's additive with other teams' claims. |
+
+**RevOps — commercial process**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-support-to-revenue-handoff`](skills/cx-ops/cx-support-to-revenue-handoff) | One structural rule — agents flag, agents do not sell — and a never-do list with a specific failure attached to each. Closing the loop back to agents is the fix for the decay that kills these programmes. |
+| [`cx-onboarding-friction`](skills/cx-ops/cx-onboarding-friction) | Activation blockers visible in support months before retention shows the consequence. Classifies by failure type, not topic, because discoverability and expectation-mismatch have different owners. |
+| [`cx-pricing-objection-analysis`](skills/cx-ops/cx-pricing-objection-analysis) | Four problems arrive in the same words — billing defect, surprise, value objection, affordability — and sending the wrong one to a pricing review wastes a quarter. |
+| [`cx-refund-and-goodwill-policy`](skills/cx-ops/cx-refund-and-goodwill-policy) | Most "our goodwill costs too much" findings are redress that was owed and misfiled as generosity. Authority set from the amount distribution, and an audit for the system that pays more to whoever escalates loudest. |
+| [`cx-account-escalation-protocol`](skills/cx-ops/cx-account-escalation-protocol) | Follow-through, not intake, is where these fail: attention arrives, the issue returns to a normal queue, and the second escalation is far more damaging than the first. |
+| [`cx-support-led-growth`](skills/cx-ops/cx-support-led-growth) | Support drives growth by removing the reasons customers don't grow, not by promoting. With a support-quality guardrail and an agreed stopping condition. |
+| [`cx-cost-of-poor-quality`](skills/cx-ops/cx-cost-of-poor-quality) | Four cost layers in descending order of defensibility. Rework is the countable one and usually absent from the business case; the churn estimate goes last, with its interval. |
+
+**Compliance — complaints and conduct**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-complaints-sla`](skills/cx-ops/cx-complaints-sla) | Regulated deadline clocks that hard-code no deadlines — lengths come from config with a cited source. Ships the business-day arithmetic (per-market holidays, month-end clamping) where every error lands in the optimistic direction. |
+| [`cx-complaint-root-cause`](skills/cx-ops/cx-complaint-root-cause) | Tracks "action completed" and "cause removed" as separate states. The gap between them is why the same themes get rediscovered every year. |
+| [`cx-vulnerability-detection`](skills/cx-ops/cx-vulnerability-detection) | Answers "was a signal present and was it acted on", never "is this customer vulnerable" — a model-assigned vulnerable label is the failure to avoid. Leads with the data-protection flag, not the method. |
+| [`cx-conduct-risk-monitoring`](skills/cx-ops/cx-conduct-risk-monitoring) | Structural signals beat keyword lists: contacts-to-completion on a cancellation finds obstruction better than any phrase search, in any language. Checks the incentive before blaming the person. |
+| [`cx-consumer-outcome-evidence`](skills/cx-ops/cx-consumer-outcome-evidence) | Built for negative assurance. "No harm detected" isn't credible; "we tested for these six harms, at these sensitivities, and found two" is. |
+| [`cx-redress-consistency`](skills/cx-ops/cx-redress-consistency) | The central test is whether outcomes correlate with how loudly the customer escalated — a system that pays more to escalators under-compensates everyone least able to advocate. |
+| [`cx-emerging-harm-scan`](skills/cx-ops/cx-emerging-harm-scan) | Every monitor looks for what someone already thought of. This looks for what nobody has categorised — in the "Other" bucket, the long conversations, and agents' internal notes. |
+
+**Compliance — evidence and audit**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-regulatory-reporting-pack`](skills/cx-ops/cx-regulatory-reporting-pack) | The standard is reproducible-by-a-stranger. The most damaging outcome isn't a bad number, it's one that can't be reproduced or a gap they find that you didn't disclose. |
+| [`cx-audit-trail-integrity`](skills/cx-ops/cx-audit-trail-integrity) | Can you walk a decision backwards from records alone? Version amnesia is the usual break: the score survives and the standard it was measured against is gone. |
+| [`cx-quality-attestation`](skills/cx-ops/cx-quality-attestation) | State the claim precisely — process operation, not "quality was good". The limitations section is the protection, and a qualified attestation is the control working. |
+| [`cx-control-testing`](skills/cx-ops/cx-control-testing) | Build the population independently of the control's own log, or you can only ever conclude the control operates. Plus the three tests that find the most: rubber-stamping, detections with no response, and the population that bypasses it. |
+| [`cx-record-retention-audit`](skills/cx-ops/cx-record-retention-audit) | Over-retention and premature deletion, which is often the more serious and is unrecoverable. Tests what's actually there rather than what's configured. |
+| [`cx-third-party-risk`](skills/cx-ops/cx-third-party-risk) | Test the vendor against the work, not the questionnaire — and check the commercial terms before concluding anything about their culture, because you probably bought the behaviour. |
+| [`cx-change-evidence`](skills/cx-ops/cx-change-evidence) | Four dates, and the decision date is not the effective date. Remediation reported on the wrong one leaves customers affected after the date you said it was fixed. |
+
+**Compliance — data protection**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-subject-access-request`](skills/cx-ops/cx-subject-access-request) | Support data is full of other people's personal data in the same records, so both under- and over-disclosure are live risks. Includes the employee SAR, which usually arrives inside a dispute. |
+| [`cx-disclosure-audit`](skills/cx-ops/cx-disclosure-audit) | Timing is part of the requirement — a recording notification given three minutes in hasn't notified anyone about the first three minutes. Plus the three ways script-based assurance fails. |
+| [`cx-ai-disclosure`](skills/cx-ops/cx-ai-disclosure) | Three separate obligations, including the one always missed: conversations processed by AI the customer never sees output from. And the direct-question test — a bot deflecting "am I talking to a human?" is the worst failure available. |
+| [`cx-data-flow-review`](skills/cx-ops/cx-data-flow-review) | Where support data actually goes versus what the register says. The AI features inside tools you already pay for are the most commonly unregistered flow, because they arrive as a product update. |
+| [`cx-call-recording-governance`](skills/cx-ops/cx-call-recording-governance) | A recording can't be selectively edited the way text can, so most text-derived policy doesn't transfer. Includes spoken card data, which is a payment-security matter and not only a privacy one. |
+| [`cx-training-data-eligibility`](skills/cx-ops/cx-training-data-eligibility) | Five gating questions before any data moves — sending conversations to a provider to see whether the idea works is itself the processing that needed approving. Redaction is not anonymisation. |
+| [`cx-data-minimisation-review`](skills/cx-ops/cx-data-minimisation-review) | The cheapest way to reduce the impact of a future breach: data you don't hold can't be exposed. Finds the fields written by everyone and read by nothing. |
+
+**Compliance — financial services**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-regulated-advice-boundary`](skills/cx-ops/cx-regulated-advice-boundary) | Implied recommendations are the largest and least-recognised category, because the agent doesn't experience it as advice. Reports over-caution with equal prominence — evasive agents are their own harm. |
+| [`cx-financial-promotions-audit`](skills/cx-ops/cx-financial-promotions-audit) | Macros and automated footers are the highest-volume promotional content in the business and go through no approval workflow. Generated bot output can't be pre-approved at all. |
+| [`cx-fraud-and-scam-signal`](skills/cx-ops/cx-fraud-and-scam-signal) | The payment looks legitimate — the only evidence it was a scam is in what the customer said, often days earlier. Coaching the customer to lie is the strongest signal and transaction data can never see it. |
+| [`cx-dispute-quality`](skills/cx-ops/cx-dispute-quality) | Two clocks, and a case can meet the customer timeframe while missing the scheme window — the customer gets an answer and no money. Separates process rejections from merit rejections. |
+| [`cx-collections-conduct`](skills/cx-ops/cx-collections-conduct) | The agent has an objective that can conflict with the customer's interest, so the incentive is checked first. Headline test: did customers who disclosed difficulty end up better or worse off? |
+
 **Data and compliance**
 
 | Skill | What it's for |
@@ -208,7 +278,7 @@ metric is written once and runs against any of the ten supported platforms. The
 vendor-specific knowledge stays in the export step. CI proves it: each exporter's
 real output is fed through the schema validator on every commit.
 
-**Scripts are tested against the failure paths.** 329 tests cover cursor and
+**Scripts are tested against the failure paths.** 348 tests cover cursor and
 watermark pagination, adaptive rate limiting, checkpoint/resume, RFC 4180 CSV
 edge cases, malformed input, silent-truncation detection, and Erlang C verified
 against an independent implementation — the paths that break
@@ -233,33 +303,27 @@ journal, a bounded blast radius, or a stated reversibility — or that offers a
 
 ## Roadmap
 
-59 skills shipped, 118 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
-every planned skill, one line each, in roughly the order we'd build it.
-
-The catalog is organised around four things a CX organisation is accountable for:
+99 skills shipped, 78 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline — every
+planned skill, one line each, in roughly the order we'd build it.
 
 | Category | Shipped | Planned |
 | --- | --- | --- |
 | [CX operations](ROADMAP.md#cx-operations) — demand, routing, backlog, cost, workforce, channels | 26 | 36 |
 | [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 8 | 19 |
-| [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 6 | 26 |
-| [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 0 | 14 |
+| [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 32 | 0 |
+| [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 14 | 0 |
 | [Platforms](ROADMAP.md#platforms) — 10 helpdesks covered, 18 more outlined | 17 | 15 |
 | [Data and integration](ROADMAP.md#data-and-integration) — the schema everything is written against | 2 | 8 |
 
-**RevOps is the largest gap.** Support conversations are the densest source of churn,
-expansion and product-friction signal most companies own, and nothing in the catalog
-touches it yet — `cx-churn-signal`, `cx-revenue-at-risk` and
-`cx-support-to-revenue-handoff` are the first three.
+**Compliance and RevOps are complete as scoped.** Both were the largest gaps when the
+roadmap was written — RevOps was empty, Compliance was 6 of 32.
 
-Nearest-term platform work: **Kustomer**, **Zoho Desk**, **Dixa**, **Aircall** and
-**Jira Service Management** exporters, then the contact-centre tier (Talkdesk,
-Genesys Cloud, Amazon Connect, NICE CXone) where recordings and transcripts matter
-more than tickets.
+Nearest-term platform work: **Kustomer**, **Zoho Desk**, **Dixa**, **Aircall** and **Jira
+Service Management** exporters, then the contact-centre tier (Talkdesk, Genesys Cloud,
+Amazon Connect, NICE CXone) where recordings and transcripts matter more than tickets.
 
-Claiming something is welcome — open an issue naming the skill and the shape you plan
-to give it. [ROADMAP.md](ROADMAP.md#claiming-something) says what makes one land
-quickly.
+Claiming something is welcome — open an issue naming the skill and the shape you plan to
+give it. [ROADMAP.md](ROADMAP.md#claiming-something) says what makes one land quickly.
 
 ## Contributing
 

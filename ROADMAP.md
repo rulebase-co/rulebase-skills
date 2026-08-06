@@ -8,15 +8,15 @@ cuts across all four.
 | --- | --- | --- | --- |
 | [CX operations](#cx-operations) | 26 | 36 | Running the service: demand, routing, backlog, cost, workforce, channels |
 | [Quality assurance](#quality-assurance) | 8 | 19 | Measuring and improving how well the work is done |
-| [Compliance](#compliance) | 6 | 26 | Proving the service met its obligations |
-| [RevOps](#revops) | 0 | 14 | The revenue consequences of support, and the signals support holds |
+| [Compliance](#compliance) | 32 | 0 | Proving the service met its obligations |
+| [RevOps](#revops) | 14 | 0 | The revenue consequences of support, and the signals support holds |
 | [Platforms](#platforms) | 17 | 15 | Getting the data out of, and into, the systems the work happens in |
 | [Data and integration](#data-and-integration) | 2 | 8 | The schema everything else is written against |
-| **Total** | **59** | **118** | |
+| **Total** | **99** | **78** | |
 
-RevOps is the largest genuine gap: support conversations are the densest source of
-churn, expansion and product-friction signal most companies own, and the catalog does
-nothing with it yet.
+**Compliance and RevOps are complete as scoped.** Both were the largest gaps when this
+roadmap was first written — RevOps was empty and Compliance was 6 of 32. The remaining
+work sits in CX operations, Quality assurance and platform coverage.
 
 Legend: **✅ shipped** · **▶︎ next** (well-understood, ready to write) · **◻︎ planned**
 (scoped, needs research) · **◇ exploratory** (may not survive contact with reality)
@@ -174,82 +174,95 @@ Rulebase because it operates that product's MCP server.
 
 ## Compliance
 
+Complete as scoped. The design decision running through all of these: they produce
+**evidence** and explicitly do not make the determination. Reportability, whether a duty
+applies, whether remediation is required, and where a regulatory line sits are compliance
+and legal calls, not analytical outputs — and none of these skills states a jurisdictional
+requirement.
+
 ### Complaints and conduct
 
 | | Skill | What it's for |
 | --- | --- | --- |
-| ✅ | `cx-complaint-classification` | What counts as a regulated complaint, and why the definition is the work |
-| ✅ | `cx-policy-practice-divergence` | Four outcomes, not pass/fail — "policy silent" is usually the biggest |
-| ▶︎ | `cx-complaints-sla` | Regulated acknowledgement and final-response clocks, and what pauses them |
-| ▶︎ | `cx-complaint-root-cause` | RCA and remediation tracking, so the same complaint stops recurring |
-| ▶︎ | `cx-vulnerability-detection` | Identifying vulnerable customers in conversations, and the duty that follows |
-| ◻︎ | `cx-conduct-risk-monitoring` | Mis-selling, pressure selling and unfair-outcome signals in support text |
-| ◻︎ | `cx-consumer-duty-evidence` | Assembling outcome evidence across the four consumer-duty outcomes |
-| ◻︎ | `cx-goodwill-consistency` | Whether goodwill and redress decisions are consistent across similar cases |
-| ◇ | `cx-foreseeable-harm-scan` | Support signal as an early indicator of harm at portfolio level |
+| ✅ | `cx-complaint-classification` | What counts as a regulated complaint — the definition is the work |
+| ✅ | `cx-complaints-sla` | Deadline clocks with no hard-coded deadlines; ships the business-day arithmetic |
+| ✅ | `cx-complaint-root-cause` | "Action completed" is not "cause removed" — tracks both |
+| ✅ | `cx-vulnerability-detection` | Was a signal present and acted on — never "is this customer vulnerable" |
+| ✅ | `cx-conduct-risk-monitoring` | Structural signals beat keyword lists; check the incentive first |
+| ✅ | `cx-policy-practice-divergence` | Four outcomes, and "policy silent" is usually the largest |
+| ✅ | `cx-consumer-outcome-evidence` | Built for negative assurance rather than averages |
+| ✅ | `cx-redress-consistency` | Does outcome correlate with how loudly the customer escalated? |
+| ✅ | `cx-emerging-harm-scan` | Harm you have no category for, found in the "Other" bucket and the long tail |
 
 ### Evidence and audit
 
 | | Skill | What it's for |
 | --- | --- | --- |
 | ✅ | `cx-case-timeline` | What happened, ordered by event time, with the gaps marked |
-| ▶︎ | `cx-regulatory-reporting-pack` | Assembling the evidence a regulator or auditor asked for |
-| ▶︎ | `cx-audit-trail-integrity` | Proving the chain from conversation to evaluation to decision |
-| ▶︎ | `cx-quality-attestation` | Signing off a QA period: what you're attesting to, and on what basis |
-| ◻︎ | `cx-control-testing` | Testing a support control the way an auditor will, not the way you'd like |
-| ◻︎ | `cx-record-retention-audit` | Retention policy versus what is actually still in the system |
-| ◻︎ | `cx-third-party-risk` | Reviewing a BPO or vendor's handling of your customer data |
-| ◻︎ | `cx-change-evidence` | Proving a process change happened, when, and who was told |
+| ✅ | `cx-regulatory-reporting-pack` | Reproducible by a stranger; disclose your own gaps first |
+| ✅ | `cx-audit-trail-integrity` | Whether the chain from conversation to decision can be walked backwards |
+| ✅ | `cx-quality-attestation` | State the claim precisely — the limitations section is the value |
+| ✅ | `cx-control-testing` | Build the population independently of the control's own log |
+| ✅ | `cx-record-retention-audit` | Over-retention and premature deletion, which is often the worse one |
+| ✅ | `cx-third-party-risk` | Test the vendor against the work, not the questionnaire |
+| ✅ | `cx-change-evidence` | Four dates, and the decision date is not the effective date |
 
 ### Data protection
 
 | | Skill | What it's for |
 | --- | --- | --- |
-| ✅ | `cx-erasure-plan` | Building a reviewable erasure plan before anything is deleted |
-| ✅ | `cx-pii-redaction-audit` | Measuring how unsafe data still is, rather than certifying it safe |
+| ✅ | `cx-subject-access-request` | Support data is full of other people's data; two failure directions |
+| ✅ | `cx-erasure-plan` | A reviewable plan before anything is deleted |
+| ✅ | `cx-pii-redaction-audit` | Measures how unsafe data still is rather than certifying it safe |
 | ✅ | `cx-duplicate-detection` | Duplicate conversations, as a prerequisite for erasure and for metrics |
-| ▶︎ | `cx-subject-access-request` | Fulfilling a DSAR from support data without over- or under-disclosing |
-| ▶︎ | `cx-consent-and-disclosure-audit` | Required disclosures present, in time, and in the right channel |
-| ▶︎ | `cx-ai-disclosure` | Telling customers they are talking to AI, and evidencing that you did |
-| ◻︎ | `cx-cross-border-transfer-review` | Where support data actually goes, versus where you think it goes |
-| ◻︎ | `cx-call-recording-governance` | Consent, retention and redaction for recordings specifically |
-| ◻︎ | `cx-training-data-eligibility` | Whether support conversations may lawfully train a model |
-| ◇ | `cx-data-minimisation-review` | Fields collected in support that nobody uses and everybody stores |
+| ✅ | `cx-disclosure-audit` | Timing is part of the requirement; three ways script-based assurance fails |
+| ✅ | `cx-ai-disclosure` | Three separate obligations, including the invisible-processing one |
+| ✅ | `cx-data-flow-review` | Where support data actually goes, versus what the register says |
+| ✅ | `cx-call-recording-governance` | A recording cannot be selectively edited the way text can |
+| ✅ | `cx-training-data-eligibility` | Five gating questions before any data moves; redaction is not anonymisation |
+| ✅ | `cx-data-minimisation-review` | The cheapest way to reduce the impact of a future breach |
 
-### Financial services specifics
+### Financial services
 
 | | Skill | What it's for |
 | --- | --- | --- |
-| ▶︎ | `cx-financial-promotions-audit` | Support messaging checked against financial-promotion rules |
-| ◻︎ | `cx-fraud-and-sanctions-signal` | Fraud, scam and sanctions language surfacing in support contacts |
-| ◻︎ | `cx-dispute-and-chargeback-quality` | Dispute handling against scheme timelines and evidence standards |
-| ◻︎ | `cx-collections-conduct` | Arrears and collections conversations against forbearance requirements |
-| ◇ | `cx-regulated-advice-boundary` | Where a helpful answer becomes regulated advice |
+| ✅ | `cx-regulated-advice-boundary` | Implied recommendations are the largest unrecognised category — and over-caution counts too |
+| ✅ | `cx-financial-promotions-audit` | Macros and footers are the highest-volume promotional content nobody reviews |
+| ✅ | `cx-fraud-and-scam-signal` | The only evidence a payment was a scam is in what the customer said |
+| ✅ | `cx-dispute-quality` | Two clocks, and process rejections separated from merit rejections |
+| ✅ | `cx-collections-conduct` | Whether disclosing difficulty made things better or worse |
 
 ---
 
 ## RevOps
 
-Nothing shipped here yet, and it is the largest genuine gap in the catalog. Support
-conversations are the densest source of churn, expansion and product-friction signal
-most companies own, and almost nobody routes it anywhere.
+Complete as scoped. Support conversations are the densest source of churn, expansion and
+product-friction signal most companies own; every skill here leads with the reason the
+obvious version of the analysis is wrong.
+
+### Revenue signal
 
 | | Skill | What it's for |
 | --- | --- | --- |
-| ▶︎ | `cx-churn-signal` | Cancellation and downgrade intent in conversations, and what precedes it |
-| ▶︎ | `cx-revenue-at-risk` | Quantifying the revenue sitting behind unresolved support failures |
-| ▶︎ | `cx-expansion-signal` | Upgrade, seat-growth and new-use-case signals agents hear and discard |
-| ▶︎ | `cx-support-to-revenue-handoff` | Routing a revenue signal out of support without turning agents into sellers |
-| ▶︎ | `cx-renewal-risk-review` | Account health from the cumulative support experience, not the last ticket |
-| ◻︎ | `cx-onboarding-friction` | Activation blockers visible in support before they show in retention |
-| ◻︎ | `cx-customer-health-score` | The support contribution to a health score, weighted honestly |
-| ◻︎ | `cx-win-loss-from-support` | Competitor mentions and switching language as win/loss input |
-| ◻︎ | `cx-pricing-objection-analysis` | Billing and pricing complaint patterns, separated from billing bugs |
-| ◻︎ | `cx-refund-and-goodwill-policy` | A decision framework for credits that is consistent and auditable |
-| ◻︎ | `cx-support-led-growth` | Where support can drive adoption without becoming a sales channel |
-| ◻︎ | `cx-account-escalation-protocol` | Executive escalations: intake, ownership, and the follow-through |
-| ◇ | `cx-cost-of-poor-quality` | Tying quality failures to churn and credits, with the causal caveats intact |
-| ◇ | `cx-nrr-attribution` | What share of net revenue retention support movement can honestly claim |
+| ✅ | `cx-churn-signal` | Coverage first: most churn never appears in support, and that bounds everything |
+| ✅ | `cx-expansion-signal` | Precision-first, plus the frustration test on limit signals |
+| ✅ | `cx-revenue-at-risk` | Exposure and risk are different quantities; uplift over matched accounts |
+| ✅ | `cx-win-loss-from-support` | Post-purchase, contact-conditioned — evidence about departure, not lost deals |
+| ✅ | `cx-customer-health-score` | Validate against an outcome before choosing weights |
+| ✅ | `cx-renewal-risk-review` | The cumulative record, including commitments made and not kept |
+| ✅ | `cx-nrr-attribution` | Mostly about what cannot honestly be claimed |
+
+### Commercial process
+
+| | Skill | What it's for |
+| --- | --- | --- |
+| ✅ | `cx-support-to-revenue-handoff` | Agents flag, agents do not sell — and closing the loop is what stops it decaying |
+| ✅ | `cx-onboarding-friction` | Activation blockers visible in support before retention shows them |
+| ✅ | `cx-pricing-objection-analysis` | Four problems arriving in the same words, split before counting |
+| ✅ | `cx-refund-and-goodwill-policy` | Owed versus goodwill, and authority set from the amount distribution |
+| ✅ | `cx-account-escalation-protocol` | Follow-through, not intake, is where executive escalations fail |
+| ✅ | `cx-support-led-growth` | Remove the reasons customers don't grow; don't promote |
+| ✅ | `cx-cost-of-poor-quality` | Rework is the defensible layer; the churn estimate goes last |
 
 ---
 
