@@ -1,6 +1,11 @@
-# CX Ops Skills
+# rulebase-skills
 
-Agent skills for customer service automation and CX operations.
+[![npm](https://img.shields.io/npm/v/rulebase-skills?color=cb3837&logo=npm)](https://www.npmjs.com/package/rulebase-skills)
+[![validate](https://github.com/rulebase-co/rulebase-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/rulebase-co/rulebase-skills/actions/workflows/validate.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+**149 agent skills for customer support and CX operations.** For Claude Code, Codex,
+Cursor, and anything else that reads [`SKILL.md`](https://skills.sh) files.
 
 CX metrics are full of numbers that are computed the easy way and mean nothing. These
 skills encode the difference: the containment rate that counts abandonment as a
@@ -12,34 +17,61 @@ Vendor-neutral by design, with no per-helpdesk exporters. Land your conversation
 [one canonical shape](skills/data-and-integration/cx-conversation-schema) and every
 analysis here runs against it.
 
-Built for [Claude Code](https://claude.com/claude-code), Cursor, Copilot, and any
-other agent that reads [`SKILL.md`](https://skills.sh) files.
-
-> **Private repository.** Installing requires a GitHub token with read access.
->
-> the `skills` CLI picks up `GITHUB_TOKEN`, `GH_TOKEN`, or your `gh auth token`
-> automatically.
+> **While this repository is private**, the `npx rulebase-skills` commands below cannot
+> reach it — `raw.githubusercontent.com` returns 404 without a token. Use
+> `npx skills add rulebase-co/rulebase-skills`, which picks up your `gh auth token`.
+> Delete this note when the repository goes public.
 
 ## Install
 
 ```bash
-npx skills add rulebase-co/skills
+npx rulebase-skills install cx-metric-movement-decomposition
 ```
 
-One skill at a time:
+Browse first:
 
 ```bash
-npx skills add rulebase-co/skills --skill cx-deflection-analysis
+npx rulebase-skills list
+npx rulebase-skills search churn
+npx rulebase-skills info cx-churn-signal
 ```
 
-Or use a skill once without installing it:
+A whole category, or everything:
 
 ```bash
-npx skills use rulebase-co/skills@cx-metric-movement-decomposition
+npx rulebase-skills install --category quality-assurance
+npx rulebase-skills install --all
 ```
 
-Skills install per-project by default and to `~/` with `-g`. Manual install works
-too: copy the directory into `~/.claude/skills/` or your agent's equivalent.
+Installs to `~/.claude/skills/` by default. Other targets:
+
+| Flag | Destination |
+| --- | --- |
+| `--claude` | `~/.claude/skills/` (default) |
+| `--codex` | `~/.codex/skills/` |
+| `--cursor` | `<project>/.cursor/skills/` |
+| `--project-dir <path>` | install into that project instead of your home directory |
+| `--dir <path>` | install straight into a directory, whatever the tool expects |
+
+`--dir` is the escape hatch: agent tools move their skill directories between versions,
+so nothing here depends on us guessing right.
+
+<details>
+<summary>Other ways in</summary>
+
+The [Vercel `skills` CLI](https://github.com/vercel-labs/skills) also works, and is the
+one to use while this repository is private because it can authenticate:
+
+```bash
+npx skills add rulebase-co/rulebase-skills
+npx skills add rulebase-co/rulebase-skills --skill cx-deflection-analysis
+npx skills use rulebase-co/rulebase-skills@cx-metric-movement-decomposition
+```
+
+Or copy any skill directory into `~/.claude/skills/` by hand. A skill is a directory with
+a `SKILL.md`; there is nothing else to it.
+
+</details>
 
 ## Catalog
 
@@ -308,7 +340,14 @@ give it. [ROADMAP.md](ROADMAP.md#claiming-something) says what makes one land qu
 Read [AGENTS.md](AGENTS.md). It's the authoring standard, and CI enforces most of it. [CONTRIBUTING.md](CONTRIBUTING.md) covers the workflow.
 
 ```bash
-npm run check   # validate the catalog (strict) and run the tests
+npm run check   # strict validation, index freshness, and the tests
+```
+
+If you add or remove a skill, regenerate the index and commit it — CI fails on a stale
+one, because the published CLI reads it:
+
+```bash
+npm run build:index
 ```
 
 ## Standard

@@ -19,6 +19,11 @@ jobs:
       - name: Validate skill catalog
         run: node scripts/validate-skills.mjs --strict
 
+      # The published CLI reads skills-index.json from this repo, so a stale
+      # index ships a catalog that does not match the skills.
+      - name: Check the skills index is current
+        run: node scripts/build-index.mjs --check
+
       - name: Syntax-check skill scripts
         run: |
           set -euo pipefail

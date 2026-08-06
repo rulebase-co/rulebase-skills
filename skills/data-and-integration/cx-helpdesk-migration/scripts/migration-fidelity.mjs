@@ -16,7 +16,7 @@
  *
  * No npm dependencies. Node 20+.
  *
- *   node scripts/migration-fidelity.mjs --source ./out/zendesk --target ./out/freshdesk
+ *   node scripts/migration-fidelity.mjs --source ./out/old-helpdesk --target ./out/new-helpdesk
  */
 
 import { createReadStream, existsSync, readFileSync } from 'node:fs';

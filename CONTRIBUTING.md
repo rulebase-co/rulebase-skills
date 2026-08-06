@@ -6,7 +6,7 @@ of it, and the parts it can't enforce are what make a skill worth installing.
 ## Workflow
 
 ```bash
-git clone https://github.com/rulebase-co/skills.git
+git clone https://github.com/rulebase-co/rulebase-skills.git
 cd skills
 npm run check      # validate (strict) + tests. No install step needed.
 ```

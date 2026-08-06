@@ -82,17 +82,16 @@ later is a failure.
 
 ## Step 3: export both sides in the canonical schema
 
-Use the platform export skills in this catalog. They emit the same
-`conversations.jsonl` / `messages.jsonl` shape, which is what makes a
-cross-platform diff possible at all — you are comparing like to like instead of
-Zendesk's model to Freshdesk's.
+Export each side into the shape defined by the `cx-conversation-schema` skill —
+`conversations.jsonl` and `messages.jsonl`, same field names, same enum vocabulary. This
+is what makes a cross-platform diff possible at all: you are comparing like to like
+rather than the old vendor's model to the new one's.
 
-```bash
-# before the migration
-npx skills add rulebase-co/skills --skill zendesk-export-conversations
-# after
-npx skills add rulebase-co/skills --skill freshdesk-export-conversations
-```
+Writing those two extractions is your job, and it is worth doing carefully, because a
+migration diff is only as trustworthy as the weaker of its two exports. In particular,
+**an export that silently truncates on one side will read as data loss in the
+migration** — so reconcile each export against its own source's counts before comparing
+them to each other, or you will spend the cutover chasing a phantom.
 
 Export the source **before** cutover and keep it. It is your only evidence of what
 should have arrived, and it doubles as the cold-storage archive from Step 1.
@@ -100,7 +99,7 @@ should have arrived, and it doubles as the cold-storage archive from Step 1.
 ## Step 4: verify fidelity
 
 ```bash
-node scripts/migration-fidelity.mjs --source ./out/zendesk --target ./out/freshdesk
+node scripts/migration-fidelity.mjs --source ./out/old-helpdesk --target ./out/new-helpdesk
 ```
 
 **Arguments**

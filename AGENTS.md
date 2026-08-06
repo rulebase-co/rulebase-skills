@@ -33,7 +33,7 @@ of what produced it.
 
 Three rules exist because breaking them silently degrades every skill downstream.
 
-**1. Skills install standalone.** `npx skills add rulebase-co/skills --skill <name>`
+**1. Skills install standalone.** `npx skills add rulebase-co/rulebase-skills --skill <name>`
 copies or symlinks *one directory*. A skill may only reference files inside its own
 directory. Never link to `../another-skill/`, never link to repo-root docs. If two
 skills need the same reference material, duplicate it. The validator enforces this.
