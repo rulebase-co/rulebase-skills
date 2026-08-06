@@ -3,7 +3,7 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "CX Operations \u2014 quality",
+      "title": "CX Operations — quality",
       "description": "Designing and validating support quality measurement, for text and voice.",
       "skills": [
         "cx-qa-scorecard-design",
@@ -13,7 +13,7 @@
       ]
     },
     {
-      "title": "CX Operations \u2014 analytics and planning",
+      "title": "CX Operations — analytics and planning",
       "description": "Measuring automation, understanding why customers contact, and staffing to meet demand.",
       "skills": [
         "cx-deflection-analysis",
@@ -23,7 +23,7 @@
       ]
     },
     {
-      "title": "CX Operations \u2014 reporting and diagnosis",
+      "title": "CX Operations — reporting and diagnosis",
       "description": "Turning one-off report requests into comparable series, and explaining why a metric moved without mistaking noise or a mix shift for performance.",
       "skills": [
         "cx-recurring-report-spec",
@@ -31,15 +31,16 @@
       ]
     },
     {
-      "title": "CX Operations \u2014 coaching and calibration",
+      "title": "CX Operations — coaching and calibration",
       "description": "Evidence an agent will accept as fair, and telling apart an ambiguous criterion from a grader who is simply harsher.",
       "skills": [
         "cx-agent-coaching-pack",
-        "cx-calibration-agreement"
+        "cx-calibration-agreement",
+        "cx-rubric-false-positive-audit"
       ]
     },
     {
-      "title": "CX Operations \u2014 service levels and backlog",
+      "title": "CX Operations — service levels and backlog",
       "description": "Modelling a response-time target before committing to it, and finding the conversations in a backlog that actually have someone waiting.",
       "skills": [
         "cx-sla-threshold-simulation",
@@ -47,7 +48,32 @@
       ]
     },
     {
-      "title": "CX Operations \u2014 data and compliance",
+      "title": "CX Operations — investigation and compliance",
+      "description": "Establishing what actually happened and whether what customers were told matches what the company intends.",
+      "skills": [
+        "cx-case-timeline",
+        "cx-policy-practice-divergence",
+        "cx-customer-identity-resolution"
+      ]
+    },
+    {
+      "title": "CX Operations — agent assist and AI safety",
+      "description": "Reviewing a reply before it is sent, and auditing a customer-facing bot for harm rather than for volume.",
+      "skills": [
+        "cx-reply-quality-coach",
+        "cx-bot-safety-audit"
+      ]
+    },
+    {
+      "title": "CX Operations — monitoring and process",
+      "description": "Turning a one-off search into a monitor that stays useful, and documenting performance to a standard that survives review.",
+      "skills": [
+        "cx-alert-monitor-spec",
+        "cx-performance-documentation"
+      ]
+    },
+    {
+      "title": "CX Operations — data and compliance",
       "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
       "skills": [
         "cx-conversation-schema",
@@ -76,7 +102,7 @@
     },
     {
       "title": "Freshworks",
-      "description": "Working with Freshdesk tickets and Freshchat conversations \u2014 two separate products with separate APIs, and two very different pagination traps.",
+      "description": "Working with Freshdesk tickets and Freshchat conversations — two separate products with separate APIs, and two very different pagination traps.",
       "skills": [
         "freshdesk-export-conversations",
         "freshchat-export-conversations"
@@ -98,7 +124,7 @@
     },
     {
       "title": "Gorgias",
-      "description": "Working with Gorgias tickets, which offer no time filter at all \u2014 incremental sync means a newest-first walk with an early stop.",
+      "description": "Working with Gorgias tickets, which offer no time filter at all — incremental sync means a newest-first walk with an early stop.",
       "skills": [
         "gorgias-export-conversations"
       ]

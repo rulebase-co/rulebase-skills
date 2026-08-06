@@ -73,6 +73,29 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | --- | --- |
 | [`cx-agent-coaching-pack`](skills/cx-ops/cx-agent-coaching-pack) | Coaching evidence the agent will agree is fair, which is the only kind that gets acted on. Leads with what `n` actually supports, excludes markdowns caused by things outside their control, and requires a counter-example of the behaviour done well. |
 | [`cx-calibration-agreement`](skills/cx-ops/cx-calibration-agreement) | Is the AI grading too harshly, or is the criterion ambiguous? Opposite fixes. Reports Cohen's κ *and* Gwet's AC1 because QA prevalence is extreme enough that the same data gives κ = −0.05 and AC1 = 0.89. Flags per-segment reliability gaps as a fairness finding. |
+| [`cx-rubric-false-positive-audit`](skills/cx-ops/cx-rubric-false-positive-audit) | "Too many false positives, make it more lenient" — global leniency adds false negatives on top of the false positives and diagnoses nothing. Classifies each misfire into five causes with five different fixes, and separates a missing exception from a request to lower the bar. |
+
+**Investigation and compliance**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-case-timeline`](skills/cx-ops/cx-case-timeline) | Reconstruct what happened to a customer across tickets, channels and handoffs for an escalation or complaint. A case is not a ticket. Orders by event time rather than record time — sorting on the wrong timestamp can reverse cause and effect — and marks every gap. |
+| [`cx-policy-practice-divergence`](skills/cx-ops/cx-policy-practice-divergence) | Does what agents tell customers match policy? Four outcomes, not two: the largest bucket is usually "policy silent", where six agents gave six reasonable answers because nothing is documented. Compares against the policy in force at the time, not today's. |
+| [`cx-customer-identity-resolution`](skills/cx-ops/cx-customer-identity-resolution) | Link a customer's conversations across channels so per-customer metrics mean anything. Merging two different people is far worse than missing a merge, so thresholds are precision-first — and `support@` shared inboxes are the biggest source of catastrophic merges. |
+
+**Agent assist and AI safety**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-reply-quality-coach`](skills/cx-ops/cx-reply-quality-coach) | "Can I say this?" Correctness first, commitments second, tone last — most tone feedback on a draft containing a factual error is wasted. Never approves an unverifiable claim, and won't critique phrasing in a language it can't assess. |
+| [`cx-bot-safety-audit`](skills/cx-ops/cx-bot-safety-audit) | Audits a support bot for harm rather than volume: manipulation attempts vs actual successes (two numbers, never collapsed), customers stranded after asking for a human, fabricated answers, and unsafe commitments in normal operation. |
+
+**Monitoring and process**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-alert-monitor-spec`](skills/cx-ops/cx-alert-monitor-spec) | Nearly every alert built from a one-off search is muted within a fortnight, because nobody forecast its volume — and the historical sweep that motivated it *is* the forecast. Covers precision targets, spike baselines with real seasonality, state, and a review date. |
+| [`cx-performance-documentation`](skills/cx-ops/cx-performance-documentation) | When QA data goes into an employment decision the standard changes. Five mandatory fairness controls, and the plain statement that at n=10 an agent scoring 78 and one scoring 92 are not distinguishable — which is the first thing an appeal will test. |
 
 **Service levels and backlog**
 
