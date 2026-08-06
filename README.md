@@ -4,7 +4,7 @@
 
 # Rulebase Skills
 
-**149 skills that make your AI agent good at customer support operations.** QA and
+**Supercharge your AI agent for customer support operations.** 149 skills across QA and
 calibration, complaints and conduct, churn and expansion signal, forecasting, coaching,
 and the data contract underneath it all.
 
