@@ -13,12 +13,16 @@ The catalog is organised by platform and by practice:
 
 ```
 skills/
-  cx-ops/       Vendor-neutral practice: QA, deflection, forecasting, taxonomy
-  zendesk/      Zendesk Support / Suite
-  intercom/     Intercom
-  freshdesk/    Freshworks (Freshdesk, Freshchat)
-  five9/        Five9 contact centre
-  rulebase/     Rulebase
+  cx-operations/         Demand, routing, backlog, cost, workforce, channels, reporting
+  quality-assurance/     Scorecards, calibration, coverage, AI-in-the-loop
+  compliance/            Complaints, erasure, PII, evidence
+  revops/                Churn, expansion and revenue signal (planned)
+  data-and-integration/  Canonical schema and migration fidelity
+  zendesk/               Zendesk Support / Suite
+  intercom/              Intercom
+  freshdesk/             Freshworks (Freshdesk, Freshchat)
+  five9/                 Five9 contact centre
+  rulebase/              Rulebase
 ```
 
 ## Non-negotiables

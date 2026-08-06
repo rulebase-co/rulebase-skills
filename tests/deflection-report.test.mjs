@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-deflection-analysis/scripts/deflection-report.mjs',
+  '../skills/cx-operations/cx-deflection-analysis/scripts/deflection-report.mjs',
 );
 
 function run(records, args = []) {

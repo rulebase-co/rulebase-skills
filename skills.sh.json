@@ -3,14 +3,82 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "CX Operations — quality",
-      "description": "Designing and validating support quality measurement — scorecards, calibration, sampling fairness, coverage economics, and programme maturity.",
+      "title": "CX operations",
+      "description": "Running the service: demand, routing, backlog, cost, workforce, channels and reporting.",
       "skills": [
-        "cx-qa-scorecard-design",
-        "cx-voice-qa",
+        "cx-contact-driver-taxonomy",
+        "cx-volume-forecasting",
+        "cx-shrinkage-and-adherence",
+        "cx-contact-spike-detection",
+        "cx-intraday-management",
+        "cx-seasonal-readiness",
+        "cx-arrival-pattern-analysis",
+        "cx-after-hours-coverage",
+        "cx-demand-driver-attribution",
+        "cx-routing-audit",
+        "cx-backlog-triage",
+        "cx-sla-threshold-simulation",
+        "cx-escalation-analysis",
+        "cx-first-contact-resolution",
+        "cx-handle-time-analysis",
+        "cx-queue-design",
+        "cx-transfer-protocol",
+        "cx-abandonment-analysis",
+        "cx-wip-limits",
+        "cx-flow-efficiency",
+        "cx-deflection-analysis",
         "cx-survey-design",
         "cx-satisfaction-export",
+        "cx-customer-identity-resolution",
+        "cx-channel-strategy",
+        "cx-self-service-funnel",
+        "cx-effort-score",
+        "cx-proactive-support",
+        "cx-incident-comms",
+        "cx-service-tiering",
+        "cx-accessibility-review",
+        "cx-journey-mapping",
+        "cx-cost-to-serve",
+        "cx-macro-audit",
+        "cx-tag-taxonomy-hygiene",
+        "cx-knowledge-base-audit",
+        "cx-knowledge-lifecycle",
+        "cx-article-effectiveness",
+        "cx-knowledge-from-conversations",
+        "cx-internal-vs-external-knowledge",
+        "cx-translation-workflow",
+        "cx-content-consolidation",
+        "cx-onboarding-ramp",
+        "cx-outsourcer-scorecard",
+        "cx-agent-coaching-pack",
+        "cx-performance-documentation",
+        "cx-skills-matrix",
+        "cx-incentive-design",
+        "cx-hiring-profile",
+        "cx-attrition-early-warning",
+        "cx-agent-experience-audit",
+        "cx-career-pathing",
+        "cx-team-topology",
+        "cx-recurring-report-spec",
+        "cx-metric-movement-decomposition",
         "cx-conversation-sampling",
+        "cx-alert-monitor-spec",
+        "cx-executive-reporting",
+        "cx-metric-definition-registry",
+        "cx-benchmark-methodology",
+        "cx-dashboard-review",
+        "cx-narrative-reporting"
+      ]
+    },
+    {
+      "title": "Quality assurance",
+      "description": "The instrument, coverage and validity, and AI in the loop.",
+      "skills": [
+        "cx-qa-scorecard-design",
+        "cx-calibration-agreement",
+        "cx-rubric-false-positive-audit",
+        "cx-voice-qa",
+        "cx-multilingual-quality",
         "cx-gold-set-management",
         "cx-scorecard-migration",
         "cx-auto-fail-governance",
@@ -21,70 +89,10 @@
         "cx-qa-sampling-fairness",
         "cx-outcome-validation",
         "cx-qa-coverage-economics",
-        "cx-reviewer-workload"
-      ]
-    },
-    {
-      "title": "CX Operations — analytics and planning",
-      "description": "Measuring automation, understanding why customers contact, and staffing to meet demand.",
-      "skills": [
-        "cx-deflection-analysis",
-        "cx-contact-driver-taxonomy",
-        "cx-volume-forecasting",
-        "cx-knowledge-base-audit",
-        "cx-intraday-management",
-        "cx-seasonal-readiness",
-        "cx-arrival-pattern-analysis",
-        "cx-after-hours-coverage",
-        "cx-demand-driver-attribution"
-      ]
-    },
-    {
-      "title": "CX Operations — reporting and diagnosis",
-      "description": "Turning one-off report requests into comparable series, and explaining why a metric moved without mistaking noise or a mix shift for performance.",
-      "skills": [
-        "cx-recurring-report-spec",
-        "cx-metric-movement-decomposition",
-        "cx-executive-reporting",
-        "cx-metric-definition-registry",
-        "cx-benchmark-methodology",
-        "cx-dashboard-review",
-        "cx-narrative-reporting"
-      ]
-    },
-    {
-      "title": "CX Operations — coaching and calibration",
-      "description": "Evidence an agent will accept as fair, and telling apart an ambiguous criterion from a grader who is simply harsher.",
-      "skills": [
-        "cx-agent-coaching-pack",
-        "cx-calibration-agreement",
-        "cx-rubric-false-positive-audit"
-      ]
-    },
-    {
-      "title": "CX Operations — service levels and backlog",
-      "description": "Modelling a response-time target before committing to it, and finding the conversations in a backlog that actually have someone waiting.",
-      "skills": [
-        "cx-sla-threshold-simulation",
-        "cx-backlog-triage"
-      ]
-    },
-    {
-      "title": "CX Operations — investigation and compliance",
-      "description": "Establishing what actually happened and whether what customers were told matches what the company intends.",
-      "skills": [
-        "cx-case-timeline",
-        "cx-policy-practice-divergence",
-        "cx-customer-identity-resolution"
-      ]
-    },
-    {
-      "title": "CX Operations — agent assist and AI safety",
-      "description": "Reviewing replies, validating AI graders and copilots, prompt change control, grounding, human-in-the-loop gates, and bounding agentic actions.",
-      "skills": [
-        "cx-reply-quality-coach",
-        "cx-bot-safety-audit",
+        "cx-reviewer-workload",
         "cx-ai-agent-evaluation",
+        "cx-bot-safety-audit",
+        "cx-reply-quality-coach",
         "cx-ai-grader-validation",
         "cx-agent-assist-evaluation",
         "cx-prompt-change-management",
@@ -96,85 +104,28 @@
       ]
     },
     {
-      "title": "CX Operations — monitoring and process",
-      "description": "Turning a one-off search into a monitor that stays useful, and documenting performance to a standard that survives review.",
+      "title": "Compliance",
+      "description": "Complaints, evidence, data protection, and proving the service met its obligations.",
       "skills": [
-        "cx-alert-monitor-spec",
-        "cx-performance-documentation"
+        "cx-complaint-classification",
+        "cx-policy-practice-divergence",
+        "cx-case-timeline",
+        "cx-erasure-plan",
+        "cx-pii-redaction-audit",
+        "cx-duplicate-detection"
       ]
     },
     {
-      "title": "CX Operations — operational metrics",
-      "description": "The metrics teams report every week, defined so they survive scrutiny: resolution, handle time, routing and escalation.",
-      "skills": [
-        "cx-first-contact-resolution",
-        "cx-handle-time-analysis",
-        "cx-routing-audit",
-        "cx-escalation-analysis",
-        "cx-queue-design",
-        "cx-transfer-protocol",
-        "cx-abandonment-analysis",
-        "cx-wip-limits",
-        "cx-flow-efficiency"
-      ]
+      "title": "RevOps",
+      "description": "Churn, expansion and revenue signal sitting in support. Nothing shipped here yet.",
+      "skills": []
     },
     {
-      "title": "CX Operations — channels and experience",
-      "description": "Choosing channels, measuring self-service and effort, and the playbooks for incidents, tiers and accessibility.",
-      "skills": [
-        "cx-channel-strategy",
-        "cx-self-service-funnel",
-        "cx-effort-score",
-        "cx-proactive-support",
-        "cx-incident-comms",
-        "cx-service-tiering",
-        "cx-accessibility-review",
-        "cx-journey-mapping"
-      ]
-    },
-    {
-      "title": "CX Operations — workforce and vendors",
-      "description": "Turning a forecast into a workable schedule, ramping new hires, and comparing outsourcers fairly.",
-      "skills": [
-        "cx-shrinkage-and-adherence",
-        "cx-onboarding-ramp",
-        "cx-outsourcer-scorecard",
-        "cx-multilingual-quality",
-        "cx-skills-matrix",
-        "cx-incentive-design",
-        "cx-hiring-profile",
-        "cx-attrition-early-warning",
-        "cx-agent-experience-audit",
-        "cx-career-pathing",
-        "cx-team-topology"
-      ]
-    },
-    {
-      "title": "CX Operations — cost, signal and content",
-      "description": "What support costs, spotting an incident in contact volume before monitoring does, and keeping macros and tags trustworthy.",
-      "skills": [
-        "cx-cost-to-serve",
-        "cx-contact-spike-detection",
-        "cx-macro-audit",
-        "cx-tag-taxonomy-hygiene",
-        "cx-knowledge-lifecycle",
-        "cx-article-effectiveness",
-        "cx-knowledge-from-conversations",
-        "cx-internal-vs-external-knowledge",
-        "cx-translation-workflow",
-        "cx-content-consolidation"
-      ]
-    },
-    {
-      "title": "CX Operations — data and compliance",
-      "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
+      "title": "Data and integration",
+      "description": "The canonical schema everything else is written against, and migration fidelity.",
       "skills": [
         "cx-conversation-schema",
-        "cx-helpdesk-migration",
-        "cx-complaint-classification",
-        "cx-duplicate-detection",
-        "cx-erasure-plan",
-        "cx-pii-redaction-audit"
+        "cx-helpdesk-migration"
       ]
     },
     {

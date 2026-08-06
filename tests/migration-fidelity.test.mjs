@@ -12,7 +12,7 @@ import { runScript, tempOut } from './helpers/mock-api.mjs';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-helpdesk-migration/scripts/migration-fidelity.mjs',
+  '../skills/data-and-integration/cx-helpdesk-migration/scripts/migration-fidelity.mjs',
 );
 
 const conversation = (id, createdAt, extra = {}) => ({

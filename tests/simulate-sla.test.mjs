@@ -17,7 +17,7 @@ import { runScript, tempOut } from './helpers/mock-api.mjs';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-sla-threshold-simulation/scripts/simulate-sla.mjs',
+  '../skills/cx-operations/cx-sla-threshold-simulation/scripts/simulate-sla.mjs',
 );
 
 function inputFile(records, name = 'clocks.jsonl') {

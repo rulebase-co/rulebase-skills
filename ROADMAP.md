@@ -255,7 +255,7 @@ most companies own, and almost nobody routes it anywhere.
 
 ## Platforms
 
-Every export emits the [canonical schema](skills/cx-ops/cx-conversation-schema), so
+Every export emits the [canonical schema](skills/data-and-integration/cx-conversation-schema), so
 a metric written once runs against all of them. Ten shipped.
 
 ### Shipped

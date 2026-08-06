@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { withMockApi, runScript, tempOut } from './helpers/mock-api.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const VALIDATOR = resolve(HERE, '../skills/cx-ops/cx-conversation-schema/scripts/validate-export.mjs');
+const VALIDATOR = resolve(HERE, '../skills/data-and-integration/cx-conversation-schema/scripts/validate-export.mjs');
 const ZENDESK = resolve(HERE, '../skills/zendesk/zendesk-export-conversations/scripts/export-conversations.mjs');
 const FRESHDESK = resolve(HERE, '../skills/freshdesk/freshdesk-export-conversations/scripts/export-conversations.mjs');
 const FIVE9 = resolve(HERE, '../skills/five9/five9-export-interactions/scripts/export-interactions.mjs');

@@ -13,7 +13,7 @@ import { runScript, tempOut } from './helpers/mock-api.mjs';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-survey-design/scripts/response-bias.mjs',
+  '../skills/cx-operations/cx-survey-design/scripts/response-bias.mjs',
 );
 
 function fixture(records) {
