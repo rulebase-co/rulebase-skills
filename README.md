@@ -50,6 +50,7 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-voice-qa`](skills/cx-ops/cx-voice-qa) | Grading calls means grading transcripts, and ASR errors aren't random — they track accent and audio quality, so unvalidated voice QA encodes a bias against certain agents. Which criteria a transcript can support, and which need audio. |
 | [`cx-survey-design`](skills/cx-ops/cx-survey-design) | CSAT, NPS and CES: which measures what, and why NPS after a support contact is the most common mis-specification in CX. Ships a response-bias diagnostic that tests whether your respondents resemble your contacts at all. |
 | [`cx-satisfaction-export`](skills/cx-ops/cx-satisfaction-export) | The CSAT data every conversation export leaves as `null`. Multi-platform, and normalises a score **only** where the platform fixes the scale — where the account configures it, you get the raw value and a distribution rather than a guess. |
+| [`cx-conversation-sampling`](skills/cx-ops/cx-conversation-sampling) | Every manual review is a sample, including the ones nobody calls one. Frame before size — a frame missing a channel can't support an org-wide claim however large the sample — plus weighting, and why a risk-weighted sample can never produce a population rate. |
 
 **Analytics and planning**
 
@@ -89,6 +90,7 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | --- | --- |
 | [`cx-reply-quality-coach`](skills/cx-ops/cx-reply-quality-coach) | "Can I say this?" Correctness first, commitments second, tone last — most tone feedback on a draft containing a factual error is wasted. Never approves an unverifiable claim, and won't critique phrasing in a language it can't assess. |
 | [`cx-bot-safety-audit`](skills/cx-ops/cx-bot-safety-audit) | Audits a support bot for harm rather than volume: manipulation attempts vs actual successes (two numbers, never collapsed), customers stranded after asking for a human, fabricated answers, and unsafe commitments in normal operation. |
+| [`cx-ai-agent-evaluation`](skills/cx-ops/cx-ai-agent-evaluation) | Support AI usually ships on vibes and breaks three weeks later on a prompt tweak nobody re-tested. A frozen eval set drawn from real traffic, graded on dimensions that fail independently, with the newly-failing cases — not the total — as the release decision. |
 
 **Monitoring and process**
 
@@ -104,6 +106,33 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-sla-threshold-simulation`](skills/cx-ops/cx-sla-threshold-simulation) | What would a 2-hour target have delivered? Counting past tickets that closed in 2 hours is too optimistic, because the ones still open are the slow ones. Handles censoring properly and is explicit that a target changes behaviour. |
 | [`cx-backlog-triage`](skills/cx-ops/cx-backlog-triage) | "How many open tickets" is the wrong question. Segments by who owes the next action, separates genuinely dropped requests from automated noise, and surfaces customers stranded with a bot who asked for a human — a segment no status view contains. |
 
+**Operational metrics**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-first-contact-resolution`](skills/cx-ops/cx-first-contact-resolution) | If the agent who handled the contact marks it resolved, the metric measures agent optimism and sits in the high eighties forever. Invert it: measure repeat contact and derive FCR. Includes the truncation everyone forgets, which always biases FCR upward. |
+| [`cx-handle-time-analysis`](skills/cx-ops/cx-handle-time-analysis) | The mean describes nobody on a distribution this skewed. Decomposes where time actually goes — queue, handling, hold, wrap, third-party wait — before anyone blames an agent, and insists on repeat contact alongside, since AHT is the most gameable metric in support. |
+| [`cx-routing-audit`](skills/cx-ops/cx-routing-audit) | Routing failures are invisible in every headline metric and expensive in all of them. Separates designed escalation from misroutes and ping-pong, and tracks catch-all share — the best health metric for a routing config, and one almost nobody tracks. |
+| [`cx-escalation-analysis`](skills/cx-ops/cx-escalation-analysis) | Six causes of escalation with six different remedies, end-to-end time measured from the customer's first contact rather than from the handoff, and the return-path gap: work finished in the back office with nobody telling the customer. |
+
+**Workforce and vendors**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-shrinkage-and-adherence`](skills/cx-ops/cx-shrinkage-and-adherence) | Most service-level misses aren't forecast errors — the plan lost the volume between "required" and "actually there at 10:15 on Monday". Shrinkage by interval rather than as an annual percentage, and the `N / (1 − s)` compounding people get backwards. |
+| [`cx-onboarding-ramp`](skills/cx-ops/cx-onboarding-ramp) | Time to proficiency, and the three biases that all make new hires look better than they are. The stall point in the curve is the actionable finding: a capability nobody taught. |
+| [`cx-outsourcer-scorecard`](skills/cx-ops/cx-outsourcer-scorecard) | The default finding of an unadjusted vendor comparison is "the site given the harder work performs worse". Mix adjustment, per-site grader agreement, and what changes when the numbers become contractual. |
+| [`cx-multilingual-quality`](skills/cx-ops/cx-multilingual-quality) | The measurement is usually weakest in exactly the languages that score worst, so a real gap and an artefact look identical. Never grade tone from a translation, and separate rubric fit — which produces a whole-market offset — from capability. |
+
+**Cost, signal and content**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-cost-to-serve`](skills/cx-ops/cx-cost-to-serve) | Cost per contact, built so it survives a challenge. Automation cases are usually overstated four ways — fixed costs don't fall, headcount is lumpy, bots take the cheap contacts, and deflection isn't avoidance. Separates realisable savings from capacity released. |
+| [`cx-contact-spike-detection`](skills/cx-ops/cx-contact-spike-detection) | Customers often notice a failure before monitoring does. Getting that signal needs a baseline that respects day-of-week and intraday seasonality, alerting on count and share together with a floor, and ruling out the backfill that's masquerading as a spike. |
+| [`cx-macro-audit`](skills/cx-ops/cx-macro-audit) | A wrong macro is the most efficient way an organisation has of being uniformly wrong — and per-agent QA passes it, because it's consistent. Audits the high-usage head first, and estimates how many customers each error already reached. |
+| [`cx-tag-taxonomy-hygiene`](skills/cx-ops/cx-tag-taxonomy-hygiene) | Untagged share bounds every report built on tags. Separates the four jobs one tag list is usually doing, and treats consolidation as history-rewriting: map rather than merge, and check concurrent lifetime to tell a true duplicate from a rename. |
+
 **Data and compliance**
 
 | Skill | What it's for |
@@ -113,6 +142,7 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-complaint-classification`](skills/cx-ops/cx-complaint-classification) | In regulated sectors a complaint is a definition, not a feeling, so sentiment-based detection systematically misses the calm customer stating a factual grievance. Layered detection tuned for recall, with the audit trail regulators ask for. |
 | [`cx-duplicate-detection`](skills/cx-ops/cx-duplicate-detection) | Find the same customer raising the same problem twice, and emit a reviewable merge plan. Candidates must share an identity — a wrong merge discloses one customer's data to another. |
 | [`cx-erasure-plan`](skills/cx-ops/cx-erasure-plan) | GDPR/CCPA erasure planning. Turns on two distinctions everyone gets wrong: requester vs merely-mentioned, and open vs closed. Also enumerates what helpdesk erasure does **not** cover — warehouse, backups, embedding stores. |
+| [`cx-pii-redaction-audit`](skills/cx-ops/cx-pii-redaction-audit) | The gate before support data moves anywhere. Measures how unsafe it still is rather than certifying it safe, checks the fields redaction always misses (HTML bodies, attachment filenames, voice digit strings, internal notes), and states plainly that redaction is not anonymisation. |
 
 ### Platform exports
 

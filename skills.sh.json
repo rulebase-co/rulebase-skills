@@ -9,7 +9,8 @@
         "cx-qa-scorecard-design",
         "cx-voice-qa",
         "cx-survey-design",
-        "cx-satisfaction-export"
+        "cx-satisfaction-export",
+        "cx-conversation-sampling"
       ]
     },
     {
@@ -61,7 +62,8 @@
       "description": "Reviewing a reply before it is sent, and auditing a customer-facing bot for harm rather than for volume.",
       "skills": [
         "cx-reply-quality-coach",
-        "cx-bot-safety-audit"
+        "cx-bot-safety-audit",
+        "cx-ai-agent-evaluation"
       ]
     },
     {
@@ -73,6 +75,36 @@
       ]
     },
     {
+      "title": "CX Operations — operational metrics",
+      "description": "The metrics teams report every week, defined so they survive scrutiny: resolution, handle time, routing and escalation.",
+      "skills": [
+        "cx-first-contact-resolution",
+        "cx-handle-time-analysis",
+        "cx-routing-audit",
+        "cx-escalation-analysis"
+      ]
+    },
+    {
+      "title": "CX Operations — workforce and vendors",
+      "description": "Turning a forecast into a workable schedule, ramping new hires, and comparing outsourcers fairly.",
+      "skills": [
+        "cx-shrinkage-and-adherence",
+        "cx-onboarding-ramp",
+        "cx-outsourcer-scorecard",
+        "cx-multilingual-quality"
+      ]
+    },
+    {
+      "title": "CX Operations — cost, signal and content",
+      "description": "What support costs, spotting an incident in contact volume before monitoring does, and keeping macros and tags trustworthy.",
+      "skills": [
+        "cx-cost-to-serve",
+        "cx-contact-spike-detection",
+        "cx-macro-audit",
+        "cx-tag-taxonomy-hygiene"
+      ]
+    },
+    {
       "title": "CX Operations — data and compliance",
       "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
       "skills": [
@@ -80,7 +112,8 @@
         "cx-helpdesk-migration",
         "cx-complaint-classification",
         "cx-duplicate-detection",
-        "cx-erasure-plan"
+        "cx-erasure-plan",
+        "cx-pii-redaction-audit"
       ]
     },
     {
