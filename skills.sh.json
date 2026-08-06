@@ -131,6 +131,19 @@
       ]
     },
     {
+      "title": "Compliance — complaints and conduct",
+      "description": "Regulated complaint clocks, root cause tracked to outcome rather than to sign-off, vulnerability signals, conduct risk, outcome evidence and redress consistency.",
+      "skills": [
+        "cx-complaints-sla",
+        "cx-complaint-root-cause",
+        "cx-vulnerability-detection",
+        "cx-conduct-risk-monitoring",
+        "cx-consumer-outcome-evidence",
+        "cx-redress-consistency",
+        "cx-emerging-harm-scan"
+      ]
+    },
+    {
       "title": "CX Operations — data and compliance",
       "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
       "skills": [
