@@ -303,20 +303,22 @@ journal, a bounded blast radius, or a stated reversibility — or that offers a
 
 ## Roadmap
 
-99 skills shipped, 78 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline — every
-planned skill, one line each, in roughly the order we'd build it.
+154 skills shipped, 23 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
+every planned skill, one line each, in roughly the order we'd build it.
+
+The catalog is organised around four things a CX organisation is accountable for:
 
 | Category | Shipped | Planned |
 | --- | --- | --- |
-| [CX operations](ROADMAP.md#cx-operations) — demand, routing, backlog, cost, workforce, channels | 26 | 36 |
-| [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 8 | 19 |
+| [CX operations](ROADMAP.md#cx-operations) — demand, routing, backlog, cost, workforce, channels | 62 | 0 |
+| [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 27 | 0 |
 | [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 32 | 0 |
 | [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 14 | 0 |
 | [Platforms](ROADMAP.md#platforms) — 10 helpdesks covered, 18 more outlined | 17 | 15 |
 | [Data and integration](ROADMAP.md#data-and-integration) — the schema everything is written against | 2 | 8 |
 
-**Compliance and RevOps are complete as scoped.** Both were the largest gaps when the
-roadmap was written — RevOps was empty, Compliance was 6 of 32.
+**All four practice categories are complete as scoped.** The remaining work is platform
+coverage and the data layer.
 
 Nearest-term platform work: **Kustomer**, **Zoho Desk**, **Dixa**, **Aircall** and **Jira
 Service Management** exporters, then the contact-centre tier (Talkdesk, Genesys Cloud,
