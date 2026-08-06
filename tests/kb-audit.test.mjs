@@ -14,7 +14,7 @@ import { runScript, tempOut } from './helpers/mock-api.mjs';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-knowledge-base-audit/scripts/audit-coverage.mjs',
+  '../skills/cx-operations/cx-knowledge-base-audit/scripts/audit-coverage.mjs',
 );
 
 const { tokenize, buildIdf, coverageScore } = await import(SCRIPT);

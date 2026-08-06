@@ -16,7 +16,7 @@ import { runScript, tempOut } from './helpers/mock-api.mjs';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-metric-movement-decomposition/scripts/decompose.mjs',
+  '../skills/cx-operations/cx-metric-movement-decomposition/scripts/decompose.mjs',
 );
 
 function inputFile(data, name = 'segments.json') {
