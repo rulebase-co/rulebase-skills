@@ -177,6 +177,13 @@
       ]
     },
     {
+      "title": "Help Scout",
+      "description": "Working with Help Scout Mailbox API v2, where the conversation list defaults to status=active and embedded threads are truncated by design.",
+      "skills": [
+        "helpscout-export-conversations"
+      ]
+    },
+    {
       "title": "Rulebase — getting connected",
       "description": "Getting access to Rulebase and wiring an AI client to it: accounts, data regions, the MCP server, and API keys.",
       "skills": [

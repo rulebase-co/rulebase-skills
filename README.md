@@ -174,6 +174,12 @@ they did not produce, live re-validation, an append-only audit log, a bounded
 | [`zendesk-apply-merges`](skills/zendesk/zendesk-apply-merges) | Applies a merge plan, re-validating every entry live first — because a ticket reassigned since detection could otherwise merge across customers. |
 | [`zendesk-apply-erasure`](skills/zendesk/zendesk-apply-erasure) | Applies an erasure plan. Refuses legal-hold and manual-review entries under any flag, refuses to delete a conversation the subject only appears in, and logs redaction *lengths* rather than values. |
 
+### Help Scout
+
+| Skill | What it's for |
+| --- | --- |
+| [`helpscout-export-conversations`](skills/helpscout/helpscout-export-conversations) | The conversation list defaults to `status=active`, so the obvious call silently omits every closed conversation — most of your history, with no error. And `embed=threads` truncates chat threads by design, so bodies have to come from the per-conversation endpoint. |
+
 ### Rulebase
 
 Start with `rulebase-setup` if Claude isn't connected to Rulebase yet.
