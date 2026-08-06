@@ -60,6 +60,27 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-volume-forecasting`](skills/cx-ops/cx-volume-forecasting) | Forecast contacts and staff to them. Ships an Erlang C / Little's Law calculator that reports which of its own assumptions your scenario violates — and treats occupancy as a constraint, not a number to maximise. |
 | [`cx-knowledge-base-audit`](skills/cx-ops/cx-knowledge-base-audit) | What are customers contacting you about that your KB doesn't cover? That gap is the containment ceiling for any AI agent grounded in it, so it's a prerequisite rather than a documentation chore. |
 
+**Reporting and diagnosis**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-recurring-report-spec`](skills/cx-ops/cx-recurring-report-spec) | The weekly report retyped as a long prompt every Monday isn't a series — each retype is a chance for a definition to shift, so nobody can tell whether the business moved or the definition did. Separates parameters that may vary from definitions that may not. |
+| [`cx-metric-movement-decomposition`](skills/cx-ops/cx-metric-movement-decomposition) | Why the score moved. Checks noise first (most movements people ask about aren't real), then splits the change exactly into rate, mix, and entrants/exits. Every segment can improve while the total falls — the worked example does exactly that. |
+
+**Coaching and calibration**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-agent-coaching-pack`](skills/cx-ops/cx-agent-coaching-pack) | Coaching evidence the agent will agree is fair, which is the only kind that gets acted on. Leads with what `n` actually supports, excludes markdowns caused by things outside their control, and requires a counter-example of the behaviour done well. |
+| [`cx-calibration-agreement`](skills/cx-ops/cx-calibration-agreement) | Is the AI grading too harshly, or is the criterion ambiguous? Opposite fixes. Reports Cohen's κ *and* Gwet's AC1 because QA prevalence is extreme enough that the same data gives κ = −0.05 and AC1 = 0.89. Flags per-segment reliability gaps as a fairness finding. |
+
+**Service levels and backlog**
+
+| Skill | What it's for |
+| --- | --- |
+| [`cx-sla-threshold-simulation`](skills/cx-ops/cx-sla-threshold-simulation) | What would a 2-hour target have delivered? Counting past tickets that closed in 2 hours is too optimistic, because the ones still open are the slow ones. Handles censoring properly and is explicit that a target changes behaviour. |
+| [`cx-backlog-triage`](skills/cx-ops/cx-backlog-triage) | "How many open tickets" is the wrong question. Segments by who owes the next action, separates genuinely dropped requests from automated noise, and surfaces customers stranded with a bot who asked for a human — a segment no status view contains. |
+
 **Data and compliance**
 
 | Skill | What it's for |

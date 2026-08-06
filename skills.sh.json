@@ -23,6 +23,30 @@
       ]
     },
     {
+      "title": "CX Operations \u2014 reporting and diagnosis",
+      "description": "Turning one-off report requests into comparable series, and explaining why a metric moved without mistaking noise or a mix shift for performance.",
+      "skills": [
+        "cx-recurring-report-spec",
+        "cx-metric-movement-decomposition"
+      ]
+    },
+    {
+      "title": "CX Operations \u2014 coaching and calibration",
+      "description": "Evidence an agent will accept as fair, and telling apart an ambiguous criterion from a grader who is simply harsher.",
+      "skills": [
+        "cx-agent-coaching-pack",
+        "cx-calibration-agreement"
+      ]
+    },
+    {
+      "title": "CX Operations \u2014 service levels and backlog",
+      "description": "Modelling a response-time target before committing to it, and finding the conversations in a backlog that actually have someone waiting.",
+      "skills": [
+        "cx-sla-threshold-simulation",
+        "cx-backlog-triage"
+      ]
+    },
+    {
       "title": "CX Operations \u2014 data and compliance",
       "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
       "skills": [
