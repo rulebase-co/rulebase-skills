@@ -7,12 +7,12 @@ cuts across all four.
 | Category | Shipped | Planned | What it covers |
 | --- | --- | --- | --- |
 | [CX operations](#cx-operations) | 62 | 0 | Running the service: demand, routing, backlog, cost, workforce, channels |
-| [Quality assurance](#quality-assurance) | 8 | 19 | Measuring and improving how well the work is done |
+| [Quality assurance](#quality-assurance) | 27 | 0 | Measuring and improving how well the work is done |
 | [Compliance](#compliance) | 6 | 26 | Proving the service met its obligations |
 | [RevOps](#revops) | 0 | 14 | The revenue consequences of support, and the signals support holds |
 | [Platforms](#platforms) | 17 | 15 | Getting the data out of, and into, the systems the work happens in |
 | [Data and integration](#data-and-integration) | 2 | 8 | The schema everything else is written against |
-| **Total** | **95** | **82** | |
+| **Total** | **114** | **63** | |
 
 RevOps is the largest genuine gap: support conversations are the densest source of
 churn, expansion and product-friction signal most companies own, and the catalog does
@@ -134,13 +134,13 @@ piece without duplicating work.
 | ✅ | `cx-rubric-false-positive-audit` | Five causes of a misfire, five different fixes |
 | ✅ | `cx-voice-qa` | What a transcript can support, and what needs audio |
 | ✅ | `cx-multilingual-quality` | The instrument is weakest where the scores are worst |
-| ▶︎ | `cx-gold-set-management` | Building, rotating and retiring calibration sets before they're memorised |
-| ▶︎ | `cx-scorecard-migration` | Changing the rubric without destroying the series |
-| ▶︎ | `cx-auto-fail-governance` | Auto-fails that are recorded and never actioned are a compliance finding |
-| ◻︎ | `cx-criterion-library` | A reusable bank of criteria written as observable decision rules |
-| ◻︎ | `cx-qa-appeal-process` | Dispute workflow, adjudication standards, second-level consistency |
-| ◻︎ | `cx-peer-review-design` | Peer and self-review programmes, and what they measure that audit doesn't |
-| ◻︎ | `cx-qa-program-maturity` | Assessing a QA programme end to end against what it's used for |
+| ✅ | `cx-gold-set-management` | Building, rotating and retiring calibration sets before they're memorised |
+| ✅ | `cx-scorecard-migration` | Changing the rubric without destroying the series |
+| ✅ | `cx-auto-fail-governance` | Auto-fails that are recorded and never actioned are a compliance finding |
+| ✅ | `cx-criterion-library` | A reusable bank of criteria written as observable decision rules |
+| ✅ | `cx-qa-appeal-process` | Dispute workflow, adjudication standards, second-level consistency |
+| ✅ | `cx-peer-review-design` | Peer and self-review programmes, and what they measure that audit doesn't |
+| ✅ | `cx-qa-program-maturity` | Assessing a QA programme end to end against what it's used for |
 
 ### Coverage and validity
 
@@ -149,10 +149,10 @@ Rulebase because it operates that product's MCP server.
 
 | | Skill | What it's for |
 | --- | --- | --- |
-| ▶︎ | `cx-qa-sampling-fairness` | Equalising by agent rather than by ticket, and detecting sampler drift |
-| ▶︎ | `cx-outcome-validation` | Whether the QA score predicts anything the business cares about |
-| ◻︎ | `cx-qa-coverage-economics` | How much QA to buy, given what the scores are used for |
-| ◻︎ | `cx-reviewer-workload` | Reviewer capacity, fatigue effects, and drift over a shift |
+| ✅ | `cx-qa-sampling-fairness` | Equalising by agent rather than by ticket, and detecting sampler drift |
+| ✅ | `cx-outcome-validation` | Whether the QA score predicts anything the business cares about |
+| ✅ | `cx-qa-coverage-economics` | How much QA to buy, given what the scores are used for |
+| ✅ | `cx-reviewer-workload` | Reviewer capacity, fatigue effects, and drift over a shift |
 
 ### AI in the loop
 
@@ -161,14 +161,14 @@ Rulebase because it operates that product's MCP server.
 | ✅ | `cx-ai-agent-evaluation` | A frozen eval set, and newly-failing cases as the release decision |
 | ✅ | `cx-bot-safety-audit` | Attempts and successes as two numbers |
 | ✅ | `cx-reply-quality-coach` | Correctness, then commitments, then tone |
-| ▶︎ | `cx-ai-grader-validation` | Validating an AI grader against humans per segment before trusting it |
-| ▶︎ | `cx-agent-assist-evaluation` | Measuring a copilot: acceptance rate is not value |
-| ▶︎ | `cx-prompt-change-management` | Versioning, staging and rollback for prompts in production |
-| ◻︎ | `cx-bot-knowledge-grounding` | Retrieval quality as the ceiling on answer quality |
-| ◻︎ | `cx-human-in-the-loop-design` | Where the approval gate goes, and what it costs to put it there |
-| ◻︎ | `cx-agentic-action-safety` | Bounding what an AI agent may do to a customer's record |
-| ◻︎ | `cx-synthetic-conversation-generation` | Test data that doesn't put production PII in a fixture |
-| ◇ | `cx-model-cost-management` | Cost per resolution, and where the tokens actually go |
+| ✅ | `cx-ai-grader-validation` | Validating an AI grader against humans per segment before trusting it |
+| ✅ | `cx-agent-assist-evaluation` | Measuring a copilot: acceptance rate is not value |
+| ✅ | `cx-prompt-change-management` | Versioning, staging and rollback for prompts in production |
+| ✅ | `cx-bot-knowledge-grounding` | Retrieval quality as the ceiling on answer quality |
+| ✅ | `cx-human-in-the-loop-design` | Where the approval gate goes, and what it costs to put it there |
+| ✅ | `cx-agentic-action-safety` | Bounding what an AI agent may do to a customer's record |
+| ✅ | `cx-synthetic-conversation-generation` | Test data that doesn't put production PII in a fixture |
+| ✅ | `cx-model-cost-management` | Cost per resolution, and where the tokens actually go |
 
 ---
 
