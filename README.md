@@ -204,11 +204,11 @@ invented industry benchmarks.
 
 **One schema across every platform.** All exports emit the same
 `conversations.jsonl` / `messages.jsonl` shape with the same enum vocabulary, so a
-metric is written once and runs against any of the nine supported platforms. The
+metric is written once and runs against any of the ten supported platforms. The
 vendor-specific knowledge stays in the export step. CI proves it: each exporter's
 real output is fed through the schema validator on every commit.
 
-**Scripts are tested against the failure paths.** 249 tests cover cursor and
+**Scripts are tested against the failure paths.** 329 tests cover cursor and
 watermark pagination, adaptive rate limiting, checkpoint/resume, RFC 4180 CSV
 edge cases, malformed input, silent-truncation detection, and Erlang C verified
 against an independent implementation — the paths that break
@@ -233,23 +233,33 @@ journal, a bounded blast radius, or a stated reversibility — or that offers a
 
 ## Roadmap
 
-Next platforms:
+59 skills shipped, 118 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
+every planned skill, one line each, in roughly the order we'd build it.
 
-- **Kustomer**, **Help Scout**, **Dixa**, **Zoho Desk**
-- **Genesys Cloud**, **Amazon Connect**, **Talkdesk**, **NICE CXone** — contact
-  centre, plus recording and transcript retrieval
-- **Sierra**, **Decagon**, **Ada** — AI agent platforms, for containment data
+The catalog is organised around four things a CX organisation is accountable for:
 
-Further practice skills:
+| Category | Shipped | Planned |
+| --- | --- | --- |
+| [CX operations](ROADMAP.md#cx-operations) — demand, routing, backlog, cost, workforce, channels | 26 | 36 |
+| [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 8 | 19 |
+| [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 6 | 26 |
+| [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 0 | 14 |
+| [Platforms](ROADMAP.md#platforms) — 10 helpdesks covered, 18 more outlined | 17 | 15 |
+| [Data and integration](ROADMAP.md#data-and-integration) — the schema everything is written against | 2 | 8 |
 
-- Knowledge base health and coverage against actual contact drivers
-- Agent onboarding ramp measurement
-- Workforce scheduling from a forecast (the step after `cx-volume-forecasting`)
-- Intraday real-time management
-- Outsourcer/BPO performance measurement and contract metrics
-- Vulnerable customer identification and handling
+**RevOps is the largest gap.** Support conversations are the densest source of churn,
+expansion and product-friction signal most companies own, and nothing in the catalog
+touches it yet — `cx-churn-signal`, `cx-revenue-at-risk` and
+`cx-support-to-revenue-handoff` are the first three.
 
-Contributions in any of these are welcome. Nominate a platform by opening an issue.
+Nearest-term platform work: **Kustomer**, **Zoho Desk**, **Dixa**, **Aircall** and
+**Jira Service Management** exporters, then the contact-centre tier (Talkdesk,
+Genesys Cloud, Amazon Connect, NICE CXone) where recordings and transcripts matter
+more than tickets.
+
+Claiming something is welcome — open an issue naming the skill and the shape you plan
+to give it. [ROADMAP.md](ROADMAP.md#claiming-something) says what makes one land
+quickly.
 
 ## Contributing
 
