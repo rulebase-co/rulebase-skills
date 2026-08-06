@@ -6,13 +6,13 @@ cuts across all four.
 
 | Category | Shipped | Planned | What it covers |
 | --- | --- | --- | --- |
-| [CX operations](#cx-operations) | 26 | 36 | Running the service: demand, routing, backlog, cost, workforce, channels |
+| [CX operations](#cx-operations) | 62 | 0 | Running the service: demand, routing, backlog, cost, workforce, channels |
 | [Quality assurance](#quality-assurance) | 8 | 19 | Measuring and improving how well the work is done |
 | [Compliance](#compliance) | 6 | 26 | Proving the service met its obligations |
 | [RevOps](#revops) | 0 | 14 | The revenue consequences of support, and the signals support holds |
 | [Platforms](#platforms) | 17 | 15 | Getting the data out of, and into, the systems the work happens in |
 | [Data and integration](#data-and-integration) | 2 | 8 | The schema everything else is written against |
-| **Total** | **59** | **118** | |
+| **Total** | **95** | **82** | |
 
 RevOps is the largest genuine gap: support conversations are the densest source of
 churn, expansion and product-friction signal most companies own, and the catalog does
@@ -37,11 +37,11 @@ piece without duplicating work.
 | ✅ | `cx-volume-forecasting` | Forecast contacts and staff to them, with Erlang C |
 | ✅ | `cx-shrinkage-and-adherence` | The gap between "required" and "actually there at 10:15" |
 | ✅ | `cx-contact-spike-detection` | An incident signal from contact volume, with real seasonality |
-| ▶︎ | `cx-intraday-management` | Real-time reforecasting and the intraday decisions that actually recover a day |
-| ▶︎ | `cx-seasonal-readiness` | Peak-season planning: what to freeze, what to pre-stage, what to measure daily |
-| ◻︎ | `cx-arrival-pattern-analysis` | Arrival distributions, and when the Poisson assumption behind your staffing model fails |
-| ◻︎ | `cx-after-hours-coverage` | Follow-the-sun and overnight design, and the handoff quality it depends on |
-| ◇ | `cx-demand-driver-attribution` | Tying contact volume to product releases, campaigns and billing events |
+| ✅ | `cx-intraday-management` | Real-time reforecasting and the intraday decisions that actually recover a day |
+| ✅ | `cx-seasonal-readiness` | Peak-season planning: what to freeze, what to pre-stage, what to measure daily |
+| ✅ | `cx-arrival-pattern-analysis` | Arrival distributions, and when the Poisson assumption behind your staffing model fails |
+| ✅ | `cx-after-hours-coverage` | Follow-the-sun and overnight design, and the handoff quality it depends on |
+| ✅ | `cx-demand-driver-attribution` | Tying contact volume to product releases, campaigns and billing events |
 
 ### Routing, backlog and flow
 
@@ -53,11 +53,11 @@ piece without duplicating work.
 | ✅ | `cx-escalation-analysis` | Six causes of escalation, and the return-path gap |
 | ✅ | `cx-first-contact-resolution` | Repeat contact measured properly, FCR derived from it |
 | ✅ | `cx-handle-time-analysis` | Where the time goes, before anyone blames a person |
-| ▶︎ | `cx-queue-design` | Designing the queue and skill taxonomy the routing rules depend on |
-| ▶︎ | `cx-transfer-protocol` | Handoff standards, and measuring whether context survives a transfer |
-| ◻︎ | `cx-abandonment-analysis` | Chat and call abandonment, queue patience, and what a high FCR may be hiding |
-| ◻︎ | `cx-wip-limits` | Concurrency and work-in-progress limits, and their quality cost |
-| ◇ | `cx-flow-efficiency` | Touch time versus elapsed time across the whole resolution path |
+| ✅ | `cx-queue-design` | Designing the queue and skill taxonomy the routing rules depend on |
+| ✅ | `cx-transfer-protocol` | Handoff standards, and measuring whether context survives a transfer |
+| ✅ | `cx-abandonment-analysis` | Chat and call abandonment, queue patience, and what a high FCR may be hiding |
+| ✅ | `cx-wip-limits` | Concurrency and work-in-progress limits, and their quality cost |
+| ✅ | `cx-flow-efficiency` | Touch time versus elapsed time across the whole resolution path |
 
 ### Channels and customer experience
 
@@ -67,14 +67,14 @@ piece without duplicating work.
 | ✅ | `cx-survey-design` | CSAT, NPS, CES — which measures what |
 | ✅ | `cx-satisfaction-export` | The CSAT data every export leaves null |
 | ✅ | `cx-customer-identity-resolution` | Linking a customer across channels, precision-first |
-| ▶︎ | `cx-channel-strategy` | Which channels to offer, and the accessibility/cost trade-off nobody states |
-| ▶︎ | `cx-self-service-funnel` | Search → article → contact, as a funnel with drop-off you can act on |
-| ▶︎ | `cx-effort-score` | Customer effort measured from behaviour rather than from a survey question |
-| ◻︎ | `cx-proactive-support` | Designing and measuring outbound contact that prevents inbound |
-| ◻︎ | `cx-incident-comms` | Support's playbook during an outage: banners, macros, status page, volume plan |
-| ◻︎ | `cx-service-tiering` | VIP and tier design, and whether the tiering is doing anything |
-| ◻︎ | `cx-accessibility-review` | Whether your support is reachable by customers with access needs |
-| ◇ | `cx-journey-mapping` | Support contact mapped onto the product lifecycle |
+| ✅ | `cx-channel-strategy` | Which channels to offer, and the accessibility/cost trade-off nobody states |
+| ✅ | `cx-self-service-funnel` | Search → article → contact, as a funnel with drop-off you can act on |
+| ✅ | `cx-effort-score` | Customer effort measured from behaviour rather than from a survey question |
+| ✅ | `cx-proactive-support` | Designing and measuring outbound contact that prevents inbound |
+| ✅ | `cx-incident-comms` | Support's playbook during an outage: banners, macros, status page, volume plan |
+| ✅ | `cx-service-tiering` | VIP and tier design, and whether the tiering is doing anything |
+| ✅ | `cx-accessibility-review` | Whether your support is reachable by customers with access needs |
+| ✅ | `cx-journey-mapping` | Support contact mapped onto the product lifecycle |
 
 ### Cost and content
 
@@ -84,12 +84,12 @@ piece without duplicating work.
 | ✅ | `cx-macro-audit` | A wrong macro is the most efficient way to be uniformly wrong |
 | ✅ | `cx-tag-taxonomy-hygiene` | Untagged share bounds every report built on tags |
 | ✅ | `cx-knowledge-base-audit` | Coverage against what customers actually contact about |
-| ▶︎ | `cx-knowledge-lifecycle` | Ownership, review cadence and deprecation for support content |
-| ▶︎ | `cx-article-effectiveness` | Which articles resolve, versus which are merely read |
-| ▶︎ | `cx-knowledge-from-conversations` | Mining resolved conversations into the article that was missing |
-| ◻︎ | `cx-internal-vs-external-knowledge` | What belongs in the help centre and what belongs in the internal wiki |
-| ◻︎ | `cx-translation-workflow` | Keeping localised content current when the source changes |
-| ◻︎ | `cx-content-consolidation` | Merging overlapping articles without breaking search or links |
+| ✅ | `cx-knowledge-lifecycle` | Ownership, review cadence and deprecation for support content |
+| ✅ | `cx-article-effectiveness` | Which articles resolve, versus which are merely read |
+| ✅ | `cx-knowledge-from-conversations` | Mining resolved conversations into the article that was missing |
+| ✅ | `cx-internal-vs-external-knowledge` | What belongs in the help centre and what belongs in the internal wiki |
+| ✅ | `cx-translation-workflow` | Keeping localised content current when the source changes |
+| ✅ | `cx-content-consolidation` | Merging overlapping articles without breaking search or links |
 
 ### Workforce
 
@@ -99,13 +99,13 @@ piece without duplicating work.
 | ✅ | `cx-outsourcer-scorecard` | Comparing vendors fairly, before the vendor does it for you |
 | ✅ | `cx-agent-coaching-pack` | Evidence an agent will accept as fair |
 | ✅ | `cx-performance-documentation` | The stricter standard an employment decision needs |
-| ▶︎ | `cx-skills-matrix` | Capability mapping, and multi-skilling plans that account for its cost |
-| ▶︎ | `cx-incentive-design` | What happens to a metric once pay is attached to it |
-| ◻︎ | `cx-hiring-profile` | What actually predicts support performance, and what people screen for instead |
-| ◻︎ | `cx-attrition-early-warning` | Attrition risk from operational signal, ethically bounded |
-| ◻︎ | `cx-agent-experience-audit` | Agent-side friction: tooling, permissions, dead ends |
-| ◻︎ | `cx-career-pathing` | Progression frameworks for a support org |
-| ◇ | `cx-team-topology` | How to split a growing support team, and when |
+| ✅ | `cx-skills-matrix` | Capability mapping, and multi-skilling plans that account for its cost |
+| ✅ | `cx-incentive-design` | What happens to a metric once pay is attached to it |
+| ✅ | `cx-hiring-profile` | What actually predicts support performance, and what people screen for instead |
+| ✅ | `cx-attrition-early-warning` | Attrition risk from operational signal, ethically bounded |
+| ✅ | `cx-agent-experience-audit` | Agent-side friction: tooling, permissions, dead ends |
+| ✅ | `cx-career-pathing` | Progression frameworks for a support org |
+| ✅ | `cx-team-topology` | How to split a growing support team, and when |
 
 ### Reporting
 
@@ -115,11 +115,11 @@ piece without duplicating work.
 | ✅ | `cx-metric-movement-decomposition` | Noise first, then rate versus mix versus composition |
 | ✅ | `cx-conversation-sampling` | Frame before size |
 | ✅ | `cx-alert-monitor-spec` | The volume forecast that decides whether an alert survives |
-| ▶︎ | `cx-executive-reporting` | The three numbers a board actually needs, and why the dashboard has forty |
-| ▶︎ | `cx-metric-definition-registry` | One definition per metric, versioned, with the owner named |
-| ◻︎ | `cx-benchmark-methodology` | How to compare yourself to a published benchmark honestly — usually, you can't |
-| ◻︎ | `cx-dashboard-review` | Auditing a dashboard for metrics nobody acts on and definitions nobody agrees with |
-| ◇ | `cx-narrative-reporting` | Writing the commentary that makes a number decision-ready |
+| ✅ | `cx-executive-reporting` | The three numbers a board actually needs, and why the dashboard has forty |
+| ✅ | `cx-metric-definition-registry` | One definition per metric, versioned, with the owner named |
+| ✅ | `cx-benchmark-methodology` | How to compare yourself to a published benchmark honestly — usually, you can't |
+| ✅ | `cx-dashboard-review` | Auditing a dashboard for metrics nobody acts on and definitions nobody agrees with |
+| ✅ | `cx-narrative-reporting` | Writing the commentary that makes a number decision-ready |
 
 ---
 
