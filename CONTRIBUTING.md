@@ -1,6 +1,6 @@
 # Contributing
 
-The authoring standard is [AGENTS.md](AGENTS.md). Read it first — CI enforces most
+The authoring standard is [AGENTS.md](AGENTS.md). Read it first, since CI enforces most
 of it, and the parts it can't enforce are what make a skill worth installing.
 
 ## Workflow
@@ -37,7 +37,7 @@ If you can't state that sentence, the skill isn't ready.
 ## Rules that get PRs sent back
 
 **Unverified numbers.** Every rate limit, cap, statistical threshold, and industry
-figure needs a source or a computation. No invented benchmarks — one made-up
+figure needs a source or a computation. No invented benchmarks: one made-up
 statistic makes the whole catalog untrustworthy.
 
 **Cross-skill references.** Skills install standalone, so a link to
@@ -58,7 +58,7 @@ history, in `ps`, and in agent transcripts.
 `references/`, which loads only when needed.
 
 **Untested scripts.** Anything in `scripts/` needs coverage in `tests/` for its
-failure paths — pagination, retries, resume, malformed input. Happy-path-only
+failure paths: pagination, retries, resume, malformed input. Happy-path-only
 scripts break in production.
 
 ## Testing that a skill triggers
@@ -66,7 +66,7 @@ scripts break in production.
 The most common failure is a well-written skill that never loads.
 
 In a fresh session with the skill installed, describe your problem the way a real
-user would — **not** using the skill's name:
+user would, **not** using the skill's name:
 
 > "our containment rate says 70% but ticket volume hasn't moved"
 
@@ -92,14 +92,14 @@ If you have a case that clears it, find the answers to these before writing:
   fail? This is the core of the skill.
 - **The right endpoint**, with pagination style and page size.
 - **Rate limits**, including any endpoint-specific limit that differs from the account
-  limit, plus the 429 contract — and note that not every vendor uses `Retry-After`.
+  limit, plus the 429 contract, and note that not every vendor uses `Retry-After`.
 - **Resumability**: what is checkpointable.
 - **Silent gaps**: deleted, archived, redacted, or merged records; anything the API
   returns that the UI doesn't, or vice versa.
 - **Canonical output**, so the analyses can consume it.
 
 **Every limit needs a vendor doc URL next to it.** If the vendor's own documentation
-says a figure is plan-dependent, say that rather than picking a number — an unverified
+says a figure is plan-dependent, say that rather than picking a number. An unverified
 limit is the fastest way to make the catalog untrustworthy. Verify against the vendor's
 docs, and if you have sandbox access, run the script against it and say so in the PR.
 
@@ -107,6 +107,6 @@ docs, and if you have sandbox access, run the script against it and say so in th
 
 Write for someone competent who hasn't hit this specific problem yet. State the
 constraint, then the fix. Skip the encouragement, and don't hedge conclusions you
-can support — but do state limits plainly where they exist.
+can support, but do state limits plainly where they exist.
 
 Use British or American spelling consistently within a file.

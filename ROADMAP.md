@@ -1,7 +1,7 @@
 # Roadmap
 
 The catalog is organised around four things a CX organisation is accountable for.
-Every skill — shipped or planned — belongs to exactly one.
+Every skill, shipped or planned, belongs to exactly one.
 
 | Category | Shipped | Planned | What it covers |
 | --- | --- | --- | --- |
@@ -14,15 +14,15 @@ Every skill — shipped or planned — belongs to exactly one.
 | **Total** | **149** | **5** | |
 
 **All four practice categories and the data layer are complete as scoped.** The catalog is
-vendor-neutral by design — see [why there are no helpdesk
-exporters](#why-there-are-no-helpdesk-exporters) — so the only outstanding work is the
+vendor-neutral by design (see [why there are no helpdesk
+exporters](#why-there-are-no-helpdesk-exporters)), so the only outstanding work is the
 Rulebase corner.
 
 Legend: **✅ shipped** · **▶︎ next** (well-understood, ready to write) · **◻︎ planned**
 (scoped, needs research) · **◇ exploratory** (may not survive contact with reality)
 
 The ordering inside each table is roughly the order we'd build in. Nothing here is
-a commitment — it is the outline, so gaps are visible and contributors can claim a
+a commitment. It is the outline, so gaps are visible and contributors can claim a
 piece without duplicating work.
 
 ---
@@ -64,7 +64,7 @@ piece without duplicating work.
 | | Skill | What it's for |
 | --- | --- | --- |
 | ✅ | `cx-deflection-analysis` | Whether a bot actually reduces volume |
-| ✅ | `cx-survey-design` | CSAT, NPS, CES — which measures what |
+| ✅ | `cx-survey-design` | CSAT, NPS, CES, and which measures what |
 | ✅ | `cx-satisfaction-export` | The CSAT data every export leaves null |
 | ✅ | `cx-customer-identity-resolution` | Linking a customer across channels, precision-first |
 | ✅ | `cx-channel-strategy` | Which channels to offer, and the accessibility/cost trade-off nobody states |
@@ -117,7 +117,7 @@ piece without duplicating work.
 | ✅ | `cx-alert-monitor-spec` | The volume forecast that decides whether an alert survives |
 | ✅ | `cx-executive-reporting` | The three numbers a board actually needs, and why the dashboard has forty |
 | ✅ | `cx-metric-definition-registry` | One definition per metric, versioned, with the owner named |
-| ✅ | `cx-benchmark-methodology` | How to compare yourself to a published benchmark honestly — usually, you can't |
+| ✅ | `cx-benchmark-methodology` | How to compare yourself to a published benchmark honestly. Usually you can't |
 | ✅ | `cx-dashboard-review` | Auditing a dashboard for metrics nobody acts on and definitions nobody agrees with |
 | ✅ | `cx-narrative-reporting` | Writing the commentary that makes a number decision-ready |
 
@@ -177,17 +177,17 @@ Rulebase because it operates that product's MCP server.
 Complete as scoped. The design decision running through all of these: they produce
 **evidence** and explicitly do not make the determination. Reportability, whether a duty
 applies, whether remediation is required, and where a regulatory line sits are compliance
-and legal calls, not analytical outputs — and none of these skills states a jurisdictional
+and legal calls, not analytical outputs, and none of these skills states a jurisdictional
 requirement.
 
 ### Complaints and conduct
 
 | | Skill | What it's for |
 | --- | --- | --- |
-| ✅ | `cx-complaint-classification` | What counts as a regulated complaint — the definition is the work |
+| ✅ | `cx-complaint-classification` | What counts as a regulated complaint: the definition is the work |
 | ✅ | `cx-complaints-sla` | Deadline clocks with no hard-coded deadlines; ships the business-day arithmetic |
-| ✅ | `cx-complaint-root-cause` | "Action completed" is not "cause removed" — tracks both |
-| ✅ | `cx-vulnerability-detection` | Was a signal present and acted on — never "is this customer vulnerable" |
+| ✅ | `cx-complaint-root-cause` | "Action completed" is not "cause removed", and this tracks both |
+| ✅ | `cx-vulnerability-detection` | Was a signal present and acted on, never "is this customer vulnerable" |
 | ✅ | `cx-conduct-risk-monitoring` | Structural signals beat keyword lists; check the incentive first |
 | ✅ | `cx-policy-practice-divergence` | Four outcomes, and "policy silent" is usually the largest |
 | ✅ | `cx-consumer-outcome-evidence` | Built for negative assurance rather than averages |
@@ -201,7 +201,7 @@ requirement.
 | ✅ | `cx-case-timeline` | What happened, ordered by event time, with the gaps marked |
 | ✅ | `cx-regulatory-reporting-pack` | Reproducible by a stranger; disclose your own gaps first |
 | ✅ | `cx-audit-trail-integrity` | Whether the chain from conversation to decision can be walked backwards |
-| ✅ | `cx-quality-attestation` | State the claim precisely — the limitations section is the value |
+| ✅ | `cx-quality-attestation` | State the claim precisely: the limitations section is the value |
 | ✅ | `cx-control-testing` | Build the population independently of the control's own log |
 | ✅ | `cx-record-retention-audit` | Over-retention and premature deletion, which is often the worse one |
 | ✅ | `cx-third-party-risk` | Test the vendor against the work, not the questionnaire |
@@ -226,7 +226,7 @@ requirement.
 
 | | Skill | What it's for |
 | --- | --- | --- |
-| ✅ | `cx-regulated-advice-boundary` | Implied recommendations are the largest unrecognised category — and over-caution counts too |
+| ✅ | `cx-regulated-advice-boundary` | Implied recommendations are the largest unrecognised category, and over-caution counts too |
 | ✅ | `cx-financial-promotions-audit` | Macros and footers are the highest-volume promotional content nobody reviews |
 | ✅ | `cx-fraud-and-scam-signal` | The only evidence a payment was a scam is in what the customer said |
 | ✅ | `cx-dispute-quality` | Two clocks, and process rejections separated from merit rejections |
@@ -247,7 +247,7 @@ obvious version of the analysis is wrong.
 | ✅ | `cx-churn-signal` | Coverage first: most churn never appears in support, and that bounds everything |
 | ✅ | `cx-expansion-signal` | Precision-first, plus the frustration test on limit signals |
 | ✅ | `cx-revenue-at-risk` | Exposure and risk are different quantities; uplift over matched accounts |
-| ✅ | `cx-win-loss-from-support` | Post-purchase, contact-conditioned — evidence about departure, not lost deals |
+| ✅ | `cx-win-loss-from-support` | Post-purchase and contact-conditioned: evidence about departure, not lost deals |
 | ✅ | `cx-customer-health-score` | Validate against an outcome before choosing weights |
 | ✅ | `cx-renewal-risk-review` | The cumulative record, including commitments made and not kept |
 | ✅ | `cx-nrr-attribution` | Mostly about what cannot honestly be claimed |
@@ -256,7 +256,7 @@ obvious version of the analysis is wrong.
 
 | | Skill | What it's for |
 | --- | --- | --- |
-| ✅ | `cx-support-to-revenue-handoff` | Agents flag, agents do not sell — and closing the loop is what stops it decaying |
+| ✅ | `cx-support-to-revenue-handoff` | Agents flag, agents do not sell, and closing the loop is what stops it decaying |
 | ✅ | `cx-onboarding-friction` | Activation blockers visible in support before retention shows them |
 | ✅ | `cx-pricing-objection-analysis` | Four problems arriving in the same words, split before counting |
 | ✅ | `cx-refund-and-goodwill-policy` | Owed versus goodwill, and authority set from the amount distribution |
@@ -284,8 +284,8 @@ The one product-specific corner of the catalog. Everything else is vendor-neutra
 
 ## Why there are no helpdesk exporters
 
-The catalog used to ship eleven of them — Zendesk, Intercom, Freshdesk, Freshchat,
-Salesforce, HubSpot, Gorgias, Front, Five9, Help Scout, Aircall — plus Zendesk write
+The catalog used to ship eleven of them: Zendesk, Intercom, Freshdesk, Freshchat,
+Salesforce, HubSpot, Gorgias, Front, Five9, Help Scout and Aircall, plus Zendesk write
 skills. They have been removed deliberately.
 
 The reasoning, so nobody re-adds them by accident:
@@ -316,13 +316,13 @@ pipeline concerns around it.
 | --- | --- | --- |
 | ✅ | `cx-conversation-schema` | The canonical shape every export emits |
 | ✅ | `cx-helpdesk-migration` | Migration fidelity, measured rather than assumed |
-| ✅ | `cx-export-reconciliation` | Internal consistency is not completeness — ships the reconciler |
+| ✅ | `cx-export-reconciliation` | Internal consistency is not completeness, and this ships the reconciler |
 | ✅ | `cx-data-quality-monitoring` | Catching the sync that stopped while every dashboard kept rendering |
 | ✅ | `cx-warehouse-modeling` | State the grain of every table, or two people join it two ways |
 | ✅ | `cx-streaming-ingest` | Webhooks for latency, polling for truth, reconciliation for completeness |
 | ✅ | `cx-schema-evolution` | The worst change is the one that breaks nothing and means something new |
 | ✅ | `cx-cross-system-joins` | Grain, keys and as-of timing when joining CRM, billing and product |
-| ✅ | `cx-reverse-etl` | The helpdesk is not a display surface — it has automations |
+| ✅ | `cx-reverse-etl` | The helpdesk is not a display surface: it has automations |
 | ✅ | `cx-conversation-embedding-pipeline` | Chunk on turn boundaries; deletion has to reach the index |
 
 ---
@@ -333,11 +333,11 @@ Open an issue naming the skill and the shape you plan to give it. Two things mak
 contribution land quickly:
 
 - **Answer the archetype's questions first.** [AGENTS.md](AGENTS.md) lists what a
-  `platform` skill must establish before it is worth writing — the wrong endpoint, the
+  `platform` skill must establish before it is worth writing: the wrong endpoint, the
   silent gaps, the permission trap, what is checkpointable. If you cannot answer those,
   the skill is not ready.
 - **Bring the verified numbers.** Every limit needs a vendor doc URL next to it. A
   plausible-sounding limit that turns out to be wrong costs more than a missing skill.
 
-Nominating a platform is useful even without writing it — say which one, and what
+Nominating a platform is useful even without writing it. Say which one, and what
 you need out of it.

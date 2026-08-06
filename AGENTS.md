@@ -19,14 +19,14 @@ skills/
   compliance/            Complaints, conduct, evidence, data protection
   revops/                Churn, expansion and revenue signal
   data-and-integration/  The canonical schema and the pipeline work around it
-  rulebase/              Rulebase — getting connected, and operating a workspace
+  rulebase/              Rulebase: getting connected, and operating a workspace
 ```
 
 **Per-vendor helpdesk exporters are deliberately out of scope.** The catalog used to
 ship them and no longer does: getting data out of a specific helpdesk is an
 integration each team owns, it dates faster than anything else here, and a stale
-exporter is worse than none. What the catalog owns instead is the **contract** — the
-shape the analyses expect — so a metric is written once against that shape regardless
+exporter is worse than none. What the catalog owns instead is the **contract**, the
+shape the analyses expect, so a metric is written once against that shape regardless
 of what produced it.
 
 ## Non-negotiables
@@ -39,7 +39,7 @@ directory. Never link to `../another-skill/`, never link to repo-root docs. If t
 skills need the same reference material, duplicate it. The validator enforces this.
 
 **2. The description is the whole product surface.** At startup an agent sees only
-`name` and `description` — the body loads only if the agent decides the skill is
+`name` and `description`. The body loads only if the agent decides the skill is
 relevant. A description that describes the skill without naming its triggers will
 never fire. Write both halves: what it does, and the phrases/situations that should
 activate it.
@@ -51,14 +51,14 @@ credibility of the whole repo.
 
 **4. Conversation data speaks the canonical schema.** Any skill that consumes or
 produces conversation data uses the `conversations.jsonl` / `messages.jsonl` shape
-defined by the `cx-conversation-schema` skill — same field names, same enum
+defined by the `cx-conversation-schema` skill: same field names, same enum
 vocabulary, ids stringified, `*_raw` kept beside every normalised value. Voice-only
 sources (no message bodies) use `conversations.jsonl` alone.
 
 This is the contract that makes an analysis portable. A skill that invents its own
 conversation shape is not mergeable, and a skill that documents a *different* input
 format must say so plainly in the body and explain why the canonical one does not
-fit — audio files and vendor-specific envelopes are legitimate reasons.
+fit. Audio files and vendor-specific envelopes are legitimate reasons.
 
 ## Creating a skill
 
@@ -86,7 +86,7 @@ The `description` must sit on one physical line, however long it gets:
 ```yaml
 ---
 name: cx-metric-movement-decomposition
-description: Use to explain why a CX metric moved between two periods — QA score, CSAT, SLA attainment, containment, AHT — separating a genuine change in performance from a change in what got measured. Trigger for "why did our QA score drop", "what's driving the increase", "key drivers behind this trend", or any period-over-period comparison that needs a cause.
+description: Use to explain why a CX metric moved between two periods (QA score, CSAT, SLA attainment, containment, AHT), separating a genuine change in performance from a change in what got measured. Trigger for "why did our QA score drop", "what's driving the increase", "key drivers behind this trend", or any period-over-period comparison that needs a cause.
 metadata:
   author: rulebase
   version: "1.0.0"
@@ -97,7 +97,7 @@ metadata:
 | Key | Required | Notes |
 | --- | --- | --- |
 | `name` | yes | Lowercase kebab-case. Must match the directory name. |
-| `description` | yes | 60–1024 chars, one line, includes trigger language. |
+| `description` | yes | 60 to 1024 chars, one line, includes trigger language. |
 | `metadata.archetype` | yes | `platform` \| `playbook` \| `analysis` \| `product` \| `mutation` |
 | `metadata.version` | yes | Quoted semver. Bump on behaviour change. |
 | `metadata.author` | no | Defaults to `rulebase`. |
@@ -114,14 +114,14 @@ scalars, no anchors. Keep descriptions on one physical line.
 
 Pick one; it sets the shape of the body.
 
-**`platform`** — operating a specific vendor's API. **Rare, and deliberately so:**
+**`platform`.** Operating a specific vendor's API. **Rare, and deliberately so:**
 per-helpdesk exporters are out of scope, so this archetype is reserved for cases where
 the data has no vendor-neutral source at all. `cx-satisfaction-export` is the one that
 survives, because CSAT lives outside the conversation object on every platform and
 there is no portable way to fetch it.
 
 If you are proposing one, the bar is that a practice skill genuinely cannot do the job.
-Then answer these — they are the skill:
+Then answer these, because they are the skill:
 
 - **The wrong endpoint.** What does a competent person reach for first, and how does it
   fail? Every helpdesk has a different trap.
@@ -133,20 +133,20 @@ Then answer these — they are the skill:
 - **Every limit needs a vendor doc URL.** An unverified limit is the fastest way to make
   the catalog untrustworthy, and vendor limits are exactly what goes stale.
 
-**`playbook`** — a repeatable CX practice with no single right answer (designing a
+**`playbook`.** A repeatable CX practice with no single right answer (designing a
 QA rubric, building a contact taxonomy, running calibration). Body is a decision
 procedure: inputs to gather, choices with explicit trade-offs, failure modes to
 avoid, and a template output. No scripts, or scripts only for arithmetic.
 
-**`analysis`** — computing a metric that is widely computed *wrongly*. Body must
+**`analysis`.** Computing a metric that is widely computed *wrongly*. Body must
 state the naive definition, why it misleads, the defensible definition, and the
 data required. Ships a script when the arithmetic is fiddly.
 
-**`product`** — driving a specific product's tools/MCP server. Body must instruct
+**`product`.** Driving a specific product's tools/MCP server. Body must instruct
 the agent to introspect available tools rather than hardcode signatures, so the
 skill survives API changes.
 
-**`mutation`** — changes state in a customer's live helpdesk. Merging tickets,
+**`mutation`.** Changes state in a customer's live helpdesk. Merging tickets,
 bulk-updating, redacting, deleting, pushing configuration. These carry the
 [mutation safety contract](#the-mutation-safety-contract) below, which CI enforces.
 
@@ -168,7 +168,7 @@ account, by mistake.
 produced by a separate read-only step, or print a plan and require a second
 invocation to apply it. Never inspect-and-mutate in one pass. This is what makes
 the change reviewable by a human before it happens, and it is the single most
-valuable property in the contract — an agent can safely generate a plan for
+valuable property in the contract, because an agent can safely generate a plan for
 someone else to approve.
 
 **3. Append-only audit log.** One JSONL record per attempted change: target id,
@@ -227,7 +227,7 @@ guardrail is missing.
 - Status/progress to **stderr**; machine-readable data to **stdout**. This lets an
   agent pipe results without parsing around log lines.
 - Read credentials from **environment variables only**. Never accept a token as a
-  CLI argument — argv is visible in shell history, `ps`, and chat transcripts.
+  CLI argument, since argv is visible in shell history, `ps`, and chat transcripts.
 - Checkpoint long runs to disk and support `--resume`. Support exports take hours
   and rate limits are aggressive.
 - Exit non-zero on failure with a message that names the fix.
@@ -238,7 +238,7 @@ Any skill touching a live customer-service API must:
 
 1. **Read credentials from env vars only**, and document the least-privileged
    scope that works (read-only API token, not admin).
-2. **Default to writing exports outside the repo** — `./out/` is gitignored here,
+2. **Default to writing exports outside the repo**. `./out/` is gitignored here,
    but state in the skill that transcripts must not be committed.
 3. **Never echo transcript bodies into chat.** Report counts, IDs and aggregates.
    If a sample is needed, redact and say so.
@@ -269,7 +269,7 @@ about ungrouped skills and errors on unknown or duplicated names.
 A skill is not done when it reads well. Verify:
 
 1. **It triggers.** In a fresh session with the skill installed, use a phrase a
-   real user would say — not the skill's name. If the agent doesn't load it, the
+   real user would say, not the skill's name. If the agent doesn't load it, the
    description is wrong.
 2. **Scripts run.** Against real data where a live system is involved. Confirm
    rate-limit backoff and `--resume` actually work; these are the paths that break in
