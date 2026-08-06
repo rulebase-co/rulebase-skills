@@ -163,10 +163,18 @@
     },
     {
       "title": "Data and integration",
-      "description": "The canonical schema everything else is written against, and migration fidelity.",
+      "description": "The canonical schema every export emits, and the pipeline work around it: warehouse modelling, ingest, schema change, reconciliation, quality monitoring and vector indexes.",
       "skills": [
         "cx-conversation-schema",
-        "cx-helpdesk-migration"
+        "cx-helpdesk-migration",
+        "cx-export-reconciliation",
+        "cx-data-quality-monitoring",
+        "cx-warehouse-modeling",
+        "cx-streaming-ingest",
+        "cx-schema-evolution",
+        "cx-cross-system-joins",
+        "cx-reverse-etl",
+        "cx-conversation-embedding-pipeline"
       ]
     },
     {

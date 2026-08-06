@@ -38,7 +38,7 @@ too — copy the directory into `~/.claude/skills/` or your agent's equivalent.
 
 ## Catalog
 
-154 skills. The tables below cover a selection; **[ROADMAP.md](ROADMAP.md) is the complete
+162 skills. The tables below cover a selection; **[ROADMAP.md](ROADMAP.md) is the complete
 index** — every skill, one line each, grouped by the four things a CX organisation is
 accountable for.
 
@@ -49,7 +49,7 @@ accountable for.
 | Compliance | 32 | [ROADMAP.md#compliance](ROADMAP.md#compliance) |
 | RevOps | 14 | [ROADMAP.md#revops](ROADMAP.md#revops) |
 | Platforms | 17 | [ROADMAP.md#platforms](ROADMAP.md#platforms) |
-| Data and integration | 2 | [ROADMAP.md#data-and-integration](ROADMAP.md#data-and-integration) |
+| Data and integration | 10 | [ROADMAP.md#data-and-integration](ROADMAP.md#data-and-integration) |
 
 ### CX Operations
 
@@ -291,7 +291,7 @@ metric is written once and runs against any of the ten supported platforms. The
 vendor-specific knowledge stays in the export step. CI proves it: each exporter's
 real output is fed through the schema validator on every commit.
 
-**Scripts are tested against the failure paths.** 348 tests cover cursor and
+**Scripts are tested against the failure paths.** 364 tests cover cursor and
 watermark pagination, adaptive rate limiting, checkpoint/resume, RFC 4180 CSV
 edge cases, malformed input, silent-truncation detection, and Erlang C verified
 against an independent implementation — the paths that break
@@ -316,7 +316,7 @@ journal, a bounded blast radius, or a stated reversibility — or that offers a
 
 ## Roadmap
 
-154 skills shipped, 23 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
+162 skills shipped, 15 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
 every planned skill, one line each, in roughly the order we'd build it.
 
 The catalog is organised around four things a CX organisation is accountable for:
@@ -328,10 +328,10 @@ The catalog is organised around four things a CX organisation is accountable for
 | [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 32 | 0 |
 | [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 14 | 0 |
 | [Platforms](ROADMAP.md#platforms) — 10 helpdesks covered, 18 more outlined | 17 | 15 |
-| [Data and integration](ROADMAP.md#data-and-integration) — the schema everything is written against | 2 | 8 |
+| [Data and integration](ROADMAP.md#data-and-integration) — the schema everything is written against | 10 | 0 |
 
-**All four practice categories are complete as scoped.** The remaining work is platform
-coverage and the data layer.
+**Everything except platform coverage is complete as scoped.** The remaining 15 are
+helpdesk and contact-centre integrations.
 
 Nearest-term platform work: **Kustomer**, **Zoho Desk**, **Dixa**, **Aircall** and **Jira
 Service Management** exporters, then the contact-centre tier (Talkdesk, Genesys Cloud,

@@ -11,13 +11,13 @@ cuts across all four.
 | [Compliance](#compliance) | 32 | 0 | Proving the service met its obligations |
 | [RevOps](#revops) | 14 | 0 | The revenue consequences of support, and the signals support holds |
 | [Platforms](#platforms) | 17 | 15 | Getting the data out of, and into, the systems the work happens in |
-| [Data and integration](#data-and-integration) | 2 | 8 | The schema everything else is written against |
-| **Total** | **154** | **23** | |
+| [Data and integration](#data-and-integration) | 10 | 0 | The schema everything else is written against |
+| **Total** | **162** | **15** | |
 
-**All four practice categories are now complete as scoped.** RevOps was empty when this
-roadmap was first written and Compliance was 6 of 32; CX operations and Quality assurance
-were each about a third built. The remaining work is platform coverage and the data layer
-— which is where a contribution has the clearest run at something nobody else is doing.
+**Everything except platform coverage is now complete as scoped.** All four practice
+categories and the data layer are done; the remaining 15 are helpdesk and contact-centre
+integrations, which is where a contribution has the clearest run at something nobody else
+is doing.
 
 Legend: **✅ shipped** · **▶︎ next** (well-understood, ready to write) · **◻︎ planned**
 (scoped, needs research) · **◇ exploratory** (may not survive contact with reality)
@@ -332,18 +332,21 @@ three Zendesk write skills under the mutation contract (`config-as-code` ·
 
 ## Data and integration
 
+Complete as scoped. The canonical schema is the contract every export honours; these are the
+pipeline concerns around it.
+
 | | Skill | What it's for |
 | --- | --- | --- |
 | ✅ | `cx-conversation-schema` | The canonical shape every export emits |
 | ✅ | `cx-helpdesk-migration` | Migration fidelity, measured rather than assumed |
-| ▶︎ | `cx-warehouse-modeling` | Modelling the canonical schema for a warehouse, with the grain stated |
-| ▶︎ | `cx-streaming-ingest` | Webhooks versus polling, and the gaps each one leaves |
-| ▶︎ | `cx-schema-evolution` | Versioning the canonical schema without breaking every downstream metric |
-| ◻︎ | `cx-reverse-etl` | Pushing derived attributes back into the helpdesk safely |
-| ◻︎ | `cx-data-quality-monitoring` | Detecting a sync that silently stopped, before a report does |
-| ◻︎ | `cx-entity-resolution-across-systems` | Joining helpdesk, CRM, billing and product identities |
-| ◻︎ | `cx-export-reconciliation` | Proving an export is complete against the source's own counts |
-| ◇ | `cx-conversation-embedding-pipeline` | Vectorising transcripts for retrieval, with the PII decisions made first |
+| ✅ | `cx-export-reconciliation` | Internal consistency is not completeness — ships the reconciler |
+| ✅ | `cx-data-quality-monitoring` | Catching the sync that stopped while every dashboard kept rendering |
+| ✅ | `cx-warehouse-modeling` | State the grain of every table, or two people join it two ways |
+| ✅ | `cx-streaming-ingest` | Webhooks for latency, polling for truth, reconciliation for completeness |
+| ✅ | `cx-schema-evolution` | The worst change is the one that breaks nothing and means something new |
+| ✅ | `cx-cross-system-joins` | Grain, keys and as-of timing when joining CRM, billing and product |
+| ✅ | `cx-reverse-etl` | The helpdesk is not a display surface — it has automations |
+| ✅ | `cx-conversation-embedding-pipeline` | Chunk on turn boundaries; deletion has to reach the index |
 
 ---
 
