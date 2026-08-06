@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Lets anyone re-run the checks against a chosen ref without an empty commit.
+  # Needed in practice: GitHub's hosted runners intermittently fail to pick up
+  # jobs ("not acquired by Runner of type hosted"), which leaves a red run that
+  # has nothing to do with the code.
+  workflow_dispatch:
 
 jobs:
   validate:
