@@ -1,6 +1,6 @@
 {
   "name": "rulebase-skills",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CX ops and customer support agent skills for Claude Code, Codex and Cursor. Install with npx rulebase-skills install <slug>.",
   "type": "module",
   "license": "MIT",
