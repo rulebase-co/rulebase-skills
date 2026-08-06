@@ -25,7 +25,6 @@ Works with [Claude Code](https://claude.com/claude-code) &middot; [Codex](https:
 - [Commands](#commands)
 - [Skills catalog](#skills-catalog)
 - [Try it](#try-it)
-- [What makes these different](#what-makes-these-different)
 - [Contributing](#contributing)
 - [The standard](#the-standard)
 
@@ -130,36 +129,6 @@ Once installed, just ask. These are the phrasings the skills are written to fire
 Your agent loads the matching skill and follows it. If nothing fires, the description is
 wrong, and that's a bug worth
 [reporting](https://github.com/rulebase-co/rulebase-skills/issues).
-
----
-
-## What makes these different
-
-**They lead with what breaks.** The first paragraph of each skill is the thing that goes
-wrong: the containment rate that counts abandonment as a success, the QA score that's ±29
-points of noise, the SLA attainment that looks good because the slow tickets are still
-open.
-
-**The numbers are checked.** Confidence intervals are computed, not asserted. No invented
-industry benchmarks and no regulatory deadline stated from memory — where a figure is
-plan- or jurisdiction-dependent, the skill says so rather than guessing.
-
-**They report what they can't conclude.** Analyses name the conclusions your data doesn't
-support, and several refuse to run when the input would only reproduce the number you're
-trying to audit.
-
-**Customer data is treated as production PII.** Credentials from the environment only,
-read-only by default, and the agent is told not to echo transcripts into chat.
-
-**Writes are separated from decisions.** Anything that changes a live system consumes a
-reviewed plan file, so an agent can propose a bulk change without being able to perform
-one. CI rejects a mutation skill missing a dry-run default, an audit log, a resume
-journal, a bounded blast radius, or a stated reversibility.
-
-**The scripts are tested against the failure paths** — business-day and month-end
-deadline arithmetic, right-censored SLA attainment, the kappa paradox, checkpoint and
-resume, malformed input, and Erlang C verified against an independent implementation.
-213 tests, zero npm dependencies, stock Node 20+.
 
 ---
 
