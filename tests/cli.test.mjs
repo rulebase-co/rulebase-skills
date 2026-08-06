@@ -280,3 +280,37 @@ test('the CLI has no dependencies, so npx never needs an install step', () => {
   // `files` must ship bin/, or the published package has no executable.
   assert.ok(pkg.files.includes('bin'));
 });
+
+// ------------------------------------------------------------------- the docs
+
+test('CATALOG.md lists every skill, and nothing that does not exist', () => {
+  // Hand-maintained prose drifts from the tree the moment someone adds a skill
+  // and forgets. skills-index.json is generated, so it is the reference.
+  const catalog = readFileSync(join(REPO_ROOT, 'CATALOG.md'), 'utf8');
+  const rows = (text) => new Set([...text.matchAll(/^\| `([a-z0-9-]+)` \|/gm)].map((m) => m[1]));
+
+  const stillToBuild = rows(catalog.slice(catalog.indexOf('## Still to build')));
+  const listed = new Set([...rows(catalog)].filter((s) => !stillToBuild.has(s)));
+  const actual = new Set(index.skills.map((s) => s.slug));
+
+  const missing = [...actual].filter((s) => !listed.has(s));
+  const phantom = [...listed].filter((s) => !actual.has(s));
+  assert.deepEqual(missing, [], 'skills in the repo but missing from CATALOG.md');
+  assert.deepEqual(phantom, [], 'CATALOG.md lists skills that do not exist');
+
+  // Anything in "Still to build" must genuinely not be built yet.
+  const built = [...stillToBuild].filter((s) => actual.has(s));
+  assert.deepEqual(built, [], 'CATALOG.md lists a shipped skill as still to build');
+});
+
+test('the README states the real skill count and per-category counts', () => {
+  const readme = readFileSync(join(REPO_ROOT, 'README.md'), 'utf8');
+  assert.ok(readme.includes(`${index.count} skills`), `README should say "${index.count} skills"`);
+  for (const [category, n] of Object.entries(index.categories)) {
+    const label = category.replace(/-/g, ' ');
+    assert.ok(
+      new RegExp(`${n} ${label}`, 'i').test(readme),
+      `README should state "${n} ${label}"`,
+    );
+  }
+});

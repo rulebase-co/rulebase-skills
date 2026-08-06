@@ -12,7 +12,7 @@ Works with [Claude Code](https://claude.com/claude-code) &middot; [Codex](https:
 
 [![npm](https://img.shields.io/npm/v/rulebase-skills?color=cb3837&logo=npm)](https://www.npmjs.com/package/rulebase-skills)
 [![validate](https://github.com/rulebase-co/rulebase-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/rulebase-co/rulebase-skills/actions/workflows/validate.yml)
-[![skills](https://img.shields.io/badge/skills-149-orange)](ROADMAP.md)
+[![skills](https://img.shields.io/badge/skills-149-orange)](CATALOG.md)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 </div>
@@ -95,16 +95,15 @@ npx rulebase-skills install --all
 
 ## Skills catalog
 
-| Category | What's inside | |
-| --- | --- | --- |
-| **[CX operations](ROADMAP.md#cx-operations)** | Demand and forecasting, routing, backlog, handle time, cost to serve, workforce, channels, reporting | 62 |
-| **[Compliance](ROADMAP.md#compliance)** | Complaints and conduct, regulatory evidence, data protection, financial-services specifics | 32 |
-| **[Quality assurance](ROADMAP.md#quality-assurance)** | Scorecard design, calibration and agreement, coverage and statistical power, AI graders in the loop | 27 |
-| **[RevOps](ROADMAP.md#revops)** | Churn and expansion signal, revenue at risk, renewal reviews, redress frameworks | 14 |
-| **[Data and integration](ROADMAP.md#data-and-integration)** | The canonical conversation schema, warehouse modelling, ingest, reconciliation, embeddings | 10 |
-| **[Rulebase](ROADMAP.md#rulebase)** | Connecting an agent to a [Rulebase](https://rulebase.co) workspace, and operating it | 4 |
+**149 skills in six categories** — 62 CX operations, 32 compliance, 27 quality assurance,
+14 RevOps, 10 data and integration, 4 Rulebase.
 
-**[ROADMAP.md](ROADMAP.md) is the full index** — all 149, one line each.
+**[CATALOG.md](CATALOG.md)** describes every one. Or browse from the terminal, which reads
+the same generated index the installer uses:
+
+```bash
+npx rulebase-skills list
+```
 
 Vendor-neutral by design: there are no per-helpdesk exporters, because vendor APIs date
 faster than anything else here and a stale exporter is worse than none. Land your
