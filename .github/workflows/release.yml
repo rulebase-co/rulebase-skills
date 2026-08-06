@@ -5,9 +5,25 @@ name: release
 #   npm version patch          # bumps package.json and creates the tag
 #   git push --follow-tags
 #
-# Requires an NPM_TOKEN repository secret (npm → Access Tokens → Automation).
-# `id-token: write` lets npm attach a provenance attestation, which links the
-# published tarball to this workflow run and this commit.
+# This uses npm **trusted publishing** (OIDC), so there is no NPM_TOKEN secret to
+# create, store or rotate. `id-token: write` lets GitHub mint a short-lived token
+# that npm verifies against the trusted-publisher config on the package.
+#
+# One-time setup, in this order — trusted publishing cannot be configured for a
+# package that does not exist yet:
+#
+#   1. Publish the first version from your own machine:
+#        npm login && npm publish --access public
+#   2. On npmjs.com → Packages → rulebase-skills → Settings → Trusted publishing,
+#      add GitHub Actions with:
+#        organization/user  rulebase-co
+#        repository         rulebase-skills
+#        workflow filename  release.yml
+#   3. Every release after that is just a tag.
+#
+# Provenance attestations are generated automatically under trusted publishing —
+# no --provenance flag needed. Note that npm does not generate provenance for
+# private repositories, so this only produces one once the repo is public.
 
 on:
   push:
@@ -25,6 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      # Required for trusted publishing. Without it, npm falls back to looking
+      # for a token and the publish fails.
       id-token: write
 
     steps:
@@ -34,6 +52,14 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+
+      # Trusted publishing needs npm >= 11.5.1, which is newer than the npm
+      # bundled with Node 22. Upgrading explicitly is cheaper than pinning a
+      # Node version and hoping.
+      - name: Use an npm that supports trusted publishing
+        run: |
+          npm install -g npm@latest
+          npm --version
 
       # The catalog has to be valid and the index current before anything ships:
       # the published CLI reads skills-index.json from the repo, so a stale index
@@ -61,23 +87,23 @@ jobs:
           fi
           echo "tag and package.json agree on $PKG"
 
-      - name: Pack
+      # A package whose executable was excluded by `files` installs cleanly and
+      # then does nothing, so assert the bin is actually in the tarball.
+      - name: Pack and check the tarball
         run: |
-          npm pack --dry-run
-          echo "---"
-          # The bin must be in the tarball or `npx rulebase-skills` resolves to nothing.
+          set -euo pipefail
           npm pack --json | node -e "
             const p = JSON.parse(require('fs').readFileSync(0, 'utf8'))[0];
             const files = p.files.map((f) => f.path);
-            if (!files.includes('bin/rulebase-skills.js')) {
-              console.error('::error::bin/rulebase-skills.js is not in the tarball');
-              process.exit(1);
+            for (const required of ['bin/rulebase-skills.js', 'package.json', 'README.md', 'LICENSE']) {
+              if (!files.includes(required)) {
+                console.error('::error::' + required + ' is missing from the tarball');
+                process.exit(1);
+              }
             }
-            console.error('tarball contains ' + files.length + ' file(s), bin present');
+            console.error('tarball ok: ' + files.length + ' files, ' + (p.size / 1024).toFixed(1) + ' kB');
           "
 
       - name: Publish
         if: startsWith(github.ref, 'refs/tags/v')
-        run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public

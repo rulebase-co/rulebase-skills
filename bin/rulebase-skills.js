@@ -169,14 +169,25 @@ async function cmdList() {
   out(`${skills.length} of ${index.count} skills. \`npx rulebase-skills info <slug>\` for detail.`);
 }
 
+/** Lowercase, and treat every non-alphanumeric run as a space, so a hyphenated
+ *  slug and a spaced query meet in the middle. */
+const normalise = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
 async function cmdSearch() {
-  const query = positionals()[0];
-  if (!query) die('usage: npx rulebase-skills search <query>');
+  // Everything after the command, so `search revenue at risk` works unquoted.
+  const words = positionals();
+  if (words.length === 0) die('usage: npx rulebase-skills search <query>');
+  const query = words.join(' ');
   const index = await loadIndex();
-  const q = query.toLowerCase();
-  const hits = index.skills.filter(
-    (s) => s.slug.toLowerCase().includes(q) || (s.description || '').toLowerCase().includes(q),
-  );
+
+  // All tokens must appear somewhere. Substring-matching the raw query fails on
+  // "revenue at risk" vs the slug cx-revenue-at-risk, which is the obvious thing
+  // for someone to type.
+  const tokens = normalise(query).split(' ').filter(Boolean);
+  const hits = index.skills.filter((s) => {
+    const haystack = `${normalise(s.slug)} ${normalise(s.category)} ${normalise(s.description)}`;
+    return tokens.every((t) => haystack.includes(t));
+  });
   if (hits.length === 0) {
     out(`no match for "${query}". \`npx rulebase-skills list\` shows all ${index.count}.`);
     return;

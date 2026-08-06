@@ -19,11 +19,6 @@ Vendor-neutral by design, with no per-helpdesk exporters. Land your conversation
 [one canonical shape](skills/data-and-integration/cx-conversation-schema) and every
 analysis here runs against it.
 
-> **While this repository is private**, the `npx rulebase-skills` commands below cannot
-> reach it — `raw.githubusercontent.com` returns 404 without a token. Use
-> `npx skills add rulebase-co/rulebase-skills`, which picks up your `gh auth token`.
-> Delete this note when the repository goes public.
-
 ## Install
 
 ```bash
@@ -61,8 +56,7 @@ so nothing here depends on us guessing right.
 <details>
 <summary>Other ways in</summary>
 
-The [Vercel `skills` CLI](https://github.com/vercel-labs/skills) also works, and is the
-one to use while this repository is private because it can authenticate:
+The [Vercel `skills` CLI](https://github.com/vercel-labs/skills) also works:
 
 ```bash
 npx skills add rulebase-co/rulebase-skills

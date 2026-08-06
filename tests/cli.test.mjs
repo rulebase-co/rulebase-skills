@@ -120,6 +120,30 @@ test('search matches slug and description', async () => {
   });
 });
 
+test('a spaced query matches a hyphenated slug', async () => {
+  // The obvious thing to type for cx-revenue-at-risk. Substring-matching the raw
+  // query against the slug fails here, which is why search tokenises.
+  await withMockApi(planner(), async ({ base }) => {
+    const quoted = await runScript(CLI, ['search', 'revenue at risk'], env(base));
+    assert.match(quoted.stdout, /cx-revenue-at-risk/);
+
+    // Unquoted, too — the words arrive as separate argv entries.
+    const unquoted = await runScript(CLI, ['search', 'revenue', 'at', 'risk'], env(base));
+    assert.match(unquoted.stdout, /cx-revenue-at-risk/);
+  });
+});
+
+test('search requires every token, not just one', async () => {
+  await withMockApi(planner(), async ({ base }) => {
+    const both = await runScript(CLI, ['search', 'complaint', 'deadline'], env(base));
+    assert.match(both.stdout, /cx-complaints-sla/);
+    // "complaint" alone matches several; adding "deadline" must narrow it.
+    const one = await runScript(CLI, ['search', 'complaint'], env(base));
+    const countOf = (out) => Number((out.match(/(\d+) match/) || [0, 0])[1]);
+    assert.ok(countOf(one.stdout) > countOf(both.stdout), 'a second token should narrow the result');
+  });
+});
+
 test('info prints the frontmatter and the install line', async () => {
   await withMockApi(planner(), async ({ base }) => {
     const res = await runScript(CLI, ['info', 'cx-complaints-sla'], env(base));
