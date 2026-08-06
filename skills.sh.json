@@ -94,10 +94,19 @@
       ]
     },
     {
-      "title": "Rulebase",
-      "description": "Auditing and operating a Rulebase workspace through the Rulebase MCP server.",
+      "title": "Rulebase — getting connected",
+      "description": "Getting access to Rulebase and wiring an AI client to it: accounts, data regions, the MCP server, and API keys.",
       "skills": [
-        "rulebase-qa-coverage-audit"
+        "rulebase-setup"
+      ]
+    },
+    {
+      "title": "Rulebase — operating a workspace",
+      "description": "Querying, auditing and feeding a Rulebase workspace through the MCP server and the REST API.",
+      "skills": [
+        "rulebase-workspace-sql",
+        "rulebase-qa-coverage-audit",
+        "rulebase-upload-calls"
       ]
     }
   ]

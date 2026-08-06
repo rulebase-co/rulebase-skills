@@ -41,13 +41,20 @@ emails, addresses, card fragments, health and financial disclosures. Any skill t
 touches a live API must follow [Data handling](#data-handling) below. This is the
 credibility of the whole repo.
 
-**4. Platform exports emit the canonical schema.** Every `platform` skill writes
-`conversations.jsonl` and `messages.jsonl` in the shape defined by the
-`cx-conversation-schema` skill — same field names, same enum vocabulary, ids
-stringified, `*_raw` kept beside every normalised value. This is what makes an
-analysis portable across helpdesks instead of one implementation per vendor. A new
-platform skill that invents its own shape is not mergeable. Voice-only sources
-(no message bodies) emit `conversations.jsonl` alone.
+**4. Platform exports emit the canonical schema.** Every skill that *reads*
+conversations out of a vendor writes `conversations.jsonl` and `messages.jsonl` in
+the shape defined by the `cx-conversation-schema` skill — same field names, same
+enum vocabulary, ids stringified, `*_raw` kept beside every normalised value. This
+is what makes an analysis portable across helpdesks instead of one implementation
+per vendor. A new export skill that invents its own shape is not mergeable.
+Voice-only sources (no message bodies) emit `conversations.jsonl` alone.
+
+Skills that push data *into* a system are the mirror image: where the target
+accepts structured conversations, consume the canonical schema rather than
+inventing an input format, so an export from one vendor feeds an import into
+another without a bespoke translation step. Where the target accepts something
+else entirely — audio files, a vendor-specific envelope — say so plainly in the
+body and document the input format you do take.
 
 ## Creating a skill
 
@@ -88,7 +95,7 @@ metadata:
 | --- | --- | --- |
 | `name` | yes | Lowercase kebab-case. Must match the directory name. |
 | `description` | yes | 60–1024 chars, one line, includes trigger language. |
-| `metadata.archetype` | yes | `platform` \| `playbook` \| `analysis` \| `product` |
+| `metadata.archetype` | yes | `platform` \| `playbook` \| `analysis` \| `product` \| `mutation` |
 | `metadata.version` | yes | Quoted semver. Bump on behaviour change. |
 | `metadata.author` | no | Defaults to `rulebase`. |
 | `metadata.platform` | no | Set on `platform` skills. |

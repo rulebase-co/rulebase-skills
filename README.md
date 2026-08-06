@@ -102,9 +102,14 @@ they did not produce, live re-validation, an append-only audit log, a bounded
 
 ### Rulebase
 
+Start with `rulebase-setup` if Claude isn't connected to Rulebase yet.
+
 | Skill | What it's for |
 | --- | --- |
+| [`rulebase-setup`](skills/rulebase/rulebase-setup) | Get connected: accounts and invitations, working out your data region, installing the MCP server in Claude Code / Claude Desktop / Cursor, and creating an API key. Leads with the mistake everyone makes — the API key and the MCP server are different credentials, and the 401 body tells you which surface you actually hit. |
+| [`rulebase-workspace-sql`](skills/rulebase/rulebase-workspace-sql) | Query a workspace without timing out or double-counting. Why `LIMIT` bounds the output and not the work, the slice-and-union patterns that finish, and the evaluation join fan-outs that make criterion counts exceed team counts. |
 | [`rulebase-qa-coverage-audit`](skills/rulebase/rulebase-qa-coverage-audit) | Audit QA coverage and scorecard health in a Rulebase workspace over MCP. Finds zero-coverage segments, agents whose scores lack the statistical power for how they're being used, ceiling effects, dead criteria, and whether scores relate to SLA or complaint outcomes. |
+| [`rulebase-upload-calls`](skills/rulebase/rulebase-upload-calls) | Push call recordings in over the REST API for phone systems with no native connection. Dry-run plan first — uploads can't be deleted through the API — with roster reconciliation and a check for the transposed caller/called that silently swaps customer and agent on outbound calls. |
 
 ## What these do differently
 
