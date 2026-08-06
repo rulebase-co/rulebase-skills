@@ -238,6 +238,13 @@
       ]
     },
     {
+      "title": "Aircall",
+      "description": "Working with Aircall calls and recordings, around a 10,000-item cap that returns no error, roughly six months of default history, and recording URLs that expire in an hour.",
+      "skills": [
+        "aircall-export-calls"
+      ]
+    },
+    {
       "title": "Help Scout",
       "description": "Working with Help Scout Mailbox API v2, where the conversation list defaults to status=active and embedded threads are truncated by design.",
       "skills": [

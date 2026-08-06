@@ -38,7 +38,7 @@ too — copy the directory into `~/.claude/skills/` or your agent's equivalent.
 
 ## Catalog
 
-162 skills. The tables below cover a selection; **[ROADMAP.md](ROADMAP.md) is the complete
+163 skills. The tables below cover a selection; **[ROADMAP.md](ROADMAP.md) is the complete
 index** — every skill, one line each, grouped by the four things a CX organisation is
 accountable for.
 
@@ -48,7 +48,7 @@ accountable for.
 | Quality assurance | 27 | [ROADMAP.md#quality-assurance](ROADMAP.md#quality-assurance) |
 | Compliance | 32 | [ROADMAP.md#compliance](ROADMAP.md#compliance) |
 | RevOps | 14 | [ROADMAP.md#revops](ROADMAP.md#revops) |
-| Platforms | 17 | [ROADMAP.md#platforms](ROADMAP.md#platforms) |
+| Platforms | 18 | [ROADMAP.md#platforms](ROADMAP.md#platforms) |
 | Data and integration | 10 | [ROADMAP.md#data-and-integration](ROADMAP.md#data-and-integration) |
 
 ### CX Operations
@@ -263,6 +263,12 @@ they did not produce, live re-validation, an append-only audit log, a bounded
 | --- | --- |
 | [`helpscout-export-conversations`](skills/helpscout/helpscout-export-conversations) | The conversation list defaults to `status=active`, so the obvious call silently omits every closed conversation — most of your history, with no error. And `embed=threads` truncates chat threads by design, so bodies have to come from the per-conversation endpoint. |
 
+### Aircall
+
+| Skill | What it's for |
+| --- | --- |
+| [`aircall-export-calls`](skills/aircall/aircall-export-calls) | Aircall caps any result set at 10,000 items and returns no error, so this windows by time and recursively halves any window over the cap. Also: ~6 months of default history (an earliest call near that line is the ceiling, not your account's age) and recording URLs valid for one hour, so downloads happen inline and URLs are never persisted. |
+
 ### Rulebase
 
 Start with `rulebase-setup` if Claude isn't connected to Rulebase yet.
@@ -287,11 +293,11 @@ invented industry benchmarks.
 
 **One schema across every platform.** All exports emit the same
 `conversations.jsonl` / `messages.jsonl` shape with the same enum vocabulary, so a
-metric is written once and runs against any of the ten supported platforms. The
+metric is written once and runs against any of the eleven supported platforms. The
 vendor-specific knowledge stays in the export step. CI proves it: each exporter's
 real output is fed through the schema validator on every commit.
 
-**Scripts are tested against the failure paths.** 364 tests cover cursor and
+**Scripts are tested against the failure paths.** 378 tests cover cursor and
 watermark pagination, adaptive rate limiting, checkpoint/resume, RFC 4180 CSV
 edge cases, malformed input, silent-truncation detection, and Erlang C verified
 against an independent implementation — the paths that break
@@ -316,7 +322,7 @@ journal, a bounded blast radius, or a stated reversibility — or that offers a
 
 ## Roadmap
 
-162 skills shipped, 15 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
+163 skills shipped, 14 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
 every planned skill, one line each, in roughly the order we'd build it.
 
 The catalog is organised around four things a CX organisation is accountable for:
@@ -327,7 +333,7 @@ The catalog is organised around four things a CX organisation is accountable for
 | [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 27 | 0 |
 | [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 32 | 0 |
 | [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 14 | 0 |
-| [Platforms](ROADMAP.md#platforms) — 10 helpdesks covered, 18 more outlined | 17 | 15 |
+| [Platforms](ROADMAP.md#platforms) — 11 platforms covered, 17 more outlined | 18 | 14 |
 | [Data and integration](ROADMAP.md#data-and-integration) — the schema everything is written against | 10 | 0 |
 
 **Everything except platform coverage is complete as scoped.** The remaining 15 are

@@ -10,9 +10,9 @@ cuts across all four.
 | [Quality assurance](#quality-assurance) | 27 | 0 | Measuring and improving how well the work is done |
 | [Compliance](#compliance) | 32 | 0 | Proving the service met its obligations |
 | [RevOps](#revops) | 14 | 0 | The revenue consequences of support, and the signals support holds |
-| [Platforms](#platforms) | 17 | 15 | Getting the data out of, and into, the systems the work happens in |
+| [Platforms](#platforms) | 18 | 14 | Getting the data out of, and into, the systems the work happens in |
 | [Data and integration](#data-and-integration) | 10 | 0 | The schema everything else is written against |
-| **Total** | **162** | **15** | |
+| **Total** | **163** | **14** | |
 
 **Everything except platform coverage is now complete as scoped.** All four practice
 categories and the data layer are done; the remaining 15 are helpdesk and contact-centre
@@ -297,7 +297,7 @@ three Zendesk write skills under the mutation contract (`config-as-code` ·
 | **Kustomer** | ▶︎ | ◻︎ |
 | **Zoho Desk** | ▶︎ | ◻︎ |
 | **Dixa** | ▶︎ | ◻︎ |
-| **Aircall** | ▶︎ calls and recordings | ◻︎ |
+| Aircall | ✅ calls and recordings | ◻︎ transcripts |
 | **Jira Service Management** | ▶︎ | ◻︎ request-type config |
 | **ServiceNow** | ◻︎ | ◻︎ |
 | **Talkdesk** | ◻︎ | ◻︎ recordings and transcripts |
