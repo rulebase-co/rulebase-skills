@@ -105,6 +105,32 @@
       ]
     },
     {
+      "title": "RevOps — revenue signal in support",
+      "description": "Churn, expansion and revenue-at-risk signal that support holds and nobody routes anywhere, with the selection bias and attribution limits stated.",
+      "skills": [
+        "cx-churn-signal",
+        "cx-expansion-signal",
+        "cx-revenue-at-risk",
+        "cx-support-to-revenue-handoff",
+        "cx-renewal-risk-review",
+        "cx-customer-health-score",
+        "cx-win-loss-from-support"
+      ]
+    },
+    {
+      "title": "RevOps — commercial process",
+      "description": "Onboarding friction, pricing objections, redress frameworks, escalation protocols, and what support may honestly claim of revenue retention.",
+      "skills": [
+        "cx-onboarding-friction",
+        "cx-pricing-objection-analysis",
+        "cx-refund-and-goodwill-policy",
+        "cx-account-escalation-protocol",
+        "cx-support-led-growth",
+        "cx-cost-of-poor-quality",
+        "cx-nrr-attribution"
+      ]
+    },
+    {
       "title": "CX Operations — data and compliance",
       "description": "The canonical conversation schema every export in this catalog emits, platform migrations, and regulatory complaint handling.",
       "skills": [
