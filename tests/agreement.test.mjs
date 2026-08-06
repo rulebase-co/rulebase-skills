@@ -16,7 +16,7 @@ import { runScript, tempOut } from './helpers/mock-api.mjs';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-calibration-agreement/scripts/agreement.mjs',
+  '../skills/quality-assurance/cx-calibration-agreement/scripts/agreement.mjs',
 );
 
 function inputFile(records, name = 'verdicts.jsonl') {

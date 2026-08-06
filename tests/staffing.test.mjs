@@ -13,7 +13,7 @@ import { runScript } from './helpers/mock-api.mjs';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-volume-forecasting/scripts/staffing.mjs',
+  '../skills/cx-operations/cx-volume-forecasting/scripts/staffing.mjs',
 );
 
 const { erlangB, erlangC, serviceLevel, averageSpeedOfAnswer } = await import(SCRIPT);
