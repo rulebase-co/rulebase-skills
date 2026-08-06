@@ -9,21 +9,25 @@ automation and CX operations. It follows the
 [skills standard](https://github.com/vercel-labs/skills): each skill is a directory
 containing a `SKILL.md` with YAML frontmatter, discovered by `npx skills`.
 
-The catalog is organised by platform and by practice:
+The catalog is **vendor-neutral practice**, organised by what a CX organisation is
+accountable for:
 
 ```
 skills/
   cx-operations/         Demand, routing, backlog, cost, workforce, channels, reporting
   quality-assurance/     Scorecards, calibration, coverage, AI-in-the-loop
-  compliance/            Complaints, erasure, PII, evidence
+  compliance/            Complaints, conduct, evidence, data protection
   revops/                Churn, expansion and revenue signal
-  data-and-integration/  Canonical schema and migration fidelity
-  zendesk/               Zendesk Support / Suite
-  intercom/              Intercom
-  freshdesk/             Freshworks (Freshdesk, Freshchat)
-  five9/                 Five9 contact centre
-  rulebase/              Rulebase
+  data-and-integration/  The canonical schema and the pipeline work around it
+  rulebase/              Rulebase — getting connected, and operating a workspace
 ```
+
+**Per-vendor helpdesk exporters are deliberately out of scope.** The catalog used to
+ship them and no longer does: getting data out of a specific helpdesk is an
+integration each team owns, it dates faster than anything else here, and a stale
+exporter is worse than none. What the catalog owns instead is the **contract** — the
+shape the analyses expect — so a metric is written once against that shape regardless
+of what produced it.
 
 ## Non-negotiables
 
@@ -45,20 +49,16 @@ emails, addresses, card fragments, health and financial disclosures. Any skill t
 touches a live API must follow [Data handling](#data-handling) below. This is the
 credibility of the whole repo.
 
-**4. Platform exports emit the canonical schema.** Every skill that *reads*
-conversations out of a vendor writes `conversations.jsonl` and `messages.jsonl` in
-the shape defined by the `cx-conversation-schema` skill — same field names, same
-enum vocabulary, ids stringified, `*_raw` kept beside every normalised value. This
-is what makes an analysis portable across helpdesks instead of one implementation
-per vendor. A new export skill that invents its own shape is not mergeable.
-Voice-only sources (no message bodies) emit `conversations.jsonl` alone.
+**4. Conversation data speaks the canonical schema.** Any skill that consumes or
+produces conversation data uses the `conversations.jsonl` / `messages.jsonl` shape
+defined by the `cx-conversation-schema` skill — same field names, same enum
+vocabulary, ids stringified, `*_raw` kept beside every normalised value. Voice-only
+sources (no message bodies) use `conversations.jsonl` alone.
 
-Skills that push data *into* a system are the mirror image: where the target
-accepts structured conversations, consume the canonical schema rather than
-inventing an input format, so an export from one vendor feeds an import into
-another without a bespoke translation step. Where the target accepts something
-else entirely — audio files, a vendor-specific envelope — say so plainly in the
-body and document the input format you do take.
+This is the contract that makes an analysis portable. A skill that invents its own
+conversation shape is not mergeable, and a skill that documents a *different* input
+format must say so plainly in the body and explain why the canonical one does not
+fit — audio files and vendor-specific envelopes are legitimate reasons.
 
 ## Creating a skill
 
@@ -73,9 +73,9 @@ skills/<category>/<skill-name>/
 ```
 
 `<skill-name>` is kebab-case and **must equal** the frontmatter `name`. Prefix
-platform skills with the platform (`zendesk-export-conversations`) and practice
-skills with `cx-` (`cx-deflection-analysis`) so names stay unambiguous once
-installed alongside skills from other repos.
+practice skills with `cx-` (`cx-deflection-analysis`) and product-specific skills with
+the product (`rulebase-setup`) so names stay unambiguous once installed alongside
+skills from other repos.
 
 ### Frontmatter
 
@@ -85,13 +85,12 @@ The `description` must sit on one physical line, however long it gets:
 
 ```yaml
 ---
-name: zendesk-export-conversations
-description: Use to bulk-export Zendesk tickets and conversation text for analytics, QA or LLM pipelines. Trigger for "export my Zendesk tickets", "pull Zendesk data", incremental sync, or when the Search API's 1,000-result cap is blocking work.
+name: cx-metric-movement-decomposition
+description: Use to explain why a CX metric moved between two periods — QA score, CSAT, SLA attainment, containment, AHT — separating a genuine change in performance from a change in what got measured. Trigger for "why did our QA score drop", "what's driving the increase", "key drivers behind this trend", or any period-over-period comparison that needs a cause.
 metadata:
   author: rulebase
   version: "1.0.0"
-  archetype: platform
-  platform: zendesk
+  archetype: analysis
 ---
 ```
 
@@ -115,22 +114,24 @@ scalars, no anchors. Keep descriptions on one physical line.
 
 Pick one; it sets the shape of the body.
 
-**`platform`** — operating one vendor's API. Ships working scripts that emit the
-canonical schema. Body covers auth, the correct endpoint (and why the obvious one
-is wrong), pagination, rate limits, resumability, and the field mapping. The value
-is in the non-obvious API knowledge, not in restating the docs.
+**`platform`** — operating a specific vendor's API. **Rare, and deliberately so:**
+per-helpdesk exporters are out of scope, so this archetype is reserved for cases where
+the data has no vendor-neutral source at all. `cx-satisfaction-export` is the one that
+survives, because CSAT lives outside the conversation object on every platform and
+there is no portable way to fetch it.
 
-Before writing one, answer these — they are the skill:
+If you are proposing one, the bar is that a practice skill genuinely cannot do the job.
+Then answer these — they are the skill:
 
-- **The wrong endpoint.** What does a competent person reach for first, and how
-  does it fail? Every helpdesk has a different trap: Zendesk's Search API caps at
-  1,000 results, Freshdesk's list endpoint stops at page 300, Intercom's list
-  endpoints omit message bodies entirely.
-- **Silent gaps.** Deleted, archived, redacted, merged, or truncated records.
-  Anything the API returns that the UI doesn't, or vice versa.
-- **The permission trap.** Scoped API keys and wrong-workspace tokens produce
-  partial exports, not errors. Name it.
-- **What is checkpointable**, so a multi-hour run survives interruption.
+- **The wrong endpoint.** What does a competent person reach for first, and how does it
+  fail? Every helpdesk has a different trap.
+- **Silent gaps.** Deleted, archived, redacted, merged, or truncated records. Anything
+  the API returns that the UI doesn't, or vice versa.
+- **The permission trap.** Scoped API keys and wrong-workspace tokens produce partial
+  results, not errors. Name it.
+- **What is checkpointable**, so a long run survives interruption.
+- **Every limit needs a vendor doc URL.** An unverified limit is the fastest way to make
+  the catalog untrustworthy, and vendor limits are exactly what goes stale.
 
 **`playbook`** — a repeatable CX practice with no single right answer (designing a
 QA rubric, building a contact taxonomy, running calibration). Body is a decision
@@ -206,8 +207,8 @@ guardrail is missing.
   above 400. Push detail into `references/`.
 - **Progressive disclosure.** Link references inline (`see [references/x.md](references/x.md)`)
   so they load only when needed. References work one level deep; don't nest links.
-- **Lead with what breaks.** The most valuable paragraph in a platform skill is the
-  one that says "the endpoint you'd reach for first is capped at 1,000 results."
+- **Lead with what breaks.** The most valuable paragraph is the one that says "the
+  metric you're about to report counts customers giving up as a success."
 - **Be concrete.** Real endpoints, real limits, real field names, real formulas.
   Cite the vendor doc URL next to any limit that could change.
 - **No invented numbers.** Never write a benchmark, industry average, or vendor
@@ -270,7 +271,7 @@ A skill is not done when it reads well. Verify:
 1. **It triggers.** In a fresh session with the skill installed, use a phrase a
    real user would say — not the skill's name. If the agent doesn't load it, the
    description is wrong.
-2. **Scripts run.** Against a real sandbox for platform skills. Confirm rate-limit
-   backoff and `--resume` actually work; these are the paths that break in
+2. **Scripts run.** Against real data where a live system is involved. Confirm
+   rate-limit backoff and `--resume` actually work; these are the paths that break in
    production and never get exercised in a happy-path test.
 3. **A cold agent can follow it.** The body must not assume context from this repo.

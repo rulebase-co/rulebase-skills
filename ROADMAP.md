@@ -1,8 +1,7 @@
 # Roadmap
 
 The catalog is organised around four things a CX organisation is accountable for.
-Every skill — shipped or planned — belongs to exactly one, and platform coverage
-cuts across all four.
+Every skill — shipped or planned — belongs to exactly one.
 
 | Category | Shipped | Planned | What it covers |
 | --- | --- | --- | --- |
@@ -10,14 +9,14 @@ cuts across all four.
 | [Quality assurance](#quality-assurance) | 27 | 0 | Measuring and improving how well the work is done |
 | [Compliance](#compliance) | 32 | 0 | Proving the service met its obligations |
 | [RevOps](#revops) | 14 | 0 | The revenue consequences of support, and the signals support holds |
-| [Platforms](#platforms) | 18 | 14 | Getting the data out of, and into, the systems the work happens in |
 | [Data and integration](#data-and-integration) | 10 | 0 | The schema everything else is written against |
-| **Total** | **163** | **14** | |
+| [Rulebase](#rulebase) | 4 | 5 | Getting connected to Rulebase, and operating a workspace |
+| **Total** | **149** | **5** | |
 
-**Everything except platform coverage is now complete as scoped.** All four practice
-categories and the data layer are done; the remaining 15 are helpdesk and contact-centre
-integrations, which is where a contribution has the clearest run at something nobody else
-is doing.
+**All four practice categories and the data layer are complete as scoped.** The catalog is
+vendor-neutral by design — see [why there are no helpdesk
+exporters](#why-there-are-no-helpdesk-exporters) — so the only outstanding work is the
+Rulebase corner.
 
 Legend: **✅ shipped** · **▶︎ next** (well-understood, ready to write) · **◻︎ planned**
 (scoped, needs research) · **◇ exploratory** (may not survive contact with reality)
@@ -267,53 +266,9 @@ obvious version of the analysis is wrong.
 
 ---
 
-## Platforms
+## Rulebase
 
-Every export emits the [canonical schema](skills/data-and-integration/cx-conversation-schema), so
-a metric written once runs against all of them. Ten shipped.
-
-### Shipped
-
-Thirteen vendor skills across ten platforms: nine conversation exporters
-(`zendesk` · `intercom` · `freshdesk` · `freshchat` · `salesforce` · `hubspot` ·
-`gorgias` · `front` · `helpscout`), one voice interaction exporter (`five9`), and
-three Zendesk write skills under the mutation contract (`config-as-code` ·
-`apply-merges` · `apply-erasure`).
-
-### Coverage
-
-| Platform | Export | Beyond export |
-| --- | --- | --- |
-| Zendesk | ✅ | ✅ config-as-code · ✅ merges · ✅ erasure · ▶︎ SLA metric events · ▶︎ macro usage · ◻︎ bulk update · ◻︎ view audit |
-| Intercom | ✅ | ▶︎ Fin performance · ▶︎ bulk tag · ◻︎ conversation attributes |
-| Freshdesk | ✅ | ◻︎ SLA export · ◻︎ automations audit |
-| Freshchat | ✅ | ◻︎ bot flow export |
-| Salesforce Service Cloud | ✅ | ◻︎ omni-channel routing export · ◻︎ Einstein data |
-| HubSpot Service Hub | ✅ | ◻︎ pipeline and SLA export |
-| Gorgias | ✅ | ◻︎ macro and rule audit |
-| Front | ✅ | ◻︎ rule and analytics export |
-| Five9 | ✅ | ◻︎ recording retrieval |
-| Help Scout | ✅ | ◻︎ satisfaction export · ◻︎ workflow audit |
-| **Kustomer** | ▶︎ | ◻︎ |
-| **Zoho Desk** | ▶︎ | ◻︎ |
-| **Dixa** | ▶︎ | ◻︎ |
-| Aircall | ✅ calls and recordings | ◻︎ transcripts |
-| **Jira Service Management** | ▶︎ | ◻︎ request-type config |
-| **ServiceNow** | ◻︎ | ◻︎ |
-| **Talkdesk** | ◻︎ | ◻︎ recordings and transcripts |
-| **Genesys Cloud** | ◻︎ | ◻︎ recordings, IVR paths |
-| **Amazon Connect** | ◻︎ | ◻︎ Contact Lens data |
-| **NICE CXone** | ◻︎ | ◻︎ |
-| **Twilio Flex** | ◻︎ | ◻︎ |
-| **RingCentral / 8x8** | ◇ | ◇ |
-| **LiveChat / Tidio / Crisp** | ◻︎ | ◇ |
-| **Zammad / Re:amaze** | ◇ | ◇ |
-| **Sprinklr / Khoros** | ◇ social and community | ◇ |
-| **WhatsApp Business Platform** | ◻︎ | ◇ |
-| **Slack / Teams-based support** | ◻︎ | ◇ shared-channel support |
-| **Sierra / Decagon / Ada / Forethought** | ◻︎ containment and transcript data | ◇ |
-
-### Rulebase
+The one product-specific corner of the catalog. Everything else is vendor-neutral.
 
 | | Skill | What it's for |
 | --- | --- | --- |
@@ -321,12 +276,34 @@ three Zendesk write skills under the mutation contract (`config-as-code` ·
 | ✅ | `rulebase-workspace-sql` | Queries that finish, and don't double-count |
 | ✅ | `rulebase-qa-coverage-audit` | Coverage and instrument health |
 | ✅ | `rulebase-upload-calls` | Pushing recordings in under the mutation contract |
-| ▶︎ | `rulebase-upload-conversations` | Pushing text conversations from an unsupported helpdesk |
 | ▶︎ | `rulebase-work-items` | Back-office work with no customer on the line |
 | ▶︎ | `rulebase-scorecard-as-code` | Scorecards under version control, diffable and reviewable |
 | ◻︎ | `rulebase-dashboard-as-code` | Dashboards and reports defined in a file |
 | ◻︎ | `rulebase-agent-authoring` | Building and testing a Rulebase agent from a spec |
 | ◻︎ | `rulebase-migration-audit` | Reconciling a migrated workspace against the source system |
+
+## Why there are no helpdesk exporters
+
+The catalog used to ship eleven of them — Zendesk, Intercom, Freshdesk, Freshchat,
+Salesforce, HubSpot, Gorgias, Front, Five9, Help Scout, Aircall — plus Zendesk write
+skills. They have been removed deliberately.
+
+The reasoning, so nobody re-adds them by accident:
+
+- **Vendor APIs date faster than anything else here.** A limit, an endpoint or a default
+  changes and the skill is now confidently wrong. A stale exporter is worse than no
+  exporter, because it is trusted.
+- **Getting data out of your own helpdesk is an integration you own**, and you have
+  context the skill cannot: your scopes, your volumes, your existing pipeline.
+- **The portable part is the contract, not the extraction.** That is what
+  `cx-conversation-schema` is, and it is what makes an analysis run against any source.
+
+So: land your conversation data in the canonical shape however suits you, and every
+analysis in the catalog works against it.
+
+The one exception is `cx-satisfaction-export`, which does touch vendor APIs, because CSAT
+sits outside the conversation object on every platform and has no portable source. If it
+goes stale it should be cut rather than patched.
 
 ---
 

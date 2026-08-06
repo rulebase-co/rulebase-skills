@@ -2,11 +2,15 @@
 
 Agent skills for customer service automation and CX operations.
 
-Support platforms are full of APIs that quietly return incomplete data, and CX
-metrics are full of numbers that are computed the easy way and mean nothing. These
-skills encode the difference: the endpoint that doesn't cap at 1,000 results, the
-containment rate that counts abandonment as failure, the QA score that isn't ±29
-points of noise.
+CX metrics are full of numbers that are computed the easy way and mean nothing. These
+skills encode the difference: the containment rate that counts abandonment as a
+success, the QA score that is ±29 points of noise, the SLA attainment that looks good
+because the slow tickets are still open, the churn signal that can only see customers
+who bothered to contact you.
+
+Vendor-neutral by design — no per-helpdesk exporters. Land your conversation data in
+[one canonical shape](skills/data-and-integration/cx-conversation-schema) and every
+analysis here runs against it.
 
 Built for [Claude Code](https://claude.com/claude-code), Cursor, Copilot, and any
 other agent that reads [`SKILL.md`](https://skills.sh) files.
@@ -30,7 +34,7 @@ npx skills add rulebase-co/skills --skill cx-deflection-analysis
 Or use a skill once without installing it:
 
 ```bash
-npx skills use rulebase-co/skills@zendesk-export-conversations
+npx skills use rulebase-co/skills@cx-metric-movement-decomposition
 ```
 
 Skills install per-project by default and to `~/` with `-g`. Manual install works
@@ -38,7 +42,7 @@ too — copy the directory into `~/.claude/skills/` or your agent's equivalent.
 
 ## Catalog
 
-163 skills. The tables below cover a selection; **[ROADMAP.md](ROADMAP.md) is the complete
+149 skills. The tables below cover a selection; **[ROADMAP.md](ROADMAP.md) is the complete
 index** — every skill, one line each, grouped by the four things a CX organisation is
 accountable for.
 
@@ -48,8 +52,8 @@ accountable for.
 | Quality assurance | 27 | [ROADMAP.md#quality-assurance](ROADMAP.md#quality-assurance) |
 | Compliance | 32 | [ROADMAP.md#compliance](ROADMAP.md#compliance) |
 | RevOps | 14 | [ROADMAP.md#revops](ROADMAP.md#revops) |
-| Platforms | 18 | [ROADMAP.md#platforms](ROADMAP.md#platforms) |
 | Data and integration | 10 | [ROADMAP.md#data-and-integration](ROADMAP.md#data-and-integration) |
+| Rulebase | 4 | [ROADMAP.md#rulebase](ROADMAP.md#rulebase) |
 
 ### CX Operations
 
@@ -227,48 +231,6 @@ Vendor-neutral practice. Useful whichever helpdesk you run.
 | [`cx-erasure-plan`](skills/compliance/cx-erasure-plan) | GDPR/CCPA erasure planning. Turns on two distinctions everyone gets wrong: requester vs merely-mentioned, and open vs closed. Also enumerates what helpdesk erasure does **not** cover — warehouse, backups, embedding stores. |
 | [`cx-pii-redaction-audit`](skills/compliance/cx-pii-redaction-audit) | The gate before support data moves anywhere. Measures how unsafe it still is rather than certifying it safe, checks the fields redaction always misses (HTML bodies, attachment filenames, voice digit strings, internal notes), and states plainly that redaction is not anonymisation. |
 
-### Platform exports
-
-All nine emit the same canonical `conversations.jsonl` / `messages.jsonl` shape, so
-an analysis written once runs against any of them.
-
-| Skill | The trap it gets you past |
-| --- | --- |
-| [`zendesk-export-conversations`](skills/zendesk/zendesk-export-conversations) | The Search API caps at 1,000 results, and comments aren't on the ticket object. Uses Incremental Exports with the `comment_events` sideload on `ticket_events` instead of N+1 per-ticket calls. |
-| [`intercom-export-conversations`](skills/intercom/intercom-export-conversations) | List and search return no message bodies, so the N+1 is unavoidable — paced by an adaptive limiter reading live rate-limit headers. Detects the silent 500-part truncation that loses a conversation's opening. |
-| [`freshdesk-export-conversations`](skills/freshdesk/freshdesk-export-conversations) | Paging stops dead at 30,000 tickets and the default window is 30 days. Escapes both with an ascending-order moving watermark. |
-| [`freshchat-export-conversations`](skills/freshchat/freshchat-export-conversations) | There is **no list-conversations endpoint at all**. Ids must be mined from the Reports API, so completeness is bounded by a report definition rather than by the API. |
-| [`salesforce-export-cases`](skills/salesforce/salesforce-export-cases) | Case conversation text is split across three objects. Exporting only `CaseComment` — the obvious choice — misses the entire email thread on an Email-to-Case org. |
-| [`hubspot-export-conversations`](skills/hubspot/hubspot-export-conversations) | Email bodies are silently truncated and only `truncationStatus` reveals it. Also: archived threads are deleted permanently after 30 days. |
-| [`gorgias-export-conversations`](skills/gorgias/gorgias-export-conversations) | No time filter exists, so incremental sync means a newest-first walk with an early stop. List tickets returns an excerpt, not message bodies. |
-| [`front-export-conversations`](skills/front/front-export-conversations) | 50 req/min enforced **per company**, not per token — so concurrency buys nothing and a long export degrades every other Front integration you run. |
-| [`five9-export-interactions`](skills/five9/five9-export-interactions) | No REST list endpoint; reports are async SOAP and cap at 50,000 records. Windows the range and collapses call segments so transfers don't inflate call volume. |
-
-### Mutations
-
-Skills that change a live helpdesk. All follow the [mutation safety
-contract](AGENTS.md#the-mutation-safety-contract): dry-run by default, a plan file
-they did not produce, live re-validation, an append-only audit log, a bounded
-`--max-changes`, and no `--force`. CI enforces it.
-
-| Skill | What it does |
-| --- | --- |
-| [`zendesk-config-as-code`](skills/zendesk/zendesk-config-as-code) | Pull Zendesk triggers, automations, macros, views and fields into git; diff local against live; push reviewed changes. Never deletes, never reorders. The read-only half alone gives you configuration drift detection. |
-| [`zendesk-apply-merges`](skills/zendesk/zendesk-apply-merges) | Applies a merge plan, re-validating every entry live first — because a ticket reassigned since detection could otherwise merge across customers. |
-| [`zendesk-apply-erasure`](skills/zendesk/zendesk-apply-erasure) | Applies an erasure plan. Refuses legal-hold and manual-review entries under any flag, refuses to delete a conversation the subject only appears in, and logs redaction *lengths* rather than values. |
-
-### Help Scout
-
-| Skill | What it's for |
-| --- | --- |
-| [`helpscout-export-conversations`](skills/helpscout/helpscout-export-conversations) | The conversation list defaults to `status=active`, so the obvious call silently omits every closed conversation — most of your history, with no error. And `embed=threads` truncates chat threads by design, so bodies have to come from the per-conversation endpoint. |
-
-### Aircall
-
-| Skill | What it's for |
-| --- | --- |
-| [`aircall-export-calls`](skills/aircall/aircall-export-calls) | Aircall caps any result set at 10,000 items and returns no error, so this windows by time and recursively halves any window over the cap. Also: ~6 months of default history (an earliest call near that line is the ceiling, not your account's age) and recording URLs valid for one hour, so downloads happen inline and URLs are never persisted. |
-
 ### Rulebase
 
 Start with `rulebase-setup` if Claude isn't connected to Rulebase yet.
@@ -277,71 +239,66 @@ Start with `rulebase-setup` if Claude isn't connected to Rulebase yet.
 | --- | --- |
 | [`rulebase-setup`](skills/rulebase/rulebase-setup) | Get connected: accounts and invitations, working out your data region, installing the MCP server in Claude Code / Claude Desktop / Cursor, and creating an API key. Leads with the mistake everyone makes — the API key and the MCP server are different credentials, and the 401 body tells you which surface you actually hit. |
 | [`rulebase-workspace-sql`](skills/rulebase/rulebase-workspace-sql) | Query a workspace without timing out or double-counting. Why `LIMIT` bounds the output and not the work, the slice-and-union patterns that finish, and the evaluation join fan-outs that make criterion counts exceed team counts. |
-| [`rulebase-qa-coverage-audit`](skills/rulebase/rulebase-qa-coverage-audit) | Audit QA coverage and scorecard health in a Rulebase workspace over MCP. Finds zero-coverage segments, agents whose scores lack the statistical power for how they're being used, ceiling effects, dead criteria, and whether scores relate to SLA or complaint outcomes. |
+| [`rulebase-qa-coverage-audit`](skills/rulebase/rulebase-qa-coverage-audit) | Audit QA coverage and scorecard health over MCP. Finds zero-coverage segments, agents whose scores lack the statistical power for how they're being used, ceiling effects, dead criteria, and whether scores relate to SLA or complaint outcomes. |
 | [`rulebase-upload-calls`](skills/rulebase/rulebase-upload-calls) | Push call recordings in over the REST API for phone systems with no native connection. Dry-run plan first — uploads can't be deleted through the API — with roster reconciliation and a check for the transposed caller/called that silently swaps customer and agent on outbound calls. |
 
 ## What these do differently
 
-**They lead with what breaks.** The most valuable paragraph in a platform skill is
-the one telling you the endpoint you'd naturally reach for is capped, or that the
-metric you're about to report counts customers giving up as a success. Every skill
-opens there rather than restating vendor documentation.
+**They lead with what breaks.** The most valuable paragraph in a skill is the one
+telling you the metric you're about to report counts customers giving up as a success,
+or that the number you're about to explain is inside its own noise interval. Every
+skill opens there rather than restating the obvious.
 
-**The numbers are checked.** Rate limits cite the vendor doc. Confidence intervals
-are computed, not asserted. Where a claim can't be verified, it isn't made — no
-invented industry benchmarks.
+**The numbers are checked.** Confidence intervals are computed, not asserted. Where a
+claim can't be verified, it isn't made — no invented industry benchmarks, and no
+regulatory deadline stated from memory.
 
-**One schema across every platform.** All exports emit the same
-`conversations.jsonl` / `messages.jsonl` shape with the same enum vocabulary, so a
-metric is written once and runs against any of the eleven supported platforms. The
-vendor-specific knowledge stays in the export step. CI proves it: each exporter's
-real output is fed through the schema validator on every commit.
+**One schema, whoever produced the data.** The analyses expect a single
+`conversations.jsonl` / `messages.jsonl` shape with a fixed enum vocabulary, defined by
+[`cx-conversation-schema`](skills/data-and-integration/cx-conversation-schema) and
+enforced by a validator. Get your helpdesk's data into that shape however suits you —
+the metric is then written once and runs against any source.
 
-**Scripts are tested against the failure paths.** 378 tests cover cursor and
-watermark pagination, adaptive rate limiting, checkpoint/resume, RFC 4180 CSV
-edge cases, malformed input, silent-truncation detection, and Erlang C verified
-against an independent implementation — the paths that break
-in production and never come up in a happy-path manual run. Scripts have zero npm
+**Scripts are tested against the failure paths.** The tests cover business-day and
+month-end deadline arithmetic, right-censored SLA attainment, the kappa paradox,
+checkpoint/resume, malformed input, and Erlang C verified against an independent
+implementation — the paths that break in production and never come up in a happy-path
+manual run. Scripts have zero npm
 dependencies and run on stock Node 20+.
 
 **Analyses report what they can't conclude.** The deflection script emits caveats
 naming which conclusions your data doesn't support, and refuses to run at all when
 the input would only reproduce the number you're trying to audit.
 
-**Customer data is treated as production PII.** Platform skills read credentials
-from the environment only, document the least-privileged scope that works, default
-to read-only, and tell the agent not to echo transcripts into chat.
+**Customer data is treated as production PII.** Any skill touching a live API reads
+credentials from the environment only, documents the least-privileged scope that works,
+defaults to read-only, and tells the agent not to echo transcripts into chat.
 
-**Writes are separated from decisions.** Anything that changes a live helpdesk
-consumes a plan file produced by a separate read-only skill, so an agent can
-propose a bulk merge or erasure without being able to perform one. The plan is a
-diff a human reviews; the applier re-validates it against live state before acting.
-CI rejects a mutation skill that lacks a dry-run default, an audit log, a resume
-journal, a bounded blast radius, or a stated reversibility — or that offers a
-`--force`.
+**Writes are separated from decisions.** Anything that changes a live system consumes a
+plan file produced by a separate read-only step, so an agent can propose a bulk change
+without being able to perform one. The plan is a diff a human reviews. CI rejects a
+mutation skill that lacks a dry-run default, an audit log, a resume journal, a bounded
+blast radius, or a stated reversibility — or that offers a `--force`.
 
 ## Roadmap
 
-163 skills shipped, 14 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
-every planned skill, one line each, in roughly the order we'd build it.
+149 skills, and the four practice categories plus the data layer are complete as scoped.
+[**ROADMAP.md**](ROADMAP.md) is the full index — every skill, one line each.
 
-The catalog is organised around four things a CX organisation is accountable for:
+| Category | Skills |
+| --- | --- |
+| [CX operations](ROADMAP.md#cx-operations) — demand, routing, backlog, cost, workforce, channels | 62 |
+| [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 27 |
+| [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 32 |
+| [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 14 |
+| [Data and integration](ROADMAP.md#data-and-integration) — the schema everything is written against | 10 |
+| [Rulebase](ROADMAP.md#rulebase) — getting connected, and operating a workspace | 4 |
 
-| Category | Shipped | Planned |
-| --- | --- | --- |
-| [CX operations](ROADMAP.md#cx-operations) — demand, routing, backlog, cost, workforce, channels | 62 | 0 |
-| [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 27 | 0 |
-| [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 32 | 0 |
-| [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 14 | 0 |
-| [Platforms](ROADMAP.md#platforms) — 11 platforms covered, 17 more outlined | 18 | 14 |
-| [Data and integration](ROADMAP.md#data-and-integration) — the schema everything is written against | 10 | 0 |
-
-**Everything except platform coverage is complete as scoped.** The remaining 15 are
-helpdesk and contact-centre integrations.
-
-Nearest-term platform work: **Kustomer**, **Zoho Desk**, **Dixa**, **Aircall** and **Jira
-Service Management** exporters, then the contact-centre tier (Talkdesk, Genesys Cloud,
-Amazon Connect, NICE CXone) where recordings and transcripts matter more than tickets.
+**Per-vendor helpdesk exporters are deliberately out of scope.** The catalog is
+vendor-neutral practice plus the data contract those analyses expect; getting data out of
+your own helpdesk is your integration to own, and
+[`cx-conversation-schema`](skills/data-and-integration/cx-conversation-schema) tells you the
+shape to land it in.
 
 Claiming something is welcome — open an issue naming the skill and the shape you plan to
 give it. [ROADMAP.md](ROADMAP.md#claiming-something) says what makes one land quickly.

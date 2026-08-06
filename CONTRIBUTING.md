@@ -73,23 +73,35 @@ user would — **not** using the skill's name:
 If the agent doesn't load the skill, the description is wrong. Fix the description,
 not the body. Iterate until it fires on two or three different natural phrasings.
 
-## Adding a platform
+## Adding a vendor-specific skill
 
-New platforms follow the `platform` archetype. Before writing, find the answers to:
+**Usually: don't.** Per-helpdesk exporters are deliberately out of scope. Vendor APIs
+date faster than anything else in this catalog, and a stale exporter is worse than a
+missing one because it gets trusted. Landing your helpdesk's data in the
+[canonical schema](skills/data-and-integration/cx-conversation-schema) is an integration
+you own, and every analysis here works against that shape.
+
+The bar for a `platform` skill is therefore: **a vendor-neutral skill genuinely cannot do
+the job.** `cx-satisfaction-export` clears it, because CSAT sits outside the conversation
+object on every platform and has no portable source.
+
+If you have a case that clears it, find the answers to these before writing:
 
 - **Auth**: which method, and the least-privileged scope that works.
-- **The wrong endpoint**: what does a competent person reach for first, and how
-  does it fail? This is the core of the skill.
+- **The wrong endpoint**: what does a competent person reach for first, and how does it
+  fail? This is the core of the skill.
 - **The right endpoint**, with pagination style and page size.
-- **Rate limits**, including any endpoint-specific limit that differs from the
-  account limit, plus the 429 contract (`Retry-After`?).
+- **Rate limits**, including any endpoint-specific limit that differs from the account
+  limit, plus the 429 contract — and note that not every vendor uses `Retry-After`.
 - **Resumability**: what is checkpointable.
 - **Silent gaps**: deleted, archived, redacted, or merged records; anything the API
   returns that the UI doesn't, or vice versa.
-- **A normalised output shape**, so analyses can be written once across platforms.
+- **Canonical output**, so the analyses can consume it.
 
-Verify against the vendor's own docs and cite them. If you have sandbox access,
-run the script against it and say so in the PR.
+**Every limit needs a vendor doc URL next to it.** If the vendor's own documentation
+says a figure is plan-dependent, say that rather than picking a number — an unverified
+limit is the fastest way to make the catalog untrustworthy. Verify against the vendor's
+docs, and if you have sandbox access, run the script against it and say so in the PR.
 
 ## Style
 
