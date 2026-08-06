@@ -2,7 +2,7 @@
 
 <img src="assets/hero.svg" alt="Rulebase CX Ops Skills: quality, compliance and revenue skills for your AI agent" width="100%">
 
-# rulebase-skills
+# Rulebase Skills
 
 **149 skills that make your AI agent good at customer support operations.** QA and
 calibration, complaints and conduct, churn and expansion signal, forecasting, coaching,
