@@ -38,6 +38,19 @@ too — copy the directory into `~/.claude/skills/` or your agent's equivalent.
 
 ## Catalog
 
+154 skills. The tables below cover a selection; **[ROADMAP.md](ROADMAP.md) is the complete
+index** — every skill, one line each, grouped by the four things a CX organisation is
+accountable for.
+
+| Category | Skills | Complete index |
+| --- | --- | --- |
+| CX operations | 62 | [ROADMAP.md#cx-operations](ROADMAP.md#cx-operations) |
+| Quality assurance | 27 | [ROADMAP.md#quality-assurance](ROADMAP.md#quality-assurance) |
+| Compliance | 32 | [ROADMAP.md#compliance](ROADMAP.md#compliance) |
+| RevOps | 14 | [ROADMAP.md#revops](ROADMAP.md#revops) |
+| Platforms | 17 | [ROADMAP.md#platforms](ROADMAP.md#platforms) |
+| Data and integration | 2 | [ROADMAP.md#data-and-integration](ROADMAP.md#data-and-integration) |
+
 ### CX Operations
 
 Vendor-neutral practice. Useful whichever helpdesk you run.
