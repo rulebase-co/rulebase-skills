@@ -1,6 +1,6 @@
 # Catalog
 
-149 skills, organised around the four things a CX organisation is accountable for, plus
+150 skills, organised around the four things a CX organisation is accountable for, plus
 the data contract underneath and the Rulebase corner.
 
 This file is the readable description. For a machine-readable list, or to install, use the
@@ -272,6 +272,7 @@ The one product-specific corner. Everything else is vendor-neutral.
 | `rulebase-workspace-sql` | Queries that finish, and don't double-count |
 | `rulebase-qa-coverage-audit` | Coverage and instrument health |
 | `rulebase-upload-calls` | Pushing recordings in under the mutation contract |
+| `rulebase-work-items` | Back-office work with no customer on the line, upserted on a stable external id |
 
 ## Why there are no helpdesk exporters
 
@@ -325,7 +326,6 @@ remains is the Rulebase corner:
 
 | Skill | What it would do |
 | --- | --- |
-| `rulebase-work-items` | Back-office work with no customer on the line |
 | `rulebase-scorecard-as-code` | Scorecards under version control, diffable and reviewable |
 | `rulebase-dashboard-as-code` | Dashboards and reports defined in a file |
 | `rulebase-agent-authoring` | Building and testing a Rulebase agent from a spec |

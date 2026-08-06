@@ -190,7 +190,8 @@
       "skills": [
         "rulebase-workspace-sql",
         "rulebase-qa-coverage-audit",
-        "rulebase-upload-calls"
+        "rulebase-upload-calls",
+        "rulebase-work-items"
       ]
     }
   ]

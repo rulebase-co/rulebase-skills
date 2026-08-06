@@ -4,7 +4,7 @@
 
 # Rulebase Skills
 
-**Supercharge your AI agent for customer support operations.** 149 skills across QA and
+**Supercharge your AI agent for customer support operations.** 150 skills across QA and
 calibration, complaints and conduct, churn and expansion signal, forecasting, coaching,
 and the data contract underneath it all.
 
@@ -12,7 +12,7 @@ Works with [Claude Code](https://claude.com/claude-code) &middot; [Codex](https:
 
 [![npm](https://img.shields.io/npm/v/rulebase-skills?color=cb3837&logo=npm)](https://www.npmjs.com/package/rulebase-skills)
 [![validate](https://github.com/rulebase-co/rulebase-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/rulebase-co/rulebase-skills/actions/workflows/validate.yml)
-[![skills](https://img.shields.io/badge/skills-149-orange)](CATALOG.md)
+[![skills](https://img.shields.io/badge/skills-150-orange)](CATALOG.md)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 </div>
@@ -95,8 +95,8 @@ npx rulebase-skills install --all
 
 ## Skills catalog
 
-**149 skills in six categories** — 62 CX operations, 32 compliance, 27 quality assurance,
-14 RevOps, 10 data and integration, 4 Rulebase.
+**150 skills in six categories**: 62 CX operations, 32 compliance, 27 quality assurance,
+14 RevOps, 10 data and integration, 5 Rulebase.
 
 **[CATALOG.md](CATALOG.md)** describes every one. Or browse from the terminal, which reads
 the same generated index the installer uses:
