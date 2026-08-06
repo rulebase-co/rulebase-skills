@@ -1,3 +1,5 @@
+<img src="assets/hero.svg" alt="Rulebase CX Ops Skills: quality, compliance and revenue skills for your AI agent" width="100%">
+
 # rulebase-skills
 
 [![npm](https://img.shields.io/npm/v/rulebase-skills?color=cb3837&logo=npm)](https://www.npmjs.com/package/rulebase-skills)

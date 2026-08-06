@@ -1,68 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="940" viewBox="0 0 1600 940" role="img" aria-label="CX Ops Skills: quality, compliance and revenue skills for your AI agent">
-  <title>CX Ops Skills</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Rulebase CX Ops Skills: quality, compliance and revenue skills for your AI agent">
+  <title>Rulebase CX Ops Skills</title>
   <defs>
-    <clipPath id="panelClip"><rect x="120" y="508" width="1360" height="432" rx="16"/></clipPath>
-    <clipPath id="termClip"><rect x="466" y="524" width="998" height="416" rx="10"/></clipPath>
+    <clipPath id="term"><rect x="100" y="440" width="1400" height="360" rx="12"/></clipPath>
   </defs>
-  <rect width="1600" height="940" fill="#080808"/>
-  <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="800" y="86" text-anchor="middle" fill="#6a6a6a" font-size="13" font-weight="500" letter-spacing="3.4">THE RULEBASE CX OPS SKILLS LIBRARY</text>
-  <text font-family="Georgia, 'Iowan Old Style', 'Times New Roman', serif" x="800" y="200" text-anchor="middle" fill="#f4f2ee" font-size="78">Quality, compliance and revenue</text>
-  <text font-family="Georgia, 'Iowan Old Style', 'Times New Roman', serif" x="800" y="286" text-anchor="middle" fill="#f4f2ee" font-size="78">skills for your AI agent</text>
-  <rect x="558" y="350" width="484" height="54" rx="12" fill="#151515" stroke="#272727"/>
-  <text font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" x="588" y="384" fill="#6a6a6a" font-size="15">$</text>
-  <text font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" x="612" y="384" fill="#e8e6e2" font-size="15">npx skills add rulebase-co/skills</text>
-  <g stroke="#5f5f5f" stroke-width="1.4" fill="none">
-    <rect x="994" y="369" width="11" height="13" rx="2.5"/>
-    <path d="M991 378 v-11 a2.5 2.5 0 0 1 2.5 -2.5 h8"/>
-  </g>
-  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">
-    <rect x="454" y="440" width="130" height="36" rx="18" fill="#ffffff"/>
-    <text x="518" y="463" text-anchor="middle" fill="#0a0a0a" font-weight="500">CX operations</text>
-    <rect x="596" y="440" width="160" height="36" rx="18" fill="none" stroke="#2b2b2b"/>
-    <text x="676" y="463" text-anchor="middle" fill="#adadad">Quality assurance</text>
-    <rect x="768" y="440" width="108" height="36" rx="18" fill="none" stroke="#2b2b2b"/>
-    <text x="822" y="463" text-anchor="middle" fill="#adadad">Compliance</text>
-    <rect x="888" y="440" width="78" height="36" rx="18" fill="none" stroke="#2b2b2b"/>
-    <text x="926" y="463" text-anchor="middle" fill="#adadad">RevOps</text>
-    <rect x="978" y="440" width="64" height="36" rx="18" fill="none" stroke="#2b2b2b"/>
-    <text x="1010" y="463" text-anchor="middle" fill="#adadad">Data</text>
-    <rect x="1054" y="440" width="93" height="36" rx="18" fill="none" stroke="#2b2b2b"/>
-    <text x="1100" y="463" text-anchor="middle" fill="#adadad">Rulebase</text>
-  </g>
-  <g clip-path="url(#panelClip)">
-    <rect x="120" y="508" width="1360" height="432" fill="#101010"/>
-    <rect x="140" y="526" width="300" height="66" rx="10" fill="#1b1b1b"/>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="554" fill="#eceae6" font-size="15" font-weight="600">Why did our QA score drop?</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="576" fill="#7c7c7c" font-size="12.5">Noise first, then rate versus mix versus</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="592" fill="#7c7c7c" font-size="12.5">composition</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="642" fill="#d8d6d2" font-size="15" font-weight="600">Are we meeting complaint deadlines?</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="664" fill="#6e6e6e" font-size="12.5">Business-day clocks with no hard-coded</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="680" fill="#6e6e6e" font-size="12.5">deadlines</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="730" fill="#d8d6d2" font-size="15" font-weight="600">Is the AI grading too harshly?</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="752" fill="#6e6e6e" font-size="12.5">Bias and noise have opposite fixes</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="818" fill="#d8d6d2" font-size="15" font-weight="600">Which customers are leaving?</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="840" fill="#6e6e6e" font-size="12.5">Coverage first: most churn never reaches</text>
-    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" x="160" y="856" fill="#6e6e6e" font-size="12.5">support at all</text>
-    <g clip-path="url(#termClip)">
-      <rect x="466" y="524" width="998" height="416" fill="#181818"/>
-      <rect x="466" y="524" width="998" height="30" fill="#232323"/>
-      <circle cx="484" cy="539" r="5.5" fill="#ff5f57"/><circle cx="502" cy="539" r="5.5" fill="#febc2e"/><circle cx="520" cy="539" r="5.5" fill="#28c840"/>
-      <text font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" x="965" y="543" text-anchor="middle" fill="#8a8a8a" font-size="12">claude &#183; cx-ops</text>
-      <g font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="13">
-        <text x="488" y="584" fill="#8a8a8a">&gt;</text>
-        <text x="508" y="584" fill="#e4e2de">our QA score fell 2.5 points last month. why?</text>
-        <text x="488" y="616" fill="#a9a7a3">Checking whether the movement is real before explaining it.</text>
-        <circle cx="492" cy="644" r="3.5" fill="#7ec87e"/>
-        <text x="508" y="649" fill="#e4e2de">cx-metric-movement-decomposition</text>
-        <text x="524" y="671" fill="#8a8a8a">&#9492; noise check: the fall clears its 95% interval, so it is real</text>
-        <text x="524" y="703" fill="#d7ba7d">rate effect</text><text x="672" y="703" fill="#7ec87e">+0.50</text><text x="748" y="703" fill="#8a8a8a">every channel improved</text>
-        <text x="524" y="725" fill="#d7ba7d">mix  effect</text><text x="672" y="725" fill="#e07a5f">-3.04</text><text x="748" y="725" fill="#8a8a8a">voice went from 8% to 24% of volume</text>
-        <text x="488" y="759" fill="#e4e2de">Every channel got better and the total still fell. That is a</text>
-        <text x="488" y="781" fill="#e4e2de">routing decision, not a quality problem: coaching the voice</text>
-        <text x="488" y="803" fill="#e4e2de">team will not move this number.</text>
-        <text x="488" y="837" fill="#8a8a8a">&gt;</text>
-        <rect x="508" y="826" width="8" height="15" fill="#7ec87e" opacity="0.85"/>
-      </g>
+  <rect width="1600" height="900" fill="#1a1716"/>
+  <text font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, sans-serif" x="100" y="116" fill="#f7f7f4" fill-opacity="0.5" font-size="11" letter-spacing="1">RULEBASE CX OPS SKILLS</text>
+  <text font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" x="100" y="206" fill="#f7f7f4" font-size="60" font-weight="400" letter-spacing="-1.2">Quality, compliance and revenue</text>
+  <text font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" x="100" y="270" fill="#f7f7f4" font-size="60" font-weight="400" letter-spacing="-1.2">skills for your AI agent</text>
+  <text font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, sans-serif" x="100" y="318" fill="#f7f7f4" fill-opacity="0.55" font-size="14" letter-spacing="-0.09">150+ skills  ·  CX operations  ·  Quality assurance  ·  Compliance  ·  RevOps  ·  Data and integration</text>
+  <rect x="100" y="352" width="404" height="52" rx="26" fill="none" stroke="#f7f7f4" stroke-opacity="0.22"/>
+  <text font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" x="128" y="384" fill="#f7f7f4" fill-opacity="0.45" font-size="14">$</text>
+  <text font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" x="150" y="384" fill="#f7f7f4" font-size="14">npx skills add rulebase-co/skills</text>
+  <g clip-path="url(#term)">
+    <rect x="100" y="440" width="1400" height="360" fill="#221f1e"/>
+    <rect x="100" y="440" width="1400" height="34" fill="#2b2827"/>
+    <circle cx="124" cy="457" r="5.5" fill="#ff5f57"/>
+    <circle cx="144" cy="457" r="5.5" fill="#febc2e"/>
+    <circle cx="164" cy="457" r="5.5" fill="#28c840"/>
+    <text font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" x="800" y="462" text-anchor="middle" fill="#f7f7f4" fill-opacity="0.4" font-size="12">claude &#183; cx-ops</text>
+    <g font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="14">
+      <text x="128" y="502" fill="#f7f7f4" fill-opacity="0.4">&gt;</text>
+      <text x="150" y="502" fill="#f7f7f4">our QA score fell 2.5 points last month. why?</text>
+      <text x="128" y="542" fill="#f7f7f4" fill-opacity="0.8">Checking whether the movement is real before explaining it.</text>
+      <circle cx="132" cy="577" r="4" fill="#d85210"/>
+      <text x="150" y="582" fill="#f7f7f4">cx-metric-movement-decomposition</text>
+      <text x="150" y="606" fill="#f7f7f4" fill-opacity="0.6">&#9492; noise check: the fall clears its 95% interval, so it is real</text>
+      <text x="174" y="642" fill="#f7f7f4" fill-opacity="0.55">rate effect</text>
+      <text x="330" y="642" fill="#f7f7f4">+0.50</text>
+      <text x="440" y="642" fill="#f7f7f4" fill-opacity="0.6">every channel improved</text>
+      <text x="174" y="666" fill="#f7f7f4" fill-opacity="0.55">mix  effect</text>
+      <text x="330" y="666" fill="#e8707a">-3.04</text>
+      <text x="440" y="666" fill="#f7f7f4" fill-opacity="0.6">voice went from 8% to 24% of volume</text>
+      <text x="174" y="690" fill="#f7f7f4" fill-opacity="0.55">net</text>
+      <text x="330" y="690" fill="#f7f7f4">-2.54</text>
+      <text x="128" y="726" fill="#f7f7f4" fill-opacity="0.9">Every channel got better and the total still fell. That is a routing</text>
+      <text x="128" y="750" fill="#f7f7f4" fill-opacity="0.9">decision, not a quality problem: coaching the voice team will not move it.</text>
+      <text x="128" y="786" fill="#f7f7f4" fill-opacity="0.4">&gt;</text>
+      <rect x="150" y="774" width="9" height="16" fill="#d85210" opacity="0.9"/>
     </g>
   </g>
+  <rect x="100" y="440" width="1400" height="360" rx="12" fill="none" stroke="#f7f7f4" stroke-opacity="0.1"/>
 </svg>
