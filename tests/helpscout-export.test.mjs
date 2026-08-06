@@ -325,7 +325,7 @@ test('output passes the canonical conversation-schema validator', async () => {
 
     const validator = resolve(
       dirname(fileURLToPath(import.meta.url)),
-      '../skills/cx-ops/cx-conversation-schema/scripts/validate-export.mjs',
+      '../skills/data-and-integration/cx-conversation-schema/scripts/validate-export.mjs',
     );
     const check = await runScript(validator, [dir, '--json'], {});
     assert.equal(check.code, 0, `canonical validation failed:\n${check.stdout}\n${check.stderr}`);

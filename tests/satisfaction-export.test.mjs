@@ -13,7 +13,7 @@ import { withMockApi, runScript, tempOut, readJsonl } from './helpers/mock-api.m
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-satisfaction-export/scripts/export-satisfaction.mjs',
+  '../skills/cx-operations/cx-satisfaction-export/scripts/export-satisfaction.mjs',
 );
 
 const zendeskEnv = (base) => ({

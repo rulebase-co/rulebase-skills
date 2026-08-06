@@ -17,7 +17,7 @@ import { runScript, tempOut } from './helpers/mock-api.mjs';
 
 const SCRIPT = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../skills/cx-ops/cx-complaints-sla/scripts/complaint-clock.mjs',
+  '../skills/compliance/cx-complaints-sla/scripts/complaint-clock.mjs',
 );
 
 function files(complaints, config) {
