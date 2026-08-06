@@ -4,13 +4,24 @@
   "groupings": [
     {
       "title": "CX Operations — quality",
-      "description": "Designing and validating support quality measurement, for text and voice.",
+      "description": "Designing and validating support quality measurement — scorecards, calibration, sampling fairness, coverage economics, and programme maturity.",
       "skills": [
         "cx-qa-scorecard-design",
         "cx-voice-qa",
         "cx-survey-design",
         "cx-satisfaction-export",
-        "cx-conversation-sampling"
+        "cx-conversation-sampling",
+        "cx-gold-set-management",
+        "cx-scorecard-migration",
+        "cx-auto-fail-governance",
+        "cx-criterion-library",
+        "cx-qa-appeal-process",
+        "cx-peer-review-design",
+        "cx-qa-program-maturity",
+        "cx-qa-sampling-fairness",
+        "cx-outcome-validation",
+        "cx-qa-coverage-economics",
+        "cx-reviewer-workload"
       ]
     },
     {
@@ -20,7 +31,12 @@
         "cx-deflection-analysis",
         "cx-contact-driver-taxonomy",
         "cx-volume-forecasting",
-        "cx-knowledge-base-audit"
+        "cx-knowledge-base-audit",
+        "cx-intraday-management",
+        "cx-seasonal-readiness",
+        "cx-arrival-pattern-analysis",
+        "cx-after-hours-coverage",
+        "cx-demand-driver-attribution"
       ]
     },
     {
@@ -28,7 +44,12 @@
       "description": "Turning one-off report requests into comparable series, and explaining why a metric moved without mistaking noise or a mix shift for performance.",
       "skills": [
         "cx-recurring-report-spec",
-        "cx-metric-movement-decomposition"
+        "cx-metric-movement-decomposition",
+        "cx-executive-reporting",
+        "cx-metric-definition-registry",
+        "cx-benchmark-methodology",
+        "cx-dashboard-review",
+        "cx-narrative-reporting"
       ]
     },
     {
@@ -59,11 +80,19 @@
     },
     {
       "title": "CX Operations — agent assist and AI safety",
-      "description": "Reviewing a reply before it is sent, and auditing a customer-facing bot for harm rather than for volume.",
+      "description": "Reviewing replies, validating AI graders and copilots, prompt change control, grounding, human-in-the-loop gates, and bounding agentic actions.",
       "skills": [
         "cx-reply-quality-coach",
         "cx-bot-safety-audit",
-        "cx-ai-agent-evaluation"
+        "cx-ai-agent-evaluation",
+        "cx-ai-grader-validation",
+        "cx-agent-assist-evaluation",
+        "cx-prompt-change-management",
+        "cx-bot-knowledge-grounding",
+        "cx-human-in-the-loop-design",
+        "cx-agentic-action-safety",
+        "cx-synthetic-conversation-generation",
+        "cx-model-cost-management"
       ]
     },
     {
@@ -81,7 +110,26 @@
         "cx-first-contact-resolution",
         "cx-handle-time-analysis",
         "cx-routing-audit",
-        "cx-escalation-analysis"
+        "cx-escalation-analysis",
+        "cx-queue-design",
+        "cx-transfer-protocol",
+        "cx-abandonment-analysis",
+        "cx-wip-limits",
+        "cx-flow-efficiency"
+      ]
+    },
+    {
+      "title": "CX Operations — channels and experience",
+      "description": "Choosing channels, measuring self-service and effort, and the playbooks for incidents, tiers and accessibility.",
+      "skills": [
+        "cx-channel-strategy",
+        "cx-self-service-funnel",
+        "cx-effort-score",
+        "cx-proactive-support",
+        "cx-incident-comms",
+        "cx-service-tiering",
+        "cx-accessibility-review",
+        "cx-journey-mapping"
       ]
     },
     {
@@ -91,7 +139,14 @@
         "cx-shrinkage-and-adherence",
         "cx-onboarding-ramp",
         "cx-outsourcer-scorecard",
-        "cx-multilingual-quality"
+        "cx-multilingual-quality",
+        "cx-skills-matrix",
+        "cx-incentive-design",
+        "cx-hiring-profile",
+        "cx-attrition-early-warning",
+        "cx-agent-experience-audit",
+        "cx-career-pathing",
+        "cx-team-topology"
       ]
     },
     {
@@ -101,7 +156,13 @@
         "cx-cost-to-serve",
         "cx-contact-spike-detection",
         "cx-macro-audit",
-        "cx-tag-taxonomy-hygiene"
+        "cx-tag-taxonomy-hygiene",
+        "cx-knowledge-lifecycle",
+        "cx-article-effectiveness",
+        "cx-knowledge-from-conversations",
+        "cx-internal-vs-external-knowledge",
+        "cx-translation-workflow",
+        "cx-content-consolidation"
       ]
     },
     {

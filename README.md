@@ -233,15 +233,15 @@ journal, a bounded blast radius, or a stated reversibility — or that offers a
 
 ## Roadmap
 
-59 skills shipped, 118 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
+114 skills shipped, 63 outlined. [**ROADMAP.md**](ROADMAP.md) has the full outline —
 every planned skill, one line each, in roughly the order we'd build it.
 
 The catalog is organised around four things a CX organisation is accountable for:
 
 | Category | Shipped | Planned |
 | --- | --- | --- |
-| [CX operations](ROADMAP.md#cx-operations) — demand, routing, backlog, cost, workforce, channels | 26 | 36 |
-| [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 8 | 19 |
+| [CX operations](ROADMAP.md#cx-operations) — demand, routing, backlog, cost, workforce, channels | 62 | 0 |
+| [Quality assurance](ROADMAP.md#quality-assurance) — the instrument, coverage, AI in the loop | 27 | 0 |
 | [Compliance](ROADMAP.md#compliance) — complaints, evidence, data protection, FS specifics | 6 | 26 |
 | [RevOps](ROADMAP.md#revops) — churn, expansion and revenue signal sitting in support | 0 | 14 |
 | [Platforms](ROADMAP.md#platforms) — 10 helpdesks covered, 18 more outlined | 17 | 15 |
