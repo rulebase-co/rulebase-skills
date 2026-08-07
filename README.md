@@ -90,6 +90,14 @@ npx rulebase-skills install --category compliance
 npx rulebase-skills install --all
 ```
 
+There is a separate [`rulebase`](https://www.npmjs.com/package/rulebase) CLI for the
+workspace itself — signing in, and working out which region your API key belongs to when
+it is rejected.
+
+```bash
+npx rulebase doctor
+```
+
 ---
 
 ## Skills catalog
