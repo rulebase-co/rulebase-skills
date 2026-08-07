@@ -89,20 +89,30 @@ jobs:
 
       # A package whose executable was excluded by `files` installs cleanly and
       # then does nothing, so assert the bin is actually in the tarball.
+      # Reads the tarball rather than parsing `npm pack --json`. That JSON shape is
+      # not stable across npm majors — the previous version of this step indexed
+      # [0] of the output and started failing with "Cannot read properties of
+      # undefined" once the step above began installing npm@latest. `tar -tzf` is.
       - name: Pack and check the tarball
         run: |
           set -euo pipefail
-          npm pack --json | node -e "
-            const p = JSON.parse(require('fs').readFileSync(0, 'utf8'))[0];
-            const files = p.files.map((f) => f.path);
-            for (const required of ['bin/rulebase-skills.js', 'package.json', 'README.md', 'LICENSE']) {
-              if (!files.includes(required)) {
-                console.error('::error::' + required + ' is missing from the tarball');
-                process.exit(1);
-              }
-            }
-            console.error('tarball ok: ' + files.length + ' files, ' + (p.size / 1024).toFixed(1) + ' kB');
-          "
+          mkdir -p /tmp/pack
+          npm pack --pack-destination /tmp/pack > /dev/null
+          TARBALL=$(find /tmp/pack -name '*.tgz' | head -1)
+          if [ -z "$TARBALL" ]; then
+            echo "::error::npm pack produced no tarball"
+            exit 1
+          fi
+          # Entries are prefixed with `package/`, and directories end in a slash.
+          tar -tzf "$TARBALL" | sed 's|^package/||' | grep -v '/$' | sort > /tmp/pack/files.txt
+          echo "tarball contains $(wc -l < /tmp/pack/files.txt) files"
+          for required in bin/rulebase-skills.js package.json README.md LICENSE; do
+            if ! grep -qxF "$required" /tmp/pack/files.txt; then
+              echo "::error::$required is missing from the tarball"
+              cat /tmp/pack/files.txt
+              exit 1
+            fi
+          done
 
       - name: Publish
         if: startsWith(github.ref, 'refs/tags/v')
