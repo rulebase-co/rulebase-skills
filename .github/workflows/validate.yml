@@ -29,28 +29,9 @@ jobs:
       - name: Check the skills index is current
         run: node scripts/build-index.mjs --check
 
-      - name: Syntax-check the CLIs
-        run: |
-          set -euo pipefail
-          node --check bin/rulebase-skills.js
-          for f in cli/bin/*.js cli/lib/**/*.js cli/lib/*.js; do
-            [ -e "$f" ] || continue
-            echo "checking $f"
-            node --check "$f"
-          done
-          # lib/ holds every command, so omitting it from `files` would publish a
-          # bin that crashes on import.
-          cd cli && npm pack --json | node -e "
-            const p = JSON.parse(require('fs').readFileSync(0, 'utf8'))[0];
-            const files = p.files.map((f) => f.path);
-            for (const required of ['bin/rulebase.js', 'lib/config.js', 'lib/commands/doctor.js', 'README.md']) {
-              if (!files.includes(required)) {
-                console.error('::error::' + required + ' missing from the rulebase tarball');
-                process.exit(1);
-              }
-            }
-            console.error('rulebase tarball ok: ' + files.length + ' files');
-          "
+      # The `rulebase` CLI lives in rulebase-co/rulebase-cli and is checked there.
+      - name: Syntax-check the installer
+        run: node --check bin/rulebase-skills.js
 
       - name: Syntax-check skill scripts
         run: |
